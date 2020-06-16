@@ -868,7 +868,7 @@ struct __pyx_obj_5rivet_4core_AnalysisHandler {
 };
 
 
-/* "rivet/core.pyx":58
+/* "rivet/core.pyx":80
  * 
  * 
  * cdef class Run:             # <<<<<<<<<<<<<<
@@ -881,7 +881,7 @@ struct __pyx_obj_5rivet_4core_Run {
 };
 
 
-/* "rivet/core.pyx":94
+/* "rivet/core.pyx":116
  * 
  * 
  * cdef class Analysis:             # <<<<<<<<<<<<<<
@@ -894,12 +894,12 @@ struct __pyx_obj_5rivet_4core_Analysis {
 };
 
 
-/* "rivet/core.pyx":163
+/* "rivet/core.pyx":206
  * 
  * 
  * cdef class AnalysisLoader:             # <<<<<<<<<<<<<<
+ * 
  *     @staticmethod
- *     def analysisNames():
  */
 struct __pyx_obj_5rivet_4core_AnalysisLoader {
   PyObject_HEAD
@@ -1137,6 +1137,16 @@ static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject 
         __Pyx__ArgTypeTest(obj, type, name, exact))
 static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact);
 
+/* Import.proto */
+static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level);
+
+/* PyObjectCallNoArg.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func);
+#else
+#define __Pyx_PyObject_CallNoArg(func) __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL)
+#endif
+
 /* PyErrExceptionMatches.proto */
 #if CYTHON_FAST_THREAD_STATE
 #define __Pyx_PyErr_ExceptionMatches(err) __Pyx_PyErr_ExceptionMatchesInState(__pyx_tstate, err)
@@ -1197,9 +1207,6 @@ static PyObject *__Pyx__GetModuleGlobalName(PyObject *name, PY_UINT64_T *dict_ve
 #define __Pyx_GetModuleGlobalNameUncached(var, name)  (var) = __Pyx__GetModuleGlobalName(name)
 static CYTHON_INLINE PyObject *__Pyx__GetModuleGlobalName(PyObject *name);
 #endif
-
-/* Import.proto */
-static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level);
 
 /* ImportFrom.proto */
 static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name);
@@ -1400,6 +1407,7 @@ static PyObject *__pyx_builtin_staticmethod;
 static PyObject *__pyx_builtin_TypeError;
 static PyObject *__pyx_builtin_RuntimeError;
 static PyObject *__pyx_builtin_range;
+static const char __pyx_k_[] = "";
 static const char __pyx_k_f[] = "f";
 static const char __pyx_k_h[] = "h";
 static const char __pyx_k_n[] = "n";
@@ -1415,11 +1423,12 @@ static const char __pyx_k_ptr[] = "ptr";
 static const char __pyx_k_INFO[] = "INFO";
 static const char __pyx_k_WARN[] = "WARN";
 static const char __pyx_k_dict[] = "__dict__";
-static const char __pyx_k_file[] = "file";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "name";
 static const char __pyx_k_path[] = "path";
+static const char __pyx_k_read[] = "read";
 static const char __pyx_k_test[] = "__test__";
+static const char __pyx_k_yoda[] = "yoda";
 static const char __pyx_k_DEBUG[] = "DEBUG";
 static const char __pyx_k_ERROR[] = "ERROR";
 static const char __pyx_k_TRACE[] = "TRACE";
@@ -1431,6 +1440,7 @@ static const char __pyx_k_range[] = "range";
 static const char __pyx_k_utf_8[] = "utf-8";
 static const char __pyx_k_ALWAYS[] = "ALWAYS";
 static const char __pyx_k_LEVELS[] = "LEVELS";
+static const char __pyx_k_asdict[] = "asdict";
 static const char __pyx_k_encode[] = "encode";
 static const char __pyx_k_ignore[] = "ignore";
 static const char __pyx_k_import[] = "__import__";
@@ -1441,13 +1451,16 @@ static const char __pyx_k_reduce[] = "__reduce__";
 static const char __pyx_k_update[] = "update";
 static const char __pyx_k_weight[] = "weight";
 static const char __pyx_k_WARNING[] = "WARNING";
+static const char __pyx_k_addopts[] = "addopts";
 static const char __pyx_k_delopts[] = "delopts";
+static const char __pyx_k_refFile[] = "refFile";
 static const char __pyx_k_version[] = "version";
 static const char __pyx_k_Analysis[] = "Analysis";
 static const char __pyx_k_CRITICAL[] = "CRITICAL";
 static const char __pyx_k_core_pyx[] = "core.pyx";
 static const char __pyx_k_filelist[] = "filelist";
 static const char __pyx_k_getstate[] = "__getstate__";
+static const char __pyx_k_patterns[] = "patterns";
 static const char __pyx_k_pyx_type[] = "__pyx_type";
 static const char __pyx_k_setstate[] = "__setstate__";
 static const char __pyx_k_TypeError[] = "TypeError";
@@ -1455,6 +1468,7 @@ static const char __pyx_k_pyx_state[] = "__pyx_state";
 static const char __pyx_k_reduce_ex[] = "__reduce_ex__";
 static const char __pyx_k_pyx_result[] = "__pyx_result";
 static const char __pyx_k_rivet_core[] = "rivet.core";
+static const char __pyx_k_unpatterns[] = "unpatterns";
 static const char __pyx_k_PickleError[] = "PickleError";
 static const char __pyx_k_getAnalysis[] = "getAnalysis";
 static const char __pyx_k_setLogLevel[] = "setLogLevel";
@@ -1468,6 +1482,7 @@ static const char __pyx_k_AnalysisLoader[] = "AnalysisLoader";
 static const char __pyx_k_AnalysisHandler[] = "AnalysisHandler";
 static const char __pyx_k_pyx_PickleError[] = "__pyx_PickleError";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
+static const char __pyx_k_stdAnalysisNames[] = "stdAnalysisNames";
 static const char __pyx_k_addAnalysisLibPath[] = "addAnalysisLibPath";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_addAnalysisDataPath[] = "addAnalysisDataPath";
@@ -1487,6 +1502,7 @@ static const char __pyx_k_Incompatible_checksums_s_vs_0xd4[] = "Incompatible che
 static const char __pyx_k_This_class_cannot_be_instantiate[] = "This class cannot be instantiated";
 static const char __pyx_k_no_default___reduce___due_to_non[] = "no default __reduce__ due to non-trivial __cinit__";
 static const char __pyx_k_self__ptr_cannot_be_converted_to[] = "self._ptr cannot be converted to a Python object for pickling";
+static PyObject *__pyx_kp_s_;
 static PyObject *__pyx_n_s_ALWAYS;
 static PyObject *__pyx_n_s_Analysis;
 static PyObject *__pyx_n_s_AnalysisHandler;
@@ -1507,7 +1523,9 @@ static PyObject *__pyx_n_s_WARN;
 static PyObject *__pyx_n_s_WARNING;
 static PyObject *__pyx_n_s_addAnalysisDataPath;
 static PyObject *__pyx_n_s_addAnalysisLibPath;
+static PyObject *__pyx_n_s_addopts;
 static PyObject *__pyx_n_s_analysisNames;
+static PyObject *__pyx_n_s_asdict;
 static PyObject *__pyx_n_s_bs;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_kp_s_core_pyx;
@@ -1516,7 +1534,6 @@ static PyObject *__pyx_n_s_dict;
 static PyObject *__pyx_n_s_encode;
 static PyObject *__pyx_n_s_equiv;
 static PyObject *__pyx_n_s_f;
-static PyObject *__pyx_n_s_file;
 static PyObject *__pyx_n_s_filelist;
 static PyObject *__pyx_n_s_findAnalysisDataFile;
 static PyObject *__pyx_n_s_findAnalysisInfoFile;
@@ -1542,6 +1559,7 @@ static PyObject *__pyx_n_s_new;
 static PyObject *__pyx_kp_s_no_default___reduce___due_to_non;
 static PyObject *__pyx_n_s_p;
 static PyObject *__pyx_n_s_path;
+static PyObject *__pyx_n_s_patterns;
 static PyObject *__pyx_n_s_period;
 static PyObject *__pyx_n_s_pickle;
 static PyObject *__pyx_n_s_ps;
@@ -1555,9 +1573,11 @@ static PyObject *__pyx_n_s_pyx_type;
 static PyObject *__pyx_n_s_pyx_unpickle_AnalysisLoader;
 static PyObject *__pyx_n_s_q;
 static PyObject *__pyx_n_s_range;
+static PyObject *__pyx_n_s_read;
 static PyObject *__pyx_n_s_reduce;
 static PyObject *__pyx_n_s_reduce_cython;
 static PyObject *__pyx_n_s_reduce_ex;
+static PyObject *__pyx_n_s_refFile;
 static PyObject *__pyx_n_s_rivet_core;
 static PyObject *__pyx_kp_s_self__ptr_cannot_be_converted_to;
 static PyObject *__pyx_n_s_setAnalysisDataPaths;
@@ -1566,27 +1586,36 @@ static PyObject *__pyx_n_s_setLogLevel;
 static PyObject *__pyx_n_s_setstate;
 static PyObject *__pyx_n_s_setstate_cython;
 static PyObject *__pyx_n_s_staticmethod;
+static PyObject *__pyx_n_s_stdAnalysisNames;
 static PyObject *__pyx_kp_s_stringsource;
 static PyObject *__pyx_n_s_test;
+static PyObject *__pyx_n_s_unpatterns;
 static PyObject *__pyx_n_s_update;
 static PyObject *__pyx_kp_s_utf_8;
 static PyObject *__pyx_n_s_version;
 static PyObject *__pyx_n_s_weight;
 static PyObject *__pyx_n_s_x;
 static PyObject *__pyx_n_s_xs;
+static PyObject *__pyx_n_s_yoda;
 static int __pyx_pf_5rivet_4core_15AnalysisHandler___cinit__(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_2__del__(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_4setIgnoreBeams(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_ignore); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_6addAnalysis(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_name); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_8analysisNames(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_10readData(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_name); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_12writeData(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_name); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_14crossSection(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_16finalize(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_18dump(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_file, PyObject *__pyx_v_period); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_20mergeYodas(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_filelist, PyObject *__pyx_v_delopts, PyObject *__pyx_v_equiv); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_22__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_24__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_6skipMultiWeights(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_ignore); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_8selectMultiWeights(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_patterns); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_10deselectMultiWeights(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_patterns); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_12setWeightCap(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, double __pyx_v_maxWeight); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_14setNLOSmearing(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, double __pyx_v_smear); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_16addAnalysis(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_name); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_18analysisNames(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_20stdAnalysisNames(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_22readData(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_name); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_24writeData(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_name); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_26nominalCrossSection(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_28finalize(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_30dump(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_name, PyObject *__pyx_v_period); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_32mergeYodas(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_filelist, PyObject *__pyx_v_delopts, PyObject *__pyx_v_addopts, PyObject *__pyx_v_equiv); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_34__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_36__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
 static int __pyx_pf_5rivet_4core_3Run___cinit__(struct __pyx_obj_5rivet_4core_Run *__pyx_v_self, struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_h); /* proto */
 static PyObject *__pyx_pf_5rivet_4core_3Run_2__del__(struct __pyx_obj_5rivet_4core_Run *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5rivet_4core_3Run_4setCrossSection(struct __pyx_obj_5rivet_4core_Run *__pyx_v_self, double __pyx_v_x); /* proto */
@@ -1594,52 +1623,60 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_6setListAnalyses(struct __pyx_obj_5r
 static PyObject *__pyx_pf_5rivet_4core_3Run_8init(struct __pyx_obj_5rivet_4core_Run *__pyx_v_self, PyObject *__pyx_v_name, PyObject *__pyx_v_weight); /* proto */
 static PyObject *__pyx_pf_5rivet_4core_3Run_10openFile(struct __pyx_obj_5rivet_4core_Run *__pyx_v_self, PyObject *__pyx_v_name, PyObject *__pyx_v_weight); /* proto */
 static PyObject *__pyx_pf_5rivet_4core_3Run_12readEvent(struct __pyx_obj_5rivet_4core_Run *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_3Run_14skipEvent(struct __pyx_obj_5rivet_4core_Run *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_3Run_16processEvent(struct __pyx_obj_5rivet_4core_Run *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_3Run_18finalize(struct __pyx_obj_5rivet_4core_Run *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_3Run_20__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_Run *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_3Run_22__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_Run *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_3Run_14processEvent(struct __pyx_obj_5rivet_4core_Run *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_3Run_16finalize(struct __pyx_obj_5rivet_4core_Run *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_3Run_18__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_Run *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_3Run_20__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_Run *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
 static int __pyx_pf_5rivet_4core_8Analysis___init__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5rivet_4core_8Analysis_2requiredBeams(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5rivet_4core_8Analysis_4requiredEnergies(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5rivet_4core_8Analysis_6keywords(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_8authors(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_10bibKey(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_12name(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_14bibTeX(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_16references(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_18collider(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_20description(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_22experiment(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_24inspireId(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_26spiresId(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_28runInfo(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_30status(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_32summary(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_34year(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_36luminosityfb(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_38__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_40__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_8validation(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_10reentrant(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_12authors(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_14bibKey(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_16name(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_18bibTeX(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_20references(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_22collider(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_24description(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_26experiment(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_28inspireId(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_30spiresId(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_32runInfo(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_34status(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_36summary(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_38year(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_40luminosity(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_42luminosityfb(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_44refFile(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_46refData(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self, PyObject *__pyx_v_asdict, PyObject *__pyx_v_patterns, PyObject *__pyx_v_unpatterns); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_48__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_50__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_analysisNames(void); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_2getAnalysis(PyObject *__pyx_v_name); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_4__reduce_cython__(struct __pyx_obj_5rivet_4core_AnalysisLoader *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_6__setstate_cython__(struct __pyx_obj_5rivet_4core_AnalysisLoader *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_getAnalysisLibPaths(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_2setAnalysisLibPaths(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_xs); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_4addAnalysisLibPath(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_path); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_6setAnalysisDataPaths(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_xs); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_8addAnalysisDataPath(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_path); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_10getAnalysisDataPaths(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_12findAnalysisDataFile(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_q); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_14getAnalysisRefPaths(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_16findAnalysisRefFile(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_q); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_18getAnalysisInfoPaths(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_20findAnalysisInfoFile(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_q); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_22getAnalysisPlotPaths(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_24findAnalysisPlotFile(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_q); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_26version(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_28setLogLevel(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_name, PyObject *__pyx_v_level); /* proto */
-static PyObject *__pyx_pf_5rivet_4core_30__pyx_unpickle_AnalysisLoader(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_2stdAnalysisNames(void); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_4getAnalysis(PyObject *__pyx_v_name); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_6__reduce_cython__(struct __pyx_obj_5rivet_4core_AnalysisLoader *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_8__setstate_cython__(struct __pyx_obj_5rivet_4core_AnalysisLoader *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_analysisNames(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_2stdAnalysisNames(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_4getAnalysis(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_name); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_6getAnalysisLibPaths(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_8setAnalysisLibPaths(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_xs); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_10addAnalysisLibPath(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_path); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_12setAnalysisDataPaths(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_xs); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_14addAnalysisDataPath(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_path); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_16getAnalysisDataPaths(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_18findAnalysisDataFile(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_q); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_20getAnalysisRefPaths(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_22findAnalysisRefFile(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_q); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_24getAnalysisInfoPaths(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_26findAnalysisInfoFile(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_q); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_28getAnalysisPlotPaths(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_30findAnalysisPlotFile(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_q); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_32version(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_34setLogLevel(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_name, PyObject *__pyx_v_level); /* proto */
+static PyObject *__pyx_pf_5rivet_4core_36__pyx_unpickle_AnalysisLoader(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_tp_new_5rivet_4core_AnalysisHandler(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_5rivet_4core_Run(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_5rivet_4core_Analysis(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -1652,7 +1689,6 @@ static PyObject *__pyx_int_30;
 static PyObject *__pyx_int_40;
 static PyObject *__pyx_int_50;
 static PyObject *__pyx_int_222419149;
-static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
 static PyObject *__pyx_tuple__3;
 static PyObject *__pyx_tuple__4;
@@ -1660,40 +1696,47 @@ static PyObject *__pyx_tuple__5;
 static PyObject *__pyx_tuple__6;
 static PyObject *__pyx_tuple__7;
 static PyObject *__pyx_tuple__8;
-static PyObject *__pyx_tuple__10;
-static PyObject *__pyx_tuple__12;
-static PyObject *__pyx_tuple__14;
-static PyObject *__pyx_tuple__16;
-static PyObject *__pyx_tuple__18;
-static PyObject *__pyx_tuple__20;
-static PyObject *__pyx_tuple__22;
-static PyObject *__pyx_tuple__24;
-static PyObject *__pyx_tuple__26;
-static PyObject *__pyx_tuple__28;
-static PyObject *__pyx_tuple__30;
-static PyObject *__pyx_tuple__32;
-static PyObject *__pyx_tuple__34;
-static PyObject *__pyx_tuple__36;
+static PyObject *__pyx_tuple__9;
+static PyObject *__pyx_tuple__11;
+static PyObject *__pyx_tuple__13;
+static PyObject *__pyx_tuple__17;
+static PyObject *__pyx_tuple__19;
+static PyObject *__pyx_tuple__21;
+static PyObject *__pyx_tuple__23;
+static PyObject *__pyx_tuple__25;
+static PyObject *__pyx_tuple__27;
+static PyObject *__pyx_tuple__29;
+static PyObject *__pyx_tuple__31;
+static PyObject *__pyx_tuple__33;
+static PyObject *__pyx_tuple__35;
+static PyObject *__pyx_tuple__37;
 static PyObject *__pyx_tuple__39;
 static PyObject *__pyx_tuple__41;
-static PyObject *__pyx_codeobj__9;
-static PyObject *__pyx_codeobj__11;
-static PyObject *__pyx_codeobj__13;
+static PyObject *__pyx_tuple__43;
+static PyObject *__pyx_tuple__46;
+static PyObject *__pyx_tuple__48;
+static PyObject *__pyx_codeobj__10;
+static PyObject *__pyx_codeobj__12;
+static PyObject *__pyx_codeobj__14;
 static PyObject *__pyx_codeobj__15;
-static PyObject *__pyx_codeobj__17;
-static PyObject *__pyx_codeobj__19;
-static PyObject *__pyx_codeobj__21;
-static PyObject *__pyx_codeobj__23;
-static PyObject *__pyx_codeobj__25;
-static PyObject *__pyx_codeobj__27;
-static PyObject *__pyx_codeobj__29;
-static PyObject *__pyx_codeobj__31;
-static PyObject *__pyx_codeobj__33;
-static PyObject *__pyx_codeobj__35;
-static PyObject *__pyx_codeobj__37;
+static PyObject *__pyx_codeobj__16;
+static PyObject *__pyx_codeobj__18;
+static PyObject *__pyx_codeobj__20;
+static PyObject *__pyx_codeobj__22;
+static PyObject *__pyx_codeobj__24;
+static PyObject *__pyx_codeobj__26;
+static PyObject *__pyx_codeobj__28;
+static PyObject *__pyx_codeobj__30;
+static PyObject *__pyx_codeobj__32;
+static PyObject *__pyx_codeobj__34;
+static PyObject *__pyx_codeobj__36;
 static PyObject *__pyx_codeobj__38;
 static PyObject *__pyx_codeobj__40;
 static PyObject *__pyx_codeobj__42;
+static PyObject *__pyx_codeobj__44;
+static PyObject *__pyx_codeobj__45;
+static PyObject *__pyx_codeobj__47;
+static PyObject *__pyx_codeobj__49;
 /* Late includes */
 
 /* "rivet/core.pyx":14
@@ -1885,7 +1928,7 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_4setIgnoreBeams(struct 
  *     def setIgnoreBeams(self, ignore=True):
  *         self._ptr.setIgnoreBeams(ignore)             # <<<<<<<<<<<<<<
  * 
- *     def addAnalysis(self, name):
+ *     def skipMultiWeights(self, ignore=True):
  */
   __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_ignore); if (unlikely((__pyx_t_1 == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L1_error)
   __pyx_v_self->_ptr->setIgnoreBeams(__pyx_t_1);
@@ -1913,41 +1956,184 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_4setIgnoreBeams(struct 
 /* "rivet/core.pyx":23
  *         self._ptr.setIgnoreBeams(ignore)
  * 
- *     def addAnalysis(self, name):             # <<<<<<<<<<<<<<
- *         self._ptr.addAnalysis(name.encode('utf-8'))
- *         return self
+ *     def skipMultiWeights(self, ignore=True):             # <<<<<<<<<<<<<<
+ *         self._ptr.skipMultiWeights(ignore)
+ * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_7addAnalysis(PyObject *__pyx_v_self, PyObject *__pyx_v_name); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_7addAnalysis(PyObject *__pyx_v_self, PyObject *__pyx_v_name) {
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_7skipMultiWeights(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_7skipMultiWeights(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_ignore = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("addAnalysis (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_6addAnalysis(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self), ((PyObject *)__pyx_v_name));
+  __Pyx_RefNannySetupContext("skipMultiWeights (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_ignore,0};
+    PyObject* values[1] = {0};
+    values[0] = ((PyObject *)Py_True);
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_ignore);
+          if (value) { values[0] = value; kw_args--; }
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "skipMultiWeights") < 0)) __PYX_ERR(0, 23, __pyx_L3_error)
+      }
+    } else {
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+    }
+    __pyx_v_ignore = values[0];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("skipMultiWeights", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 23, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("rivet.core.AnalysisHandler.skipMultiWeights", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_6skipMultiWeights(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self), __pyx_v_ignore);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_6addAnalysis(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_name) {
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_6skipMultiWeights(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_ignore) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  bool __pyx_t_1;
+  __Pyx_RefNannySetupContext("skipMultiWeights", 0);
+
+  /* "rivet/core.pyx":24
+ * 
+ *     def skipMultiWeights(self, ignore=True):
+ *         self._ptr.skipMultiWeights(ignore)             # <<<<<<<<<<<<<<
+ * 
+ *     def selectMultiWeights(self, patterns=""):
+ */
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_ignore); if (unlikely((__pyx_t_1 == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_v_self->_ptr->skipMultiWeights(__pyx_t_1);
+
+  /* "rivet/core.pyx":23
+ *         self._ptr.setIgnoreBeams(ignore)
+ * 
+ *     def skipMultiWeights(self, ignore=True):             # <<<<<<<<<<<<<<
+ *         self._ptr.skipMultiWeights(ignore)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("rivet.core.AnalysisHandler.skipMultiWeights", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "rivet/core.pyx":26
+ *         self._ptr.skipMultiWeights(ignore)
+ * 
+ *     def selectMultiWeights(self, patterns=""):             # <<<<<<<<<<<<<<
+ *         self._ptr.selectMultiWeights(patterns.encode('utf-8'))
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_9selectMultiWeights(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_9selectMultiWeights(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_patterns = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("selectMultiWeights (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_patterns,0};
+    PyObject* values[1] = {0};
+    values[0] = ((PyObject *)__pyx_kp_s_);
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_patterns);
+          if (value) { values[0] = value; kw_args--; }
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "selectMultiWeights") < 0)) __PYX_ERR(0, 26, __pyx_L3_error)
+      }
+    } else {
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+    }
+    __pyx_v_patterns = values[0];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("selectMultiWeights", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 26, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("rivet.core.AnalysisHandler.selectMultiWeights", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_8selectMultiWeights(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self), __pyx_v_patterns);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_8selectMultiWeights(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_patterns) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   PyObject *__pyx_t_3 = NULL;
   std::string __pyx_t_4;
-  __Pyx_RefNannySetupContext("addAnalysis", 0);
+  __Pyx_RefNannySetupContext("selectMultiWeights", 0);
 
-  /* "rivet/core.pyx":24
+  /* "rivet/core.pyx":27
  * 
- *     def addAnalysis(self, name):
- *         self._ptr.addAnalysis(name.encode('utf-8'))             # <<<<<<<<<<<<<<
- *         return self
+ *     def selectMultiWeights(self, patterns=""):
+ *         self._ptr.selectMultiWeights(patterns.encode('utf-8'))             # <<<<<<<<<<<<<<
  * 
+ *     def deselectMultiWeights(self, patterns=""):
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_patterns, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 27, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -1961,14 +2147,339 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_6addAnalysis(struct __p
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_kp_s_utf_8);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 27, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 27, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_self->_ptr->selectMultiWeights(__pyx_t_4);
+
+  /* "rivet/core.pyx":26
+ *         self._ptr.skipMultiWeights(ignore)
+ * 
+ *     def selectMultiWeights(self, patterns=""):             # <<<<<<<<<<<<<<
+ *         self._ptr.selectMultiWeights(patterns.encode('utf-8'))
+ * 
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_AddTraceback("rivet.core.AnalysisHandler.selectMultiWeights", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "rivet/core.pyx":29
+ *         self._ptr.selectMultiWeights(patterns.encode('utf-8'))
+ * 
+ *     def deselectMultiWeights(self, patterns=""):             # <<<<<<<<<<<<<<
+ *         self._ptr.deselectMultiWeights(patterns.encode('utf-8'))
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_11deselectMultiWeights(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_11deselectMultiWeights(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_patterns = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("deselectMultiWeights (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_patterns,0};
+    PyObject* values[1] = {0};
+    values[0] = ((PyObject *)__pyx_kp_s_);
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_patterns);
+          if (value) { values[0] = value; kw_args--; }
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "deselectMultiWeights") < 0)) __PYX_ERR(0, 29, __pyx_L3_error)
+      }
+    } else {
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+    }
+    __pyx_v_patterns = values[0];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("deselectMultiWeights", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 29, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("rivet.core.AnalysisHandler.deselectMultiWeights", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_10deselectMultiWeights(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self), __pyx_v_patterns);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_10deselectMultiWeights(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_patterns) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  std::string __pyx_t_4;
+  __Pyx_RefNannySetupContext("deselectMultiWeights", 0);
+
+  /* "rivet/core.pyx":30
+ * 
+ *     def deselectMultiWeights(self, patterns=""):
+ *         self._ptr.deselectMultiWeights(patterns.encode('utf-8'))             # <<<<<<<<<<<<<<
+ * 
+ *     def setWeightCap(self, double maxWeight):
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_patterns, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 30, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_kp_s_utf_8);
+  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 30, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_self->_ptr->deselectMultiWeights(__pyx_t_4);
+
+  /* "rivet/core.pyx":29
+ *         self._ptr.selectMultiWeights(patterns.encode('utf-8'))
+ * 
+ *     def deselectMultiWeights(self, patterns=""):             # <<<<<<<<<<<<<<
+ *         self._ptr.deselectMultiWeights(patterns.encode('utf-8'))
+ * 
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_AddTraceback("rivet.core.AnalysisHandler.deselectMultiWeights", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "rivet/core.pyx":32
+ *         self._ptr.deselectMultiWeights(patterns.encode('utf-8'))
+ * 
+ *     def setWeightCap(self, double maxWeight):             # <<<<<<<<<<<<<<
+ *         self._ptr.setWeightCap(maxWeight)
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_13setWeightCap(PyObject *__pyx_v_self, PyObject *__pyx_arg_maxWeight); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_13setWeightCap(PyObject *__pyx_v_self, PyObject *__pyx_arg_maxWeight) {
+  double __pyx_v_maxWeight;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("setWeightCap (wrapper)", 0);
+  assert(__pyx_arg_maxWeight); {
+    __pyx_v_maxWeight = __pyx_PyFloat_AsDouble(__pyx_arg_maxWeight); if (unlikely((__pyx_v_maxWeight == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 32, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("rivet.core.AnalysisHandler.setWeightCap", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_12setWeightCap(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self), ((double)__pyx_v_maxWeight));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_12setWeightCap(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, double __pyx_v_maxWeight) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("setWeightCap", 0);
+
+  /* "rivet/core.pyx":33
+ * 
+ *     def setWeightCap(self, double maxWeight):
+ *         self._ptr.setWeightCap(maxWeight)             # <<<<<<<<<<<<<<
+ * 
+ *     def setNLOSmearing(self, double smear):
+ */
+  __pyx_v_self->_ptr->setWeightCap(__pyx_v_maxWeight);
+
+  /* "rivet/core.pyx":32
+ *         self._ptr.deselectMultiWeights(patterns.encode('utf-8'))
+ * 
+ *     def setWeightCap(self, double maxWeight):             # <<<<<<<<<<<<<<
+ *         self._ptr.setWeightCap(maxWeight)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "rivet/core.pyx":35
+ *         self._ptr.setWeightCap(maxWeight)
+ * 
+ *     def setNLOSmearing(self, double smear):             # <<<<<<<<<<<<<<
+ *         self._ptr.setNLOSmearing(smear)
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_15setNLOSmearing(PyObject *__pyx_v_self, PyObject *__pyx_arg_smear); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_15setNLOSmearing(PyObject *__pyx_v_self, PyObject *__pyx_arg_smear) {
+  double __pyx_v_smear;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("setNLOSmearing (wrapper)", 0);
+  assert(__pyx_arg_smear); {
+    __pyx_v_smear = __pyx_PyFloat_AsDouble(__pyx_arg_smear); if (unlikely((__pyx_v_smear == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 35, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("rivet.core.AnalysisHandler.setNLOSmearing", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_14setNLOSmearing(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self), ((double)__pyx_v_smear));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_14setNLOSmearing(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, double __pyx_v_smear) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("setNLOSmearing", 0);
+
+  /* "rivet/core.pyx":36
+ * 
+ *     def setNLOSmearing(self, double smear):
+ *         self._ptr.setNLOSmearing(smear)             # <<<<<<<<<<<<<<
+ * 
+ *     def addAnalysis(self, name):
+ */
+  __pyx_v_self->_ptr->setNLOSmearing(__pyx_v_smear);
+
+  /* "rivet/core.pyx":35
+ *         self._ptr.setWeightCap(maxWeight)
+ * 
+ *     def setNLOSmearing(self, double smear):             # <<<<<<<<<<<<<<
+ *         self._ptr.setNLOSmearing(smear)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "rivet/core.pyx":38
+ *         self._ptr.setNLOSmearing(smear)
+ * 
+ *     def addAnalysis(self, name):             # <<<<<<<<<<<<<<
+ *         self._ptr.addAnalysis(name.encode('utf-8'))
+ *         return self
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_17addAnalysis(PyObject *__pyx_v_self, PyObject *__pyx_v_name); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_17addAnalysis(PyObject *__pyx_v_self, PyObject *__pyx_v_name) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("addAnalysis (wrapper)", 0);
+  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_16addAnalysis(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self), ((PyObject *)__pyx_v_name));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_16addAnalysis(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_name) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  std::string __pyx_t_4;
+  __Pyx_RefNannySetupContext("addAnalysis", 0);
+
+  /* "rivet/core.pyx":39
+ * 
+ *     def addAnalysis(self, name):
+ *         self._ptr.addAnalysis(name.encode('utf-8'))             # <<<<<<<<<<<<<<
+ *         return self
+ * 
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 39, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_kp_s_utf_8);
+  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   (void)(__pyx_v_self->_ptr->addAnalysis(__pyx_t_4));
 
-  /* "rivet/core.pyx":25
+  /* "rivet/core.pyx":40
  *     def addAnalysis(self, name):
  *         self._ptr.addAnalysis(name.encode('utf-8'))
  *         return self             # <<<<<<<<<<<<<<
@@ -1980,8 +2491,8 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_6addAnalysis(struct __p
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":23
- *         self._ptr.setIgnoreBeams(ignore)
+  /* "rivet/core.pyx":38
+ *         self._ptr.setNLOSmearing(smear)
  * 
  *     def addAnalysis(self, name):             # <<<<<<<<<<<<<<
  *         self._ptr.addAnalysis(name.encode('utf-8'))
@@ -2001,7 +2512,7 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_6addAnalysis(struct __p
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":27
+/* "rivet/core.pyx":42
  *         return self
  * 
  *     def analysisNames(self):             # <<<<<<<<<<<<<<
@@ -2010,19 +2521,19 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_6addAnalysis(struct __p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_9analysisNames(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_9analysisNames(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_19analysisNames(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_19analysisNames(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("analysisNames (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_8analysisNames(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_18analysisNames(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_8analysisNames(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_18analysisNames(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self) {
   std::vector<std::string>  __pyx_v_anames;
   std::string __pyx_v_a;
   PyObject *__pyx_r = NULL;
@@ -2033,7 +2544,7 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_8analysisNames(struct _
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("analysisNames", 0);
 
-  /* "rivet/core.pyx":28
+  /* "rivet/core.pyx":43
  * 
  *     def analysisNames(self):
  *         anames = self._ptr.analysisNames()             # <<<<<<<<<<<<<<
@@ -2042,15 +2553,15 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_8analysisNames(struct _
  */
   __pyx_v_anames = __pyx_v_self->_ptr->analysisNames();
 
-  /* "rivet/core.pyx":29
+  /* "rivet/core.pyx":44
  *     def analysisNames(self):
  *         anames = self._ptr.analysisNames()
  *         return [ a.decode('utf-8') for a in anames ]             # <<<<<<<<<<<<<<
  * 
- *     # def analysis(self, aname):
+ *     def stdAnalysisNames(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __pyx_v_anames.begin();
   for (;;) {
@@ -2058,16 +2569,16 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_8analysisNames(struct _
     __pyx_t_3 = *__pyx_t_2;
     ++__pyx_t_2;
     __pyx_v_a = __pyx_t_3;
-    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_a, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 29, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_a, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 44, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 44, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":27
+  /* "rivet/core.pyx":42
  *         return self
  * 
  *     def analysisNames(self):             # <<<<<<<<<<<<<<
@@ -2087,7 +2598,93 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_8analysisNames(struct _
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":39
+/* "rivet/core.pyx":46
+ *         return [ a.decode('utf-8') for a in anames ]
+ * 
+ *     def stdAnalysisNames(self):             # <<<<<<<<<<<<<<
+ *         anames = self._ptr.stdAnalysisNames()
+ *         return [ a.decode('utf-8') for a in anames ]
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_21stdAnalysisNames(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_21stdAnalysisNames(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("stdAnalysisNames (wrapper)", 0);
+  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_20stdAnalysisNames(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_20stdAnalysisNames(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self) {
+  std::vector<std::string>  __pyx_v_anames;
+  std::string __pyx_v_a;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  std::vector<std::string> ::iterator __pyx_t_2;
+  std::string __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  __Pyx_RefNannySetupContext("stdAnalysisNames", 0);
+
+  /* "rivet/core.pyx":47
+ * 
+ *     def stdAnalysisNames(self):
+ *         anames = self._ptr.stdAnalysisNames()             # <<<<<<<<<<<<<<
+ *         return [ a.decode('utf-8') for a in anames ]
+ * 
+ */
+  __pyx_v_anames = __pyx_v_self->_ptr->stdAnalysisNames();
+
+  /* "rivet/core.pyx":48
+ *     def stdAnalysisNames(self):
+ *         anames = self._ptr.stdAnalysisNames()
+ *         return [ a.decode('utf-8') for a in anames ]             # <<<<<<<<<<<<<<
+ * 
+ *     # def analysis(self, aname):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __pyx_v_anames.begin();
+  for (;;) {
+    if (!(__pyx_t_2 != __pyx_v_anames.end())) break;
+    __pyx_t_3 = *__pyx_t_2;
+    ++__pyx_t_2;
+    __pyx_v_a = __pyx_t_3;
+    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_a, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 48, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 48, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  }
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "rivet/core.pyx":46
+ *         return [ a.decode('utf-8') for a in anames ]
+ * 
+ *     def stdAnalysisNames(self):             # <<<<<<<<<<<<<<
+ *         anames = self._ptr.stdAnalysisNames()
+ *         return [ a.decode('utf-8') for a in anames ]
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("rivet.core.AnalysisHandler.stdAnalysisNames", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "rivet/core.pyx":58
  *     #     return pyobj
  * 
  *     def readData(self, name):             # <<<<<<<<<<<<<<
@@ -2096,19 +2693,19 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_8analysisNames(struct _
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_11readData(PyObject *__pyx_v_self, PyObject *__pyx_v_name); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_11readData(PyObject *__pyx_v_self, PyObject *__pyx_v_name) {
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_23readData(PyObject *__pyx_v_self, PyObject *__pyx_v_name); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_23readData(PyObject *__pyx_v_self, PyObject *__pyx_v_name) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("readData (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_10readData(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self), ((PyObject *)__pyx_v_name));
+  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_22readData(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self), ((PyObject *)__pyx_v_name));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_10readData(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_name) {
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_22readData(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_name) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2117,14 +2714,14 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_10readData(struct __pyx
   std::string __pyx_t_4;
   __Pyx_RefNannySetupContext("readData", 0);
 
-  /* "rivet/core.pyx":40
+  /* "rivet/core.pyx":59
  * 
  *     def readData(self, name):
  *         self._ptr.readData(name.encode('utf-8'))             # <<<<<<<<<<<<<<
  * 
  *     def writeData(self, name):
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -2138,14 +2735,14 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_10readData(struct __pyx
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_kp_s_utf_8);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_self->_ptr->readData(__pyx_t_4);
 
-  /* "rivet/core.pyx":39
+  /* "rivet/core.pyx":58
  *     #     return pyobj
  * 
  *     def readData(self, name):             # <<<<<<<<<<<<<<
@@ -2168,7 +2765,7 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_10readData(struct __pyx
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":42
+/* "rivet/core.pyx":61
  *         self._ptr.readData(name.encode('utf-8'))
  * 
  *     def writeData(self, name):             # <<<<<<<<<<<<<<
@@ -2177,19 +2774,19 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_10readData(struct __pyx
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_13writeData(PyObject *__pyx_v_self, PyObject *__pyx_v_name); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_13writeData(PyObject *__pyx_v_self, PyObject *__pyx_v_name) {
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_25writeData(PyObject *__pyx_v_self, PyObject *__pyx_v_name); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_25writeData(PyObject *__pyx_v_self, PyObject *__pyx_v_name) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("writeData (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_12writeData(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self), ((PyObject *)__pyx_v_name));
+  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_24writeData(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self), ((PyObject *)__pyx_v_name));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_12writeData(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_name) {
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_24writeData(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_name) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2198,14 +2795,14 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_12writeData(struct __py
   std::string __pyx_t_4;
   __Pyx_RefNannySetupContext("writeData", 0);
 
-  /* "rivet/core.pyx":43
+  /* "rivet/core.pyx":62
  * 
  *     def writeData(self, name):
  *         self._ptr.writeData(name.encode('utf-8'))             # <<<<<<<<<<<<<<
  * 
- *     def crossSection(self):
+ *     def nominalCrossSection(self):
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -2219,14 +2816,14 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_12writeData(struct __py
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_kp_s_utf_8);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 43, __pyx_L1_error)
+  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_self->_ptr->writeData(__pyx_t_4);
 
-  /* "rivet/core.pyx":42
+  /* "rivet/core.pyx":61
  *         self._ptr.readData(name.encode('utf-8'))
  * 
  *     def writeData(self, name):             # <<<<<<<<<<<<<<
@@ -2249,59 +2846,59 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_12writeData(struct __py
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":45
+/* "rivet/core.pyx":64
  *         self._ptr.writeData(name.encode('utf-8'))
  * 
- *     def crossSection(self):             # <<<<<<<<<<<<<<
- *         return self._ptr.crossSection()
+ *     def nominalCrossSection(self):             # <<<<<<<<<<<<<<
+ *         return self._ptr.nominalCrossSection()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_15crossSection(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_15crossSection(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_27nominalCrossSection(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_27nominalCrossSection(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("crossSection (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_14crossSection(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("nominalCrossSection (wrapper)", 0);
+  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_26nominalCrossSection(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_14crossSection(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_26nominalCrossSection(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  __Pyx_RefNannySetupContext("crossSection", 0);
+  __Pyx_RefNannySetupContext("nominalCrossSection", 0);
 
-  /* "rivet/core.pyx":46
+  /* "rivet/core.pyx":65
  * 
- *     def crossSection(self):
- *         return self._ptr.crossSection()             # <<<<<<<<<<<<<<
+ *     def nominalCrossSection(self):
+ *         return self._ptr.nominalCrossSection()             # <<<<<<<<<<<<<<
  * 
  *     def finalize(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->_ptr->crossSection()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 46, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->_ptr->nominalCrossSection()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 65, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":45
+  /* "rivet/core.pyx":64
  *         self._ptr.writeData(name.encode('utf-8'))
  * 
- *     def crossSection(self):             # <<<<<<<<<<<<<<
- *         return self._ptr.crossSection()
+ *     def nominalCrossSection(self):             # <<<<<<<<<<<<<<
+ *         return self._ptr.nominalCrossSection()
  * 
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("rivet.core.AnalysisHandler.crossSection", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rivet.core.AnalysisHandler.nominalCrossSection", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2309,8 +2906,8 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_14crossSection(struct _
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":48
- *         return self._ptr.crossSection()
+/* "rivet/core.pyx":67
+ *         return self._ptr.nominalCrossSection()
  * 
  *     def finalize(self):             # <<<<<<<<<<<<<<
  *         self._ptr.finalize()
@@ -2318,34 +2915,34 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_14crossSection(struct _
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_17finalize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_17finalize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_29finalize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_29finalize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("finalize (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_16finalize(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_28finalize(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_16finalize(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_28finalize(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("finalize", 0);
 
-  /* "rivet/core.pyx":49
+  /* "rivet/core.pyx":68
  * 
  *     def finalize(self):
  *         self._ptr.finalize()             # <<<<<<<<<<<<<<
  * 
- *     def dump(self, file, period):
+ *     def dump(self, name, period):
  */
   __pyx_v_self->_ptr->finalize();
 
-  /* "rivet/core.pyx":48
- *         return self._ptr.crossSection()
+  /* "rivet/core.pyx":67
+ *         return self._ptr.nominalCrossSection()
  * 
  *     def finalize(self):             # <<<<<<<<<<<<<<
  *         self._ptr.finalize()
@@ -2359,24 +2956,24 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_16finalize(struct __pyx
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":51
+/* "rivet/core.pyx":70
  *         self._ptr.finalize()
  * 
- *     def dump(self, file, period):             # <<<<<<<<<<<<<<
- *         self._ptr.dump(file, period)
+ *     def dump(self, name, period):             # <<<<<<<<<<<<<<
+ *         self._ptr.dump(name.encode('utf-8'), period)
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_19dump(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_19dump(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_file = 0;
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_31dump(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_31dump(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_name = 0;
   PyObject *__pyx_v_period = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("dump (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_file,&__pyx_n_s_period,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_name,&__pyx_n_s_period,0};
     PyObject* values[2] = {0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
@@ -2392,17 +2989,17 @@ static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_19dump(PyObject *__pyx_
       kw_args = PyDict_Size(__pyx_kwds);
       switch (pos_args) {
         case  0:
-        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_file)) != 0)) kw_args--;
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_name)) != 0)) kw_args--;
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_period)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("dump", 1, 2, 2, 1); __PYX_ERR(0, 51, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("dump", 1, 2, 2, 1); __PYX_ERR(0, 70, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "dump") < 0)) __PYX_ERR(0, 51, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "dump") < 0)) __PYX_ERR(0, 70, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -2410,47 +3007,68 @@ static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_19dump(PyObject *__pyx_
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_file = values[0];
+    __pyx_v_name = values[0];
     __pyx_v_period = values[1];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("dump", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 51, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("dump", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 70, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("rivet.core.AnalysisHandler.dump", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_18dump(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self), __pyx_v_file, __pyx_v_period);
+  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_30dump(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self), __pyx_v_name, __pyx_v_period);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_18dump(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_file, PyObject *__pyx_v_period) {
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_30dump(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_name, PyObject *__pyx_v_period) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  std::string __pyx_t_1;
-  int __pyx_t_2;
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  std::string __pyx_t_4;
+  int __pyx_t_5;
   __Pyx_RefNannySetupContext("dump", 0);
 
-  /* "rivet/core.pyx":52
+  /* "rivet/core.pyx":71
  * 
- *     def dump(self, file, period):
- *         self._ptr.dump(file, period)             # <<<<<<<<<<<<<<
+ *     def dump(self, name, period):
+ *         self._ptr.dump(name.encode('utf-8'), period)             # <<<<<<<<<<<<<<
  * 
- *     def mergeYodas(self, filelist, delopts, equiv):
+ *     def mergeYodas(self, filelist, delopts, addopts, equiv):
  */
-  __pyx_t_1 = __pyx_convert_string_from_py_std__in_string(__pyx_v_file); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 52, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_period); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 52, __pyx_L1_error)
-  __pyx_v_self->_ptr->dump(__pyx_t_1, __pyx_t_2);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_kp_s_utf_8);
+  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 71, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 71, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_v_period); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 71, __pyx_L1_error)
+  __pyx_v_self->_ptr->dump(__pyx_t_4, __pyx_t_5);
 
-  /* "rivet/core.pyx":51
+  /* "rivet/core.pyx":70
  *         self._ptr.finalize()
  * 
- *     def dump(self, file, period):             # <<<<<<<<<<<<<<
- *         self._ptr.dump(file, period)
+ *     def dump(self, name, period):             # <<<<<<<<<<<<<<
+ *         self._ptr.dump(name.encode('utf-8'), period)
  * 
  */
 
@@ -2458,6 +3076,9 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_18dump(struct __pyx_obj
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_AddTraceback("rivet.core.AnalysisHandler.dump", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -2466,30 +3087,33 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_18dump(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":54
- *         self._ptr.dump(file, period)
+/* "rivet/core.pyx":73
+ *         self._ptr.dump(name.encode('utf-8'), period)
  * 
- *     def mergeYodas(self, filelist, delopts, equiv):             # <<<<<<<<<<<<<<
- *         self._ptr.mergeYodas(filelist, delopts, equiv)
- * 
+ *     def mergeYodas(self, filelist, delopts, addopts, equiv):             # <<<<<<<<<<<<<<
+ *         filelist = [ f.encode('utf-8') for f in filelist ]
+ *         delopts  = [ d.encode('utf-8') for d in delopts  ]
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_21mergeYodas(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_21mergeYodas(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_33mergeYodas(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_33mergeYodas(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_filelist = 0;
   PyObject *__pyx_v_delopts = 0;
+  PyObject *__pyx_v_addopts = 0;
   PyObject *__pyx_v_equiv = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("mergeYodas (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_filelist,&__pyx_n_s_delopts,&__pyx_n_s_equiv,0};
-    PyObject* values[3] = {0,0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_filelist,&__pyx_n_s_delopts,&__pyx_n_s_addopts,&__pyx_n_s_equiv,0};
+    PyObject* values[4] = {0,0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        CYTHON_FALLTHROUGH;
         case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
         CYTHON_FALLTHROUGH;
         case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
@@ -2508,79 +3132,333 @@ static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_21mergeYodas(PyObject *
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_delopts)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("mergeYodas", 1, 3, 3, 1); __PYX_ERR(0, 54, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("mergeYodas", 1, 4, 4, 1); __PYX_ERR(0, 73, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
-        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_equiv)) != 0)) kw_args--;
+        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_addopts)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("mergeYodas", 1, 3, 3, 2); __PYX_ERR(0, 54, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("mergeYodas", 1, 4, 4, 2); __PYX_ERR(0, 73, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  3:
+        if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_equiv)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("mergeYodas", 1, 4, 4, 3); __PYX_ERR(0, 73, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "mergeYodas") < 0)) __PYX_ERR(0, 54, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "mergeYodas") < 0)) __PYX_ERR(0, 73, __pyx_L3_error)
       }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+      values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
     }
     __pyx_v_filelist = values[0];
     __pyx_v_delopts = values[1];
-    __pyx_v_equiv = values[2];
+    __pyx_v_addopts = values[2];
+    __pyx_v_equiv = values[3];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("mergeYodas", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 54, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("mergeYodas", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 73, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("rivet.core.AnalysisHandler.mergeYodas", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_20mergeYodas(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self), __pyx_v_filelist, __pyx_v_delopts, __pyx_v_equiv);
+  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_32mergeYodas(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self), __pyx_v_filelist, __pyx_v_delopts, __pyx_v_addopts, __pyx_v_equiv);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_20mergeYodas(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_filelist, PyObject *__pyx_v_delopts, PyObject *__pyx_v_equiv) {
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_32mergeYodas(struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, PyObject *__pyx_v_filelist, PyObject *__pyx_v_delopts, PyObject *__pyx_v_addopts, PyObject *__pyx_v_equiv) {
+  PyObject *__pyx_v_f = NULL;
+  PyObject *__pyx_v_d = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  std::vector<std::string>  __pyx_t_1;
-  std::vector<std::string>  __pyx_t_2;
-  bool __pyx_t_3;
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  Py_ssize_t __pyx_t_3;
+  PyObject *(*__pyx_t_4)(PyObject *);
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  PyObject *__pyx_t_7 = NULL;
+  std::vector<std::string>  __pyx_t_8;
+  std::vector<std::string>  __pyx_t_9;
+  std::vector<std::string>  __pyx_t_10;
+  bool __pyx_t_11;
   __Pyx_RefNannySetupContext("mergeYodas", 0);
+  __Pyx_INCREF(__pyx_v_filelist);
+  __Pyx_INCREF(__pyx_v_delopts);
+  __Pyx_INCREF(__pyx_v_addopts);
 
-  /* "rivet/core.pyx":55
+  /* "rivet/core.pyx":74
  * 
- *     def mergeYodas(self, filelist, delopts, equiv):
- *         self._ptr.mergeYodas(filelist, delopts, equiv)             # <<<<<<<<<<<<<<
+ *     def mergeYodas(self, filelist, delopts, addopts, equiv):
+ *         filelist = [ f.encode('utf-8') for f in filelist ]             # <<<<<<<<<<<<<<
+ *         delopts  = [ d.encode('utf-8') for d in delopts  ]
+ *         addopts  = [ d.encode('utf-8') for d in addopts ]
+ */
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 74, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (likely(PyList_CheckExact(__pyx_v_filelist)) || PyTuple_CheckExact(__pyx_v_filelist)) {
+    __pyx_t_2 = __pyx_v_filelist; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
+    __pyx_t_4 = NULL;
+  } else {
+    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_filelist); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 74, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 74, __pyx_L1_error)
+  }
+  for (;;) {
+    if (likely(!__pyx_t_4)) {
+      if (likely(PyList_CheckExact(__pyx_t_2))) {
+        if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
+        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+        __pyx_t_5 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_5); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 74, __pyx_L1_error)
+        #else
+        __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 74, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        #endif
+      } else {
+        if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
+        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+        __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_5); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 74, __pyx_L1_error)
+        #else
+        __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 74, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        #endif
+      }
+    } else {
+      __pyx_t_5 = __pyx_t_4(__pyx_t_2);
+      if (unlikely(!__pyx_t_5)) {
+        PyObject* exc_type = PyErr_Occurred();
+        if (exc_type) {
+          if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+          else __PYX_ERR(0, 74, __pyx_L1_error)
+        }
+        break;
+      }
+      __Pyx_GOTREF(__pyx_t_5);
+    }
+    __Pyx_XDECREF_SET(__pyx_v_f, __pyx_t_5);
+    __pyx_t_5 = 0;
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_encode); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 74, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_7 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
+      __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_6);
+      if (likely(__pyx_t_7)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
+        __Pyx_INCREF(__pyx_t_7);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_6, function);
+      }
+    }
+    __pyx_t_5 = (__pyx_t_7) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_7, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_kp_s_utf_8);
+    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 74, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 74, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF_SET(__pyx_v_filelist, __pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "rivet/core.pyx":75
+ *     def mergeYodas(self, filelist, delopts, addopts, equiv):
+ *         filelist = [ f.encode('utf-8') for f in filelist ]
+ *         delopts  = [ d.encode('utf-8') for d in delopts  ]             # <<<<<<<<<<<<<<
+ *         addopts  = [ d.encode('utf-8') for d in addopts ]
+ *         self._ptr.mergeYodas(filelist, delopts, addopts, equiv)
+ */
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (likely(PyList_CheckExact(__pyx_v_delopts)) || PyTuple_CheckExact(__pyx_v_delopts)) {
+    __pyx_t_2 = __pyx_v_delopts; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
+    __pyx_t_4 = NULL;
+  } else {
+    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_delopts); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 75, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 75, __pyx_L1_error)
+  }
+  for (;;) {
+    if (likely(!__pyx_t_4)) {
+      if (likely(PyList_CheckExact(__pyx_t_2))) {
+        if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
+        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+        __pyx_t_5 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_5); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 75, __pyx_L1_error)
+        #else
+        __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 75, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        #endif
+      } else {
+        if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
+        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+        __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_5); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 75, __pyx_L1_error)
+        #else
+        __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 75, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        #endif
+      }
+    } else {
+      __pyx_t_5 = __pyx_t_4(__pyx_t_2);
+      if (unlikely(!__pyx_t_5)) {
+        PyObject* exc_type = PyErr_Occurred();
+        if (exc_type) {
+          if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+          else __PYX_ERR(0, 75, __pyx_L1_error)
+        }
+        break;
+      }
+      __Pyx_GOTREF(__pyx_t_5);
+    }
+    __Pyx_XDECREF_SET(__pyx_v_d, __pyx_t_5);
+    __pyx_t_5 = 0;
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_d, __pyx_n_s_encode); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 75, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_7 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
+      __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_6);
+      if (likely(__pyx_t_7)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
+        __Pyx_INCREF(__pyx_t_7);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_6, function);
+      }
+    }
+    __pyx_t_5 = (__pyx_t_7) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_7, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_kp_s_utf_8);
+    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 75, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 75, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF_SET(__pyx_v_delopts, __pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "rivet/core.pyx":76
+ *         filelist = [ f.encode('utf-8') for f in filelist ]
+ *         delopts  = [ d.encode('utf-8') for d in delopts  ]
+ *         addopts  = [ d.encode('utf-8') for d in addopts ]             # <<<<<<<<<<<<<<
+ *         self._ptr.mergeYodas(filelist, delopts, addopts, equiv)
+ * 
+ */
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (likely(PyList_CheckExact(__pyx_v_addopts)) || PyTuple_CheckExact(__pyx_v_addopts)) {
+    __pyx_t_2 = __pyx_v_addopts; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
+    __pyx_t_4 = NULL;
+  } else {
+    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_addopts); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 76, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 76, __pyx_L1_error)
+  }
+  for (;;) {
+    if (likely(!__pyx_t_4)) {
+      if (likely(PyList_CheckExact(__pyx_t_2))) {
+        if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
+        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+        __pyx_t_5 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_5); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 76, __pyx_L1_error)
+        #else
+        __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 76, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        #endif
+      } else {
+        if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
+        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+        __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_5); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 76, __pyx_L1_error)
+        #else
+        __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 76, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        #endif
+      }
+    } else {
+      __pyx_t_5 = __pyx_t_4(__pyx_t_2);
+      if (unlikely(!__pyx_t_5)) {
+        PyObject* exc_type = PyErr_Occurred();
+        if (exc_type) {
+          if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+          else __PYX_ERR(0, 76, __pyx_L1_error)
+        }
+        break;
+      }
+      __Pyx_GOTREF(__pyx_t_5);
+    }
+    __Pyx_XDECREF_SET(__pyx_v_d, __pyx_t_5);
+    __pyx_t_5 = 0;
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_d, __pyx_n_s_encode); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 76, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_7 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
+      __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_6);
+      if (likely(__pyx_t_7)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
+        __Pyx_INCREF(__pyx_t_7);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_6, function);
+      }
+    }
+    __pyx_t_5 = (__pyx_t_7) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_7, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_kp_s_utf_8);
+    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 76, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 76, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF_SET(__pyx_v_addopts, __pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "rivet/core.pyx":77
+ *         delopts  = [ d.encode('utf-8') for d in delopts  ]
+ *         addopts  = [ d.encode('utf-8') for d in addopts ]
+ *         self._ptr.mergeYodas(filelist, delopts, addopts, equiv)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_t_1 = __pyx_convert_vector_from_py_std_3a__3a_string(__pyx_v_filelist); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 55, __pyx_L1_error)
-  __pyx_t_2 = __pyx_convert_vector_from_py_std_3a__3a_string(__pyx_v_delopts); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 55, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_v_equiv); if (unlikely((__pyx_t_3 == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 55, __pyx_L1_error)
-  __pyx_v_self->_ptr->mergeYodas(__pyx_t_1, __pyx_t_2, __pyx_t_3);
+  __pyx_t_8 = __pyx_convert_vector_from_py_std_3a__3a_string(__pyx_v_filelist); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_9 = __pyx_convert_vector_from_py_std_3a__3a_string(__pyx_v_delopts); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_10 = __pyx_convert_vector_from_py_std_3a__3a_string(__pyx_v_addopts); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_v_equiv); if (unlikely((__pyx_t_11 == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_v_self->_ptr->mergeYodas(__pyx_t_8, __pyx_t_9, __pyx_t_10, __pyx_t_11);
 
-  /* "rivet/core.pyx":54
- *         self._ptr.dump(file, period)
+  /* "rivet/core.pyx":73
+ *         self._ptr.dump(name.encode('utf-8'), period)
  * 
- *     def mergeYodas(self, filelist, delopts, equiv):             # <<<<<<<<<<<<<<
- *         self._ptr.mergeYodas(filelist, delopts, equiv)
- * 
+ *     def mergeYodas(self, filelist, delopts, addopts, equiv):             # <<<<<<<<<<<<<<
+ *         filelist = [ f.encode('utf-8') for f in filelist ]
+ *         delopts  = [ d.encode('utf-8') for d in delopts  ]
  */
 
   /* function exit code */
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_7);
   __Pyx_AddTraceback("rivet.core.AnalysisHandler.mergeYodas", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_f);
+  __Pyx_XDECREF(__pyx_v_d);
+  __Pyx_XDECREF(__pyx_v_filelist);
+  __Pyx_XDECREF(__pyx_v_delopts);
+  __Pyx_XDECREF(__pyx_v_addopts);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -2593,19 +3471,19 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_20mergeYodas(struct __p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_23__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_23__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_35__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_35__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_22__reduce_cython__(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_34__reduce_cython__(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_22__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_34__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2617,7 +3495,7 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_22__reduce_cython__(CYT
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 2, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -2647,19 +3525,19 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_22__reduce_cython__(CYT
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_25__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_25__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_37__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_15AnalysisHandler_37__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_24__setstate_cython__(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+  __pyx_r = __pyx_pf_5rivet_4core_15AnalysisHandler_36__setstate_cython__(((struct __pyx_obj_5rivet_4core_AnalysisHandler *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_24__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_36__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_AnalysisHandler *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2670,7 +3548,7 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_24__setstate_cython__(C
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 4, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -2693,7 +3571,7 @@ static PyObject *__pyx_pf_5rivet_4core_15AnalysisHandler_24__setstate_cython__(C
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":61
+/* "rivet/core.pyx":83
  *     cdef c.Run *_ptr
  * 
  *     def __cinit__(self, AnalysisHandler h):             # <<<<<<<<<<<<<<
@@ -2727,7 +3605,7 @@ static int __pyx_pw_5rivet_4core_3Run_1__cinit__(PyObject *__pyx_v_self, PyObjec
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 61, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 83, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 1) {
       goto __pyx_L5_argtuple_error;
@@ -2738,13 +3616,13 @@ static int __pyx_pw_5rivet_4core_3Run_1__cinit__(PyObject *__pyx_v_self, PyObjec
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 61, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 83, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("rivet.core.Run.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_h), __pyx_ptype_5rivet_4core_AnalysisHandler, 1, "h", 0))) __PYX_ERR(0, 61, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_h), __pyx_ptype_5rivet_4core_AnalysisHandler, 1, "h", 0))) __PYX_ERR(0, 83, __pyx_L1_error)
   __pyx_r = __pyx_pf_5rivet_4core_3Run___cinit__(((struct __pyx_obj_5rivet_4core_Run *)__pyx_v_self), __pyx_v_h);
 
   /* function exit code */
@@ -2761,7 +3639,7 @@ static int __pyx_pf_5rivet_4core_3Run___cinit__(struct __pyx_obj_5rivet_4core_Ru
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "rivet/core.pyx":62
+  /* "rivet/core.pyx":84
  * 
  *     def __cinit__(self, AnalysisHandler h):
  *         self._ptr = new c.Run(h._ptr[0])             # <<<<<<<<<<<<<<
@@ -2770,7 +3648,7 @@ static int __pyx_pf_5rivet_4core_3Run___cinit__(struct __pyx_obj_5rivet_4core_Ru
  */
   __pyx_v_self->_ptr = new Rivet::Run((__pyx_v_h->_ptr[0]));
 
-  /* "rivet/core.pyx":61
+  /* "rivet/core.pyx":83
  *     cdef c.Run *_ptr
  * 
  *     def __cinit__(self, AnalysisHandler h):             # <<<<<<<<<<<<<<
@@ -2784,7 +3662,7 @@ static int __pyx_pf_5rivet_4core_3Run___cinit__(struct __pyx_obj_5rivet_4core_Ru
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":64
+/* "rivet/core.pyx":86
  *         self._ptr = new c.Run(h._ptr[0])
  * 
  *     def __del__(self):             # <<<<<<<<<<<<<<
@@ -2810,7 +3688,7 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_2__del__(struct __pyx_obj_5rivet_4co
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__", 0);
 
-  /* "rivet/core.pyx":65
+  /* "rivet/core.pyx":87
  * 
  *     def __del__(self):
  *         del self._ptr             # <<<<<<<<<<<<<<
@@ -2819,7 +3697,7 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_2__del__(struct __pyx_obj_5rivet_4co
  */
   delete __pyx_v_self->_ptr;
 
-  /* "rivet/core.pyx":64
+  /* "rivet/core.pyx":86
  *         self._ptr = new c.Run(h._ptr[0])
  * 
  *     def __del__(self):             # <<<<<<<<<<<<<<
@@ -2834,7 +3712,7 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_2__del__(struct __pyx_obj_5rivet_4co
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":67
+/* "rivet/core.pyx":89
  *         del self._ptr
  * 
  *     def setCrossSection(self, double x):             # <<<<<<<<<<<<<<
@@ -2850,7 +3728,7 @@ static PyObject *__pyx_pw_5rivet_4core_3Run_5setCrossSection(PyObject *__pyx_v_s
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("setCrossSection (wrapper)", 0);
   assert(__pyx_arg_x); {
-    __pyx_v_x = __pyx_PyFloat_AsDouble(__pyx_arg_x); if (unlikely((__pyx_v_x == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 67, __pyx_L3_error)
+    __pyx_v_x = __pyx_PyFloat_AsDouble(__pyx_arg_x); if (unlikely((__pyx_v_x == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 89, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -2870,7 +3748,7 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_4setCrossSection(struct __pyx_obj_5r
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("setCrossSection", 0);
 
-  /* "rivet/core.pyx":68
+  /* "rivet/core.pyx":90
  * 
  *     def setCrossSection(self, double x):
  *         self._ptr.setCrossSection(x)             # <<<<<<<<<<<<<<
@@ -2879,7 +3757,7 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_4setCrossSection(struct __pyx_obj_5r
  */
   (void)(__pyx_v_self->_ptr->setCrossSection(__pyx_v_x));
 
-  /* "rivet/core.pyx":69
+  /* "rivet/core.pyx":91
  *     def setCrossSection(self, double x):
  *         self._ptr.setCrossSection(x)
  *         return self             # <<<<<<<<<<<<<<
@@ -2891,7 +3769,7 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_4setCrossSection(struct __pyx_obj_5r
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":67
+  /* "rivet/core.pyx":89
  *         del self._ptr
  * 
  *     def setCrossSection(self, double x):             # <<<<<<<<<<<<<<
@@ -2906,7 +3784,7 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_4setCrossSection(struct __pyx_obj_5r
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":71
+/* "rivet/core.pyx":93
  *         return self
  * 
  *     def setListAnalyses(self, choice):             # <<<<<<<<<<<<<<
@@ -2933,17 +3811,17 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_6setListAnalyses(struct __pyx_obj_5r
   bool __pyx_t_1;
   __Pyx_RefNannySetupContext("setListAnalyses", 0);
 
-  /* "rivet/core.pyx":72
+  /* "rivet/core.pyx":94
  * 
  *     def setListAnalyses(self, choice):
  *         self._ptr.setListAnalyses(choice)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_choice); if (unlikely((__pyx_t_1 == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_choice); if (unlikely((__pyx_t_1 == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 94, __pyx_L1_error)
   (void)(__pyx_v_self->_ptr->setListAnalyses(__pyx_t_1));
 
-  /* "rivet/core.pyx":73
+  /* "rivet/core.pyx":95
  *     def setListAnalyses(self, choice):
  *         self._ptr.setListAnalyses(choice)
  *         return self             # <<<<<<<<<<<<<<
@@ -2955,7 +3833,7 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_6setListAnalyses(struct __pyx_obj_5r
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":71
+  /* "rivet/core.pyx":93
  *         return self
  * 
  *     def setListAnalyses(self, choice):             # <<<<<<<<<<<<<<
@@ -2973,7 +3851,7 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_6setListAnalyses(struct __pyx_obj_5r
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":75
+/* "rivet/core.pyx":97
  *         return self
  * 
  *     def init(self, name, weight=1.0):             # <<<<<<<<<<<<<<
@@ -3017,7 +3895,7 @@ static PyObject *__pyx_pw_5rivet_4core_3Run_9init(PyObject *__pyx_v_self, PyObje
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "init") < 0)) __PYX_ERR(0, 75, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "init") < 0)) __PYX_ERR(0, 97, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -3033,7 +3911,7 @@ static PyObject *__pyx_pw_5rivet_4core_3Run_9init(PyObject *__pyx_v_self, PyObje
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("init", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 75, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("init", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 97, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("rivet.core.Run.init", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3057,7 +3935,7 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_8init(struct __pyx_obj_5rivet_4core_
   bool __pyx_t_6;
   __Pyx_RefNannySetupContext("init", 0);
 
-  /* "rivet/core.pyx":76
+  /* "rivet/core.pyx":98
  * 
  *     def init(self, name, weight=1.0):
  *         return self._ptr.init(name.encode('utf-8'), weight)             # <<<<<<<<<<<<<<
@@ -3065,7 +3943,7 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_8init(struct __pyx_obj_5rivet_4core_
  *     def openFile(self, name, weight=1.0):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 98, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -3079,25 +3957,25 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_8init(struct __pyx_obj_5rivet_4core_
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_kp_s_utf_8);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 98, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 76, __pyx_L1_error)
+  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 98, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_v_weight); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 76, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_v_weight); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 98, __pyx_L1_error)
   try {
     __pyx_t_6 = __pyx_v_self->_ptr->init(__pyx_t_4, __pyx_t_5);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 76, __pyx_L1_error)
+    __PYX_ERR(0, 98, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 98, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":75
+  /* "rivet/core.pyx":97
  *         return self
  * 
  *     def init(self, name, weight=1.0):             # <<<<<<<<<<<<<<
@@ -3118,7 +3996,7 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_8init(struct __pyx_obj_5rivet_4core_
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":78
+/* "rivet/core.pyx":100
  *         return self._ptr.init(name.encode('utf-8'), weight)
  * 
  *     def openFile(self, name, weight=1.0):             # <<<<<<<<<<<<<<
@@ -3162,7 +4040,7 @@ static PyObject *__pyx_pw_5rivet_4core_3Run_11openFile(PyObject *__pyx_v_self, P
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "openFile") < 0)) __PYX_ERR(0, 78, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "openFile") < 0)) __PYX_ERR(0, 100, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -3178,7 +4056,7 @@ static PyObject *__pyx_pw_5rivet_4core_3Run_11openFile(PyObject *__pyx_v_self, P
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("openFile", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 78, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("openFile", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 100, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("rivet.core.Run.openFile", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3202,7 +4080,7 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_10openFile(struct __pyx_obj_5rivet_4
   bool __pyx_t_6;
   __Pyx_RefNannySetupContext("openFile", 0);
 
-  /* "rivet/core.pyx":79
+  /* "rivet/core.pyx":101
  * 
  *     def openFile(self, name, weight=1.0):
  *         return self._ptr.openFile(name.encode('utf-8'), weight)             # <<<<<<<<<<<<<<
@@ -3210,7 +4088,7 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_10openFile(struct __pyx_obj_5rivet_4
  *     def readEvent(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -3224,25 +4102,25 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_10openFile(struct __pyx_obj_5rivet_4
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_kp_s_utf_8);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_v_weight); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_v_weight); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 101, __pyx_L1_error)
   try {
     __pyx_t_6 = __pyx_v_self->_ptr->openFile(__pyx_t_4, __pyx_t_5);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 79, __pyx_L1_error)
+    __PYX_ERR(0, 101, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":78
+  /* "rivet/core.pyx":100
  *         return self._ptr.init(name.encode('utf-8'), weight)
  * 
  *     def openFile(self, name, weight=1.0):             # <<<<<<<<<<<<<<
@@ -3263,7 +4141,7 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_10openFile(struct __pyx_obj_5rivet_4
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":81
+/* "rivet/core.pyx":103
  *         return self._ptr.openFile(name.encode('utf-8'), weight)
  * 
  *     def readEvent(self):             # <<<<<<<<<<<<<<
@@ -3291,27 +4169,27 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_12readEvent(struct __pyx_obj_5rivet_
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("readEvent", 0);
 
-  /* "rivet/core.pyx":82
+  /* "rivet/core.pyx":104
  * 
  *     def readEvent(self):
  *         return self._ptr.readEvent()             # <<<<<<<<<<<<<<
  * 
- *     def skipEvent(self):
+ *     # def skipEvent(self):
  */
   __Pyx_XDECREF(__pyx_r);
   try {
     __pyx_t_1 = __pyx_v_self->_ptr->readEvent();
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 82, __pyx_L1_error)
+    __PYX_ERR(0, 104, __pyx_L1_error)
   }
-  __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":81
+  /* "rivet/core.pyx":103
  *         return self._ptr.openFile(name.encode('utf-8'), weight)
  * 
  *     def readEvent(self):             # <<<<<<<<<<<<<<
@@ -3330,75 +4208,8 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_12readEvent(struct __pyx_obj_5rivet_
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":84
- *         return self._ptr.readEvent()
- * 
- *     def skipEvent(self):             # <<<<<<<<<<<<<<
- *         return self._ptr.skipEvent()
- * 
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_3Run_15skipEvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_3Run_15skipEvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("skipEvent (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_3Run_14skipEvent(((struct __pyx_obj_5rivet_4core_Run *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_5rivet_4core_3Run_14skipEvent(struct __pyx_obj_5rivet_4core_Run *__pyx_v_self) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  bool __pyx_t_1;
-  PyObject *__pyx_t_2 = NULL;
-  __Pyx_RefNannySetupContext("skipEvent", 0);
-
-  /* "rivet/core.pyx":85
- * 
- *     def skipEvent(self):
- *         return self._ptr.skipEvent()             # <<<<<<<<<<<<<<
- * 
- *     def processEvent(self):
- */
-  __Pyx_XDECREF(__pyx_r);
-  try {
-    __pyx_t_1 = __pyx_v_self->_ptr->skipEvent();
-  } catch(...) {
-    __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 85, __pyx_L1_error)
-  }
-  __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 85, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_r = __pyx_t_2;
-  __pyx_t_2 = 0;
-  goto __pyx_L0;
-
-  /* "rivet/core.pyx":84
- *         return self._ptr.readEvent()
- * 
- *     def skipEvent(self):             # <<<<<<<<<<<<<<
- *         return self._ptr.skipEvent()
- * 
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("rivet.core.Run.skipEvent", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "rivet/core.pyx":87
- *         return self._ptr.skipEvent()
+/* "rivet/core.pyx":109
+ *     #     return self._ptr.skipEvent()
  * 
  *     def processEvent(self):             # <<<<<<<<<<<<<<
  *         return self._ptr.processEvent()
@@ -3406,26 +4217,26 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_14skipEvent(struct __pyx_obj_5rivet_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_3Run_17processEvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_3Run_17processEvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_3Run_15processEvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_3Run_15processEvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("processEvent (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_3Run_16processEvent(((struct __pyx_obj_5rivet_4core_Run *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_3Run_14processEvent(((struct __pyx_obj_5rivet_4core_Run *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_3Run_16processEvent(struct __pyx_obj_5rivet_4core_Run *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_3Run_14processEvent(struct __pyx_obj_5rivet_4core_Run *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   bool __pyx_t_1;
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("processEvent", 0);
 
-  /* "rivet/core.pyx":88
+  /* "rivet/core.pyx":110
  * 
  *     def processEvent(self):
  *         return self._ptr.processEvent()             # <<<<<<<<<<<<<<
@@ -3437,16 +4248,16 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_16processEvent(struct __pyx_obj_5riv
     __pyx_t_1 = __pyx_v_self->_ptr->processEvent();
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 88, __pyx_L1_error)
+    __PYX_ERR(0, 110, __pyx_L1_error)
   }
-  __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":87
- *         return self._ptr.skipEvent()
+  /* "rivet/core.pyx":109
+ *     #     return self._ptr.skipEvent()
  * 
  *     def processEvent(self):             # <<<<<<<<<<<<<<
  *         return self._ptr.processEvent()
@@ -3464,7 +4275,7 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_16processEvent(struct __pyx_obj_5riv
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":90
+/* "rivet/core.pyx":112
  *         return self._ptr.processEvent()
  * 
  *     def finalize(self):             # <<<<<<<<<<<<<<
@@ -3473,26 +4284,26 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_16processEvent(struct __pyx_obj_5riv
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_3Run_19finalize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_3Run_19finalize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_3Run_17finalize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_3Run_17finalize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("finalize (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_3Run_18finalize(((struct __pyx_obj_5rivet_4core_Run *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_3Run_16finalize(((struct __pyx_obj_5rivet_4core_Run *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_3Run_18finalize(struct __pyx_obj_5rivet_4core_Run *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_3Run_16finalize(struct __pyx_obj_5rivet_4core_Run *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   bool __pyx_t_1;
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("finalize", 0);
 
-  /* "rivet/core.pyx":91
+  /* "rivet/core.pyx":113
  * 
  *     def finalize(self):
  *         return self._ptr.finalize()             # <<<<<<<<<<<<<<
@@ -3504,15 +4315,15 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_18finalize(struct __pyx_obj_5rivet_4
     __pyx_t_1 = __pyx_v_self->_ptr->finalize();
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 91, __pyx_L1_error)
+    __PYX_ERR(0, 113, __pyx_L1_error)
   }
-  __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":90
+  /* "rivet/core.pyx":112
  *         return self._ptr.processEvent()
  * 
  *     def finalize(self):             # <<<<<<<<<<<<<<
@@ -3538,19 +4349,19 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_18finalize(struct __pyx_obj_5rivet_4
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_3Run_21__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_3Run_21__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_3Run_19__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_3Run_19__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_3Run_20__reduce_cython__(((struct __pyx_obj_5rivet_4core_Run *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_3Run_18__reduce_cython__(((struct __pyx_obj_5rivet_4core_Run *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_3Run_20__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_Run *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_3Run_18__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_Run *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -3562,7 +4373,7 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_20__reduce_cython__(CYTHON_UNUSED st
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 2, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -3592,19 +4403,19 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_20__reduce_cython__(CYTHON_UNUSED st
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_3Run_23__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_3Run_23__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pw_5rivet_4core_3Run_21__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_3Run_21__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_3Run_22__setstate_cython__(((struct __pyx_obj_5rivet_4core_Run *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+  __pyx_r = __pyx_pf_5rivet_4core_3Run_20__setstate_cython__(((struct __pyx_obj_5rivet_4core_Run *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_3Run_22__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_Run *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_5rivet_4core_3Run_20__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_Run *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -3615,7 +4426,7 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_22__setstate_cython__(CYTHON_UNUSED 
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 4, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -3638,7 +4449,7 @@ static PyObject *__pyx_pf_5rivet_4core_3Run_22__setstate_cython__(CYTHON_UNUSED 
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":97
+/* "rivet/core.pyx":119
  *     cdef c.unique_ptr[c.Analysis] _ptr
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
@@ -3668,20 +4479,20 @@ static int __pyx_pf_5rivet_4core_8Analysis___init__(CYTHON_UNUSED struct __pyx_o
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "rivet/core.pyx":98
+  /* "rivet/core.pyx":120
  * 
  *     def __init__(self):
  *         raise RuntimeError('This class cannot be instantiated')             # <<<<<<<<<<<<<<
  * 
  *     def requiredBeams(self):
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 98, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 120, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __PYX_ERR(0, 98, __pyx_L1_error)
+  __PYX_ERR(0, 120, __pyx_L1_error)
 
-  /* "rivet/core.pyx":97
+  /* "rivet/core.pyx":119
  *     cdef c.unique_ptr[c.Analysis] _ptr
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
@@ -3698,7 +4509,7 @@ static int __pyx_pf_5rivet_4core_8Analysis___init__(CYTHON_UNUSED struct __pyx_o
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":100
+/* "rivet/core.pyx":122
  *         raise RuntimeError('This class cannot be instantiated')
  * 
  *     def requiredBeams(self):             # <<<<<<<<<<<<<<
@@ -3725,7 +4536,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_2requiredBeams(struct __pyx_obj
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("requiredBeams", 0);
 
-  /* "rivet/core.pyx":101
+  /* "rivet/core.pyx":123
  * 
  *     def requiredBeams(self):
  *         return deref(self._ptr).requiredBeams()             # <<<<<<<<<<<<<<
@@ -3733,13 +4544,13 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_2requiredBeams(struct __pyx_obj
  *     def requiredEnergies(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_vector_to_py___pyx_t_5rivet_5rivet_PdgIdPair((*__pyx_v_self->_ptr).requiredBeams()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_vector_to_py___pyx_t_5rivet_5rivet_PdgIdPair((*__pyx_v_self->_ptr).requiredBeams()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":100
+  /* "rivet/core.pyx":122
  *         raise RuntimeError('This class cannot be instantiated')
  * 
  *     def requiredBeams(self):             # <<<<<<<<<<<<<<
@@ -3758,7 +4569,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_2requiredBeams(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":103
+/* "rivet/core.pyx":125
  *         return deref(self._ptr).requiredBeams()
  * 
  *     def requiredEnergies(self):             # <<<<<<<<<<<<<<
@@ -3785,7 +4596,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_4requiredEnergies(struct __pyx_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("requiredEnergies", 0);
 
-  /* "rivet/core.pyx":104
+  /* "rivet/core.pyx":126
  * 
  *     def requiredEnergies(self):
  *         return deref(self._ptr).requiredEnergies()             # <<<<<<<<<<<<<<
@@ -3793,13 +4604,13 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_4requiredEnergies(struct __pyx_
  *     def keywords(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_double_3e___((*__pyx_v_self->_ptr).requiredEnergies()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_double_3e___((*__pyx_v_self->_ptr).requiredEnergies()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":103
+  /* "rivet/core.pyx":125
  *         return deref(self._ptr).requiredBeams()
  * 
  *     def requiredEnergies(self):             # <<<<<<<<<<<<<<
@@ -3818,7 +4629,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_4requiredEnergies(struct __pyx_
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":106
+/* "rivet/core.pyx":128
  *         return deref(self._ptr).requiredEnergies()
  * 
  *     def keywords(self):             # <<<<<<<<<<<<<<
@@ -3850,7 +4661,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_6keywords(struct __pyx_obj_5riv
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("keywords", 0);
 
-  /* "rivet/core.pyx":107
+  /* "rivet/core.pyx":129
  * 
  *     def keywords(self):
  *         kws = deref(self._ptr).keywords()             # <<<<<<<<<<<<<<
@@ -3859,15 +4670,15 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_6keywords(struct __pyx_obj_5riv
  */
   __pyx_v_kws = (*__pyx_v_self->_ptr).keywords();
 
-  /* "rivet/core.pyx":108
+  /* "rivet/core.pyx":130
  *     def keywords(self):
  *         kws = deref(self._ptr).keywords()
  *         return [ k.decode('utf-8') for k in kws ]             # <<<<<<<<<<<<<<
  * 
- *     def authors(self):
+ *     def validation(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 130, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __pyx_v_kws.begin();
   for (;;) {
@@ -3875,16 +4686,16 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_6keywords(struct __pyx_obj_5riv
     __pyx_t_3 = *__pyx_t_2;
     ++__pyx_t_2;
     __pyx_v_k = __pyx_t_3;
-    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_k, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 108, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_k, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 130, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 108, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 130, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":106
+  /* "rivet/core.pyx":128
  *         return deref(self._ptr).requiredEnergies()
  * 
  *     def keywords(self):             # <<<<<<<<<<<<<<
@@ -3904,8 +4715,154 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_6keywords(struct __pyx_obj_5riv
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":110
+/* "rivet/core.pyx":132
  *         return [ k.decode('utf-8') for k in kws ]
+ * 
+ *     def validation(self):             # <<<<<<<<<<<<<<
+ *         vld = deref(self._ptr).validation()
+ *         return [ k.decode('utf-8') for k in vld ]
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_9validation(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_9validation(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("validation (wrapper)", 0);
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_8validation(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_8validation(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
+  std::vector<std::string>  __pyx_v_vld;
+  std::string __pyx_v_k;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  std::vector<std::string> ::iterator __pyx_t_2;
+  std::string __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  __Pyx_RefNannySetupContext("validation", 0);
+
+  /* "rivet/core.pyx":133
+ * 
+ *     def validation(self):
+ *         vld = deref(self._ptr).validation()             # <<<<<<<<<<<<<<
+ *         return [ k.decode('utf-8') for k in vld ]
+ * 
+ */
+  __pyx_v_vld = (*__pyx_v_self->_ptr).validation();
+
+  /* "rivet/core.pyx":134
+ *     def validation(self):
+ *         vld = deref(self._ptr).validation()
+ *         return [ k.decode('utf-8') for k in vld ]             # <<<<<<<<<<<<<<
+ * 
+ *     def reentrant(self):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __pyx_v_vld.begin();
+  for (;;) {
+    if (!(__pyx_t_2 != __pyx_v_vld.end())) break;
+    __pyx_t_3 = *__pyx_t_2;
+    ++__pyx_t_2;
+    __pyx_v_k = __pyx_t_3;
+    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_k, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 134, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 134, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  }
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "rivet/core.pyx":132
+ *         return [ k.decode('utf-8') for k in kws ]
+ * 
+ *     def validation(self):             # <<<<<<<<<<<<<<
+ *         vld = deref(self._ptr).validation()
+ *         return [ k.decode('utf-8') for k in vld ]
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("rivet.core.Analysis.validation", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "rivet/core.pyx":136
+ *         return [ k.decode('utf-8') for k in vld ]
+ * 
+ *     def reentrant(self):             # <<<<<<<<<<<<<<
+ *         return deref(self._ptr).reentrant()
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_11reentrant(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_11reentrant(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("reentrant (wrapper)", 0);
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_10reentrant(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_10reentrant(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("reentrant", 0);
+
+  /* "rivet/core.pyx":137
+ * 
+ *     def reentrant(self):
+ *         return deref(self._ptr).reentrant()             # <<<<<<<<<<<<<<
+ * 
+ *     def authors(self):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyBool_FromLong((*__pyx_v_self->_ptr).reentrant()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "rivet/core.pyx":136
+ *         return [ k.decode('utf-8') for k in vld ]
+ * 
+ *     def reentrant(self):             # <<<<<<<<<<<<<<
+ *         return deref(self._ptr).reentrant()
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("rivet.core.Analysis.reentrant", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "rivet/core.pyx":139
+ *         return deref(self._ptr).reentrant()
  * 
  *     def authors(self):             # <<<<<<<<<<<<<<
  *         auths = deref(self._ptr).authors()
@@ -3913,19 +4870,19 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_6keywords(struct __pyx_obj_5riv
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_9authors(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_9authors(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_13authors(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_13authors(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("authors (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_8authors(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_12authors(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_8authors(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_12authors(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
   std::vector<std::string>  __pyx_v_auths;
   std::string __pyx_v_a;
   PyObject *__pyx_r = NULL;
@@ -3936,7 +4893,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_8authors(struct __pyx_obj_5rive
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("authors", 0);
 
-  /* "rivet/core.pyx":111
+  /* "rivet/core.pyx":140
  * 
  *     def authors(self):
  *         auths = deref(self._ptr).authors()             # <<<<<<<<<<<<<<
@@ -3945,7 +4902,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_8authors(struct __pyx_obj_5rive
  */
   __pyx_v_auths = (*__pyx_v_self->_ptr).authors();
 
-  /* "rivet/core.pyx":112
+  /* "rivet/core.pyx":141
  *     def authors(self):
  *         auths = deref(self._ptr).authors()
  *         return [ a.decode('utf-8') for a in auths ]             # <<<<<<<<<<<<<<
@@ -3953,7 +4910,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_8authors(struct __pyx_obj_5rive
  *     def bibKey(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __pyx_v_auths.begin();
   for (;;) {
@@ -3961,17 +4918,17 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_8authors(struct __pyx_obj_5rive
     __pyx_t_3 = *__pyx_t_2;
     ++__pyx_t_2;
     __pyx_v_a = __pyx_t_3;
-    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_a, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_a, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 112, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 141, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":110
- *         return [ k.decode('utf-8') for k in kws ]
+  /* "rivet/core.pyx":139
+ *         return deref(self._ptr).reentrant()
  * 
  *     def authors(self):             # <<<<<<<<<<<<<<
  *         auths = deref(self._ptr).authors()
@@ -3990,7 +4947,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_8authors(struct __pyx_obj_5rive
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":114
+/* "rivet/core.pyx":143
  *         return [ a.decode('utf-8') for a in auths ]
  * 
  *     def bibKey(self):             # <<<<<<<<<<<<<<
@@ -3999,25 +4956,25 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_8authors(struct __pyx_obj_5rive
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_11bibKey(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_11bibKey(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_15bibKey(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_15bibKey(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("bibKey (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_10bibKey(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_14bibKey(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_10bibKey(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_14bibKey(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("bibKey", 0);
 
-  /* "rivet/core.pyx":115
+  /* "rivet/core.pyx":144
  * 
  *     def bibKey(self):
  *         return deref(self._ptr).bibKey().decode('utf-8')             # <<<<<<<<<<<<<<
@@ -4025,13 +4982,13 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_10bibKey(struct __pyx_obj_5rive
  *     def name(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).bibKey(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).bibKey(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":114
+  /* "rivet/core.pyx":143
  *         return [ a.decode('utf-8') for a in auths ]
  * 
  *     def bibKey(self):             # <<<<<<<<<<<<<<
@@ -4050,7 +5007,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_10bibKey(struct __pyx_obj_5rive
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":117
+/* "rivet/core.pyx":146
  *         return deref(self._ptr).bibKey().decode('utf-8')
  * 
  *     def name(self):             # <<<<<<<<<<<<<<
@@ -4059,25 +5016,25 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_10bibKey(struct __pyx_obj_5rive
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_13name(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_13name(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_17name(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_17name(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("name (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_12name(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_16name(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_12name(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_16name(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("name", 0);
 
-  /* "rivet/core.pyx":118
+  /* "rivet/core.pyx":147
  * 
  *     def name(self):
  *         return deref(self._ptr).name().decode('utf-8')             # <<<<<<<<<<<<<<
@@ -4085,13 +5042,13 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_12name(struct __pyx_obj_5rivet_
  *     def bibTeX(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).name(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).name(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":117
+  /* "rivet/core.pyx":146
  *         return deref(self._ptr).bibKey().decode('utf-8')
  * 
  *     def name(self):             # <<<<<<<<<<<<<<
@@ -4110,7 +5067,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_12name(struct __pyx_obj_5rivet_
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":120
+/* "rivet/core.pyx":149
  *         return deref(self._ptr).name().decode('utf-8')
  * 
  *     def bibTeX(self):             # <<<<<<<<<<<<<<
@@ -4119,25 +5076,25 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_12name(struct __pyx_obj_5rivet_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_15bibTeX(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_15bibTeX(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_19bibTeX(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_19bibTeX(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("bibTeX (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_14bibTeX(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_18bibTeX(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_14bibTeX(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_18bibTeX(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("bibTeX", 0);
 
-  /* "rivet/core.pyx":121
+  /* "rivet/core.pyx":150
  * 
  *     def bibTeX(self):
  *         return deref(self._ptr).bibTeX().decode('utf-8')             # <<<<<<<<<<<<<<
@@ -4145,13 +5102,13 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_14bibTeX(struct __pyx_obj_5rive
  *     def references(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).bibTeX(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).bibTeX(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 150, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":120
+  /* "rivet/core.pyx":149
  *         return deref(self._ptr).name().decode('utf-8')
  * 
  *     def bibTeX(self):             # <<<<<<<<<<<<<<
@@ -4170,7 +5127,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_14bibTeX(struct __pyx_obj_5rive
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":123
+/* "rivet/core.pyx":152
  *         return deref(self._ptr).bibTeX().decode('utf-8')
  * 
  *     def references(self):             # <<<<<<<<<<<<<<
@@ -4179,19 +5136,19 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_14bibTeX(struct __pyx_obj_5rive
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_17references(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_17references(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_21references(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_21references(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("references (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_16references(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_20references(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_16references(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_20references(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
   std::vector<std::string>  __pyx_v_refs;
   std::string __pyx_v_r;
   PyObject *__pyx_r = NULL;
@@ -4202,7 +5159,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_16references(struct __pyx_obj_5
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("references", 0);
 
-  /* "rivet/core.pyx":124
+  /* "rivet/core.pyx":153
  * 
  *     def references(self):
  *         refs = deref(self._ptr).references()             # <<<<<<<<<<<<<<
@@ -4211,7 +5168,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_16references(struct __pyx_obj_5
  */
   __pyx_v_refs = (*__pyx_v_self->_ptr).references();
 
-  /* "rivet/core.pyx":125
+  /* "rivet/core.pyx":154
  *     def references(self):
  *         refs = deref(self._ptr).references()
  *         return [ r.decode('utf-8') for r  in refs ]             # <<<<<<<<<<<<<<
@@ -4219,7 +5176,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_16references(struct __pyx_obj_5
  *     def collider(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 125, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 154, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __pyx_v_refs.begin();
   for (;;) {
@@ -4227,16 +5184,16 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_16references(struct __pyx_obj_5
     __pyx_t_3 = *__pyx_t_2;
     ++__pyx_t_2;
     __pyx_v_r = __pyx_t_3;
-    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_r, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 125, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_r, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 154, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 125, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 154, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":123
+  /* "rivet/core.pyx":152
  *         return deref(self._ptr).bibTeX().decode('utf-8')
  * 
  *     def references(self):             # <<<<<<<<<<<<<<
@@ -4256,7 +5213,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_16references(struct __pyx_obj_5
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":127
+/* "rivet/core.pyx":156
  *         return [ r.decode('utf-8') for r  in refs ]
  * 
  *     def collider(self):             # <<<<<<<<<<<<<<
@@ -4265,25 +5222,25 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_16references(struct __pyx_obj_5
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_19collider(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_19collider(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_23collider(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_23collider(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("collider (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_18collider(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_22collider(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_18collider(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_22collider(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("collider", 0);
 
-  /* "rivet/core.pyx":128
+  /* "rivet/core.pyx":157
  * 
  *     def collider(self):
  *         return deref(self._ptr).collider().decode('utf-8')             # <<<<<<<<<<<<<<
@@ -4291,13 +5248,13 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_18collider(struct __pyx_obj_5ri
  *     def description(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).collider(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 128, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).collider(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 157, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":127
+  /* "rivet/core.pyx":156
  *         return [ r.decode('utf-8') for r  in refs ]
  * 
  *     def collider(self):             # <<<<<<<<<<<<<<
@@ -4316,7 +5273,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_18collider(struct __pyx_obj_5ri
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":130
+/* "rivet/core.pyx":159
  *         return deref(self._ptr).collider().decode('utf-8')
  * 
  *     def description(self):             # <<<<<<<<<<<<<<
@@ -4325,25 +5282,25 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_18collider(struct __pyx_obj_5ri
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_21description(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_21description(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_25description(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_25description(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("description (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_20description(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_24description(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_20description(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_24description(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("description", 0);
 
-  /* "rivet/core.pyx":131
+  /* "rivet/core.pyx":160
  * 
  *     def description(self):
  *         return deref(self._ptr).description().decode('utf-8')             # <<<<<<<<<<<<<<
@@ -4351,13 +5308,13 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_20description(struct __pyx_obj_
  *     def experiment(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).description(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).description(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":130
+  /* "rivet/core.pyx":159
  *         return deref(self._ptr).collider().decode('utf-8')
  * 
  *     def description(self):             # <<<<<<<<<<<<<<
@@ -4376,7 +5333,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_20description(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":133
+/* "rivet/core.pyx":162
  *         return deref(self._ptr).description().decode('utf-8')
  * 
  *     def experiment(self):             # <<<<<<<<<<<<<<
@@ -4385,25 +5342,25 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_20description(struct __pyx_obj_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_23experiment(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_23experiment(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_27experiment(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_27experiment(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("experiment (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_22experiment(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_26experiment(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_22experiment(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_26experiment(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("experiment", 0);
 
-  /* "rivet/core.pyx":134
+  /* "rivet/core.pyx":163
  * 
  *     def experiment(self):
  *         return deref(self._ptr).experiment().decode('utf-8')             # <<<<<<<<<<<<<<
@@ -4411,13 +5368,13 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_22experiment(struct __pyx_obj_5
  *     def inspireId(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).experiment(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).experiment(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":133
+  /* "rivet/core.pyx":162
  *         return deref(self._ptr).description().decode('utf-8')
  * 
  *     def experiment(self):             # <<<<<<<<<<<<<<
@@ -4436,7 +5393,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_22experiment(struct __pyx_obj_5
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":136
+/* "rivet/core.pyx":165
  *         return deref(self._ptr).experiment().decode('utf-8')
  * 
  *     def inspireId(self):             # <<<<<<<<<<<<<<
@@ -4445,25 +5402,25 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_22experiment(struct __pyx_obj_5
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_25inspireId(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_25inspireId(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_29inspireId(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_29inspireId(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("inspireId (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_24inspireId(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_28inspireId(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_24inspireId(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_28inspireId(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("inspireId", 0);
 
-  /* "rivet/core.pyx":137
+  /* "rivet/core.pyx":166
  * 
  *     def inspireId(self):
  *         return deref(self._ptr).inspireId().decode('utf-8')             # <<<<<<<<<<<<<<
@@ -4471,13 +5428,13 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_24inspireId(struct __pyx_obj_5r
  *     def spiresId(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).inspireId(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).inspireId(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":136
+  /* "rivet/core.pyx":165
  *         return deref(self._ptr).experiment().decode('utf-8')
  * 
  *     def inspireId(self):             # <<<<<<<<<<<<<<
@@ -4496,7 +5453,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_24inspireId(struct __pyx_obj_5r
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":139
+/* "rivet/core.pyx":168
  *         return deref(self._ptr).inspireId().decode('utf-8')
  * 
  *     def spiresId(self):             # <<<<<<<<<<<<<<
@@ -4505,25 +5462,25 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_24inspireId(struct __pyx_obj_5r
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_27spiresId(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_27spiresId(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_31spiresId(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_31spiresId(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("spiresId (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_26spiresId(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_30spiresId(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_26spiresId(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_30spiresId(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("spiresId", 0);
 
-  /* "rivet/core.pyx":140
+  /* "rivet/core.pyx":169
  * 
  *     def spiresId(self):
  *         return deref(self._ptr).spiresId().decode('utf-8')             # <<<<<<<<<<<<<<
@@ -4531,13 +5488,13 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_26spiresId(struct __pyx_obj_5ri
  *     def runInfo(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).spiresId(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).spiresId(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":139
+  /* "rivet/core.pyx":168
  *         return deref(self._ptr).inspireId().decode('utf-8')
  * 
  *     def spiresId(self):             # <<<<<<<<<<<<<<
@@ -4556,7 +5513,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_26spiresId(struct __pyx_obj_5ri
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":142
+/* "rivet/core.pyx":171
  *         return deref(self._ptr).spiresId().decode('utf-8')
  * 
  *     def runInfo(self):             # <<<<<<<<<<<<<<
@@ -4565,25 +5522,25 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_26spiresId(struct __pyx_obj_5ri
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_29runInfo(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_29runInfo(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_33runInfo(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_33runInfo(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("runInfo (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_28runInfo(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_32runInfo(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_28runInfo(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_32runInfo(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("runInfo", 0);
 
-  /* "rivet/core.pyx":143
+  /* "rivet/core.pyx":172
  * 
  *     def runInfo(self):
  *         return deref(self._ptr).runInfo().decode('utf-8')             # <<<<<<<<<<<<<<
@@ -4591,13 +5548,13 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_28runInfo(struct __pyx_obj_5riv
  *     def status(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).runInfo(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).runInfo(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 172, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":142
+  /* "rivet/core.pyx":171
  *         return deref(self._ptr).spiresId().decode('utf-8')
  * 
  *     def runInfo(self):             # <<<<<<<<<<<<<<
@@ -4616,7 +5573,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_28runInfo(struct __pyx_obj_5riv
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":145
+/* "rivet/core.pyx":174
  *         return deref(self._ptr).runInfo().decode('utf-8')
  * 
  *     def status(self):             # <<<<<<<<<<<<<<
@@ -4625,25 +5582,25 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_28runInfo(struct __pyx_obj_5riv
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_31status(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_31status(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_35status(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_35status(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("status (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_30status(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_34status(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_30status(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_34status(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("status", 0);
 
-  /* "rivet/core.pyx":146
+  /* "rivet/core.pyx":175
  * 
  *     def status(self):
  *         return deref(self._ptr).status().decode('utf-8')             # <<<<<<<<<<<<<<
@@ -4651,13 +5608,13 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_30status(struct __pyx_obj_5rive
  *     def summary(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).status(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).status(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 175, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":145
+  /* "rivet/core.pyx":174
  *         return deref(self._ptr).runInfo().decode('utf-8')
  * 
  *     def status(self):             # <<<<<<<<<<<<<<
@@ -4676,7 +5633,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_30status(struct __pyx_obj_5rive
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":148
+/* "rivet/core.pyx":177
  *         return deref(self._ptr).status().decode('utf-8')
  * 
  *     def summary(self):             # <<<<<<<<<<<<<<
@@ -4685,25 +5642,25 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_30status(struct __pyx_obj_5rive
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_33summary(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_33summary(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_37summary(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_37summary(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("summary (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_32summary(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_36summary(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_32summary(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_36summary(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("summary", 0);
 
-  /* "rivet/core.pyx":149
+  /* "rivet/core.pyx":178
  * 
  *     def summary(self):
  *         return deref(self._ptr).summary().decode('utf-8')             # <<<<<<<<<<<<<<
@@ -4711,13 +5668,13 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_32summary(struct __pyx_obj_5riv
  *     def year(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).summary(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).summary(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 178, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":148
+  /* "rivet/core.pyx":177
  *         return deref(self._ptr).status().decode('utf-8')
  * 
  *     def summary(self):             # <<<<<<<<<<<<<<
@@ -4736,7 +5693,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_32summary(struct __pyx_obj_5riv
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":151
+/* "rivet/core.pyx":180
  *         return deref(self._ptr).summary().decode('utf-8')
  * 
  *     def year(self):             # <<<<<<<<<<<<<<
@@ -4745,39 +5702,39 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_32summary(struct __pyx_obj_5riv
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_35year(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_35year(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_39year(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_39year(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("year (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_34year(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_38year(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_34year(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_38year(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("year", 0);
 
-  /* "rivet/core.pyx":152
+  /* "rivet/core.pyx":181
  * 
  *     def year(self):
  *         return deref(self._ptr).year().decode('utf-8')             # <<<<<<<<<<<<<<
  * 
- *     def luminosityfb(self):
+ *     def luminosity(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).year(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).year(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 181, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":151
+  /* "rivet/core.pyx":180
  *         return deref(self._ptr).summary().decode('utf-8')
  * 
  *     def year(self):             # <<<<<<<<<<<<<<
@@ -4796,52 +5753,112 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_34year(struct __pyx_obj_5rivet_
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":154
+/* "rivet/core.pyx":183
  *         return deref(self._ptr).year().decode('utf-8')
  * 
- *     def luminosityfb(self):             # <<<<<<<<<<<<<<
- *         return deref(self._ptr).luminosityfb().decode('utf-8')
+ *     def luminosity(self):             # <<<<<<<<<<<<<<
+ *         return deref(self._ptr).luminosity()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_37luminosityfb(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_37luminosityfb(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_41luminosity(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_41luminosity(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("luminosityfb (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_36luminosityfb(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("luminosity (wrapper)", 0);
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_40luminosity(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_36luminosityfb(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_40luminosity(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  __Pyx_RefNannySetupContext("luminosityfb", 0);
+  __Pyx_RefNannySetupContext("luminosity", 0);
 
-  /* "rivet/core.pyx":155
+  /* "rivet/core.pyx":184
+ * 
+ *     def luminosity(self):
+ *         return deref(self._ptr).luminosity()             # <<<<<<<<<<<<<<
  * 
  *     def luminosityfb(self):
- *         return deref(self._ptr).luminosityfb().decode('utf-8')             # <<<<<<<<<<<<<<
- * 
- * #cdef object
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->_ptr).luminosityfb(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 155, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble((*__pyx_v_self->_ptr).luminosity()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 184, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":154
+  /* "rivet/core.pyx":183
  *         return deref(self._ptr).year().decode('utf-8')
  * 
+ *     def luminosity(self):             # <<<<<<<<<<<<<<
+ *         return deref(self._ptr).luminosity()
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("rivet.core.Analysis.luminosity", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "rivet/core.pyx":186
+ *         return deref(self._ptr).luminosity()
+ * 
  *     def luminosityfb(self):             # <<<<<<<<<<<<<<
- *         return deref(self._ptr).luminosityfb().decode('utf-8')
+ *         return deref(self._ptr).luminosityfb()
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_43luminosityfb(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_43luminosityfb(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("luminosityfb (wrapper)", 0);
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_42luminosityfb(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_42luminosityfb(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("luminosityfb", 0);
+
+  /* "rivet/core.pyx":187
+ * 
+ *     def luminosityfb(self):
+ *         return deref(self._ptr).luminosityfb()             # <<<<<<<<<<<<<<
+ * 
+ *     def refFile(self):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyFloat_FromDouble((*__pyx_v_self->_ptr).luminosityfb()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "rivet/core.pyx":186
+ *         return deref(self._ptr).luminosity()
+ * 
+ *     def luminosityfb(self):             # <<<<<<<<<<<<<<
+ *         return deref(self._ptr).luminosityfb()
  * 
  */
 
@@ -4856,6 +5873,289 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_36luminosityfb(struct __pyx_obj
   return __pyx_r;
 }
 
+/* "rivet/core.pyx":189
+ *         return deref(self._ptr).luminosityfb()
+ * 
+ *     def refFile(self):             # <<<<<<<<<<<<<<
+ *         #return findAnalysisRefFile(self.name() + ".yoda")
+ *         return deref(self._ptr).refFile()
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_45refFile(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_45refFile(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("refFile (wrapper)", 0);
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_44refFile(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_44refFile(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("refFile", 0);
+
+  /* "rivet/core.pyx":191
+ *     def refFile(self):
+ *         #return findAnalysisRefFile(self.name() + ".yoda")
+ *         return deref(self._ptr).refFile()             # <<<<<<<<<<<<<<
+ * 
+ *     def refData(self, asdict=True, patterns=None, unpatterns=None):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __pyx_convert_PyBytes_string_to_py_std__in_string((*__pyx_v_self->_ptr).refFile()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 191, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "rivet/core.pyx":189
+ *         return deref(self._ptr).luminosityfb()
+ * 
+ *     def refFile(self):             # <<<<<<<<<<<<<<
+ *         #return findAnalysisRefFile(self.name() + ".yoda")
+ *         return deref(self._ptr).refFile()
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("rivet.core.Analysis.refFile", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "rivet/core.pyx":193
+ *         return deref(self._ptr).refFile()
+ * 
+ *     def refData(self, asdict=True, patterns=None, unpatterns=None):             # <<<<<<<<<<<<<<
+ *         """Get this analysis' reference data, cf. yoda.read()
+ *         NB. There's also a C++ version of this, but this wrapping is nicer for Python"""
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_47refData(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5rivet_4core_8Analysis_46refData[] = "Get this analysis' reference data, cf. yoda.read()\n        NB. There's also a C++ version of this, but this wrapping is nicer for Python";
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_47refData(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_asdict = 0;
+  PyObject *__pyx_v_patterns = 0;
+  PyObject *__pyx_v_unpatterns = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("refData (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_asdict,&__pyx_n_s_patterns,&__pyx_n_s_unpatterns,0};
+    PyObject* values[3] = {0,0,0};
+    values[0] = ((PyObject *)Py_True);
+    values[1] = ((PyObject *)Py_None);
+    values[2] = ((PyObject *)Py_None);
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_asdict);
+          if (value) { values[0] = value; kw_args--; }
+        }
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_patterns);
+          if (value) { values[1] = value; kw_args--; }
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_unpatterns);
+          if (value) { values[2] = value; kw_args--; }
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "refData") < 0)) __PYX_ERR(0, 193, __pyx_L3_error)
+      }
+    } else {
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+    }
+    __pyx_v_asdict = values[0];
+    __pyx_v_patterns = values[1];
+    __pyx_v_unpatterns = values[2];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("refData", 0, 0, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 193, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("rivet.core.Analysis.refData", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_46refData(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self), __pyx_v_asdict, __pyx_v_patterns, __pyx_v_unpatterns);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_46refData(struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self, PyObject *__pyx_v_asdict, PyObject *__pyx_v_patterns, PyObject *__pyx_v_unpatterns) {
+  PyObject *__pyx_v_yoda = NULL;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  int __pyx_t_6;
+  __Pyx_RefNannySetupContext("refData", 0);
+
+  /* "rivet/core.pyx":196
+ *         """Get this analysis' reference data, cf. yoda.read()
+ *         NB. There's also a C++ version of this, but this wrapping is nicer for Python"""
+ *         import yoda             # <<<<<<<<<<<<<<
+ *         return yoda.read(self.refFile(), asdict, patterns, unpatterns)
+ * 
+ */
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_yoda, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_yoda = __pyx_t_1;
+  __pyx_t_1 = 0;
+
+  /* "rivet/core.pyx":197
+ *         NB. There's also a C++ version of this, but this wrapping is nicer for Python"""
+ *         import yoda
+ *         return yoda.read(self.refFile(), asdict, patterns, unpatterns)             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_yoda, __pyx_n_s_read); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_refFile); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
+    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+    if (likely(__pyx_t_5)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+      __Pyx_INCREF(__pyx_t_5);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_4, function);
+    }
+  }
+  __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5) : __Pyx_PyObject_CallNoArg(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = NULL;
+  __pyx_t_6 = 0;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+      __pyx_t_6 = 1;
+    }
+  }
+  #if CYTHON_FAST_PYCALL
+  if (PyFunction_Check(__pyx_t_2)) {
+    PyObject *__pyx_temp[5] = {__pyx_t_4, __pyx_t_3, __pyx_v_asdict, __pyx_v_patterns, __pyx_v_unpatterns};
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 4+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  } else
+  #endif
+  #if CYTHON_FAST_PYCCALL
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
+    PyObject *__pyx_temp[5] = {__pyx_t_4, __pyx_t_3, __pyx_v_asdict, __pyx_v_patterns, __pyx_v_unpatterns};
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 4+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  } else
+  #endif
+  {
+    __pyx_t_5 = PyTuple_New(4+__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 197, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    if (__pyx_t_4) {
+      __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __pyx_t_4 = NULL;
+    }
+    __Pyx_GIVEREF(__pyx_t_3);
+    PyTuple_SET_ITEM(__pyx_t_5, 0+__pyx_t_6, __pyx_t_3);
+    __Pyx_INCREF(__pyx_v_asdict);
+    __Pyx_GIVEREF(__pyx_v_asdict);
+    PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_6, __pyx_v_asdict);
+    __Pyx_INCREF(__pyx_v_patterns);
+    __Pyx_GIVEREF(__pyx_v_patterns);
+    PyTuple_SET_ITEM(__pyx_t_5, 2+__pyx_t_6, __pyx_v_patterns);
+    __Pyx_INCREF(__pyx_v_unpatterns);
+    __Pyx_GIVEREF(__pyx_v_unpatterns);
+    PyTuple_SET_ITEM(__pyx_t_5, 3+__pyx_t_6, __pyx_v_unpatterns);
+    __pyx_t_3 = 0;
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "rivet/core.pyx":193
+ *         return deref(self._ptr).refFile()
+ * 
+ *     def refData(self, asdict=True, patterns=None, unpatterns=None):             # <<<<<<<<<<<<<<
+ *         """Get this analysis' reference data, cf. yoda.read()
+ *         NB. There's also a C++ version of this, but this wrapping is nicer for Python"""
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("rivet.core.Analysis.refData", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_yoda);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
 /* "(tree fragment)":1
  * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
  *     raise TypeError("self._ptr cannot be converted to a Python object for pickling")
@@ -4863,19 +6163,19 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_36luminosityfb(struct __pyx_obj
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_39__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_39__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_49__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_49__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_38__reduce_cython__(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_48__reduce_cython__(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_38__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_48__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4887,7 +6187,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_38__reduce_cython__(CYTHON_UNUS
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("self._ptr cannot be converted to a Python object for pickling")
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 2, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -4917,19 +6217,19 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_38__reduce_cython__(CYTHON_UNUS
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_41__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_8Analysis_41__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_51__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_8Analysis_51__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_40__setstate_cython__(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+  __pyx_r = __pyx_pf_5rivet_4core_8Analysis_50__setstate_cython__(((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_8Analysis_40__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_5rivet_4core_8Analysis_50__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4940,7 +6240,7 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_40__setstate_cython__(CYTHON_UN
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("self._ptr cannot be converted to a Python object for pickling")             # <<<<<<<<<<<<<<
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 4, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -4963,8 +6263,8 @@ static PyObject *__pyx_pf_5rivet_4core_8Analysis_40__setstate_cython__(CYTHON_UN
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":165
- * cdef class AnalysisLoader:
+/* "rivet/core.pyx":209
+ * 
  *     @staticmethod
  *     def analysisNames():             # <<<<<<<<<<<<<<
  *         names = c.AnalysisLoader_analysisNames()
@@ -4999,7 +6299,7 @@ static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_analysisNames(void) {
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("analysisNames", 0);
 
-  /* "rivet/core.pyx":166
+  /* "rivet/core.pyx":210
  *     @staticmethod
  *     def analysisNames():
  *         names = c.AnalysisLoader_analysisNames()             # <<<<<<<<<<<<<<
@@ -5008,15 +6308,15 @@ static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_analysisNames(void) {
  */
   __pyx_v_names = Rivet::AnalysisLoader::analysisNames();
 
-  /* "rivet/core.pyx":167
+  /* "rivet/core.pyx":211
  *     def analysisNames():
  *         names = c.AnalysisLoader_analysisNames()
  *         return [ n.decode('utf-8') for n in names ]             # <<<<<<<<<<<<<<
  * 
- * 
+ *     # @staticmethod
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __pyx_v_names.begin();
   for (;;) {
@@ -5024,17 +6324,17 @@ static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_analysisNames(void) {
     __pyx_t_3 = *__pyx_t_2;
     ++__pyx_t_2;
     __pyx_v_n = __pyx_t_3;
-    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_n, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 167, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_n, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 211, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 167, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 211, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":165
- * cdef class AnalysisLoader:
+  /* "rivet/core.pyx":209
+ * 
  *     @staticmethod
  *     def analysisNames():             # <<<<<<<<<<<<<<
  *         names = c.AnalysisLoader_analysisNames()
@@ -5053,7 +6353,97 @@ static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_analysisNames(void) {
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":171
+/* "rivet/core.pyx":219
+ * 
+ *     @staticmethod
+ *     def stdAnalysisNames():             # <<<<<<<<<<<<<<
+ *         names = c.AnalysisLoader_stdAnalysisNames()
+ *         return [ n.decode('utf-8') for n in names ]
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5rivet_4core_14AnalysisLoader_3stdAnalysisNames(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_14AnalysisLoader_3stdAnalysisNames = {"stdAnalysisNames", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_14AnalysisLoader_3stdAnalysisNames, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5rivet_4core_14AnalysisLoader_3stdAnalysisNames(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("stdAnalysisNames (wrapper)", 0);
+  if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
+    __Pyx_RaiseArgtupleInvalid("stdAnalysisNames", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return NULL;}
+  if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "stdAnalysisNames", 0))) return NULL;
+  __pyx_r = __pyx_pf_5rivet_4core_14AnalysisLoader_2stdAnalysisNames();
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_2stdAnalysisNames(void) {
+  std::vector<std::string>  __pyx_v_names;
+  std::string __pyx_v_n;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  std::vector<std::string> ::iterator __pyx_t_2;
+  std::string __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  __Pyx_RefNannySetupContext("stdAnalysisNames", 0);
+
+  /* "rivet/core.pyx":220
+ *     @staticmethod
+ *     def stdAnalysisNames():
+ *         names = c.AnalysisLoader_stdAnalysisNames()             # <<<<<<<<<<<<<<
+ *         return [ n.decode('utf-8') for n in names ]
+ * 
+ */
+  __pyx_v_names = Rivet::AnalysisLoader::stdAnalysisNames();
+
+  /* "rivet/core.pyx":221
+ *     def stdAnalysisNames():
+ *         names = c.AnalysisLoader_stdAnalysisNames()
+ *         return [ n.decode('utf-8') for n in names ]             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 221, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __pyx_v_names.begin();
+  for (;;) {
+    if (!(__pyx_t_2 != __pyx_v_names.end())) break;
+    __pyx_t_3 = *__pyx_t_2;
+    ++__pyx_t_2;
+    __pyx_v_n = __pyx_t_3;
+    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_n, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 221, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 221, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  }
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "rivet/core.pyx":219
+ * 
+ *     @staticmethod
+ *     def stdAnalysisNames():             # <<<<<<<<<<<<<<
+ *         names = c.AnalysisLoader_stdAnalysisNames()
+ *         return [ n.decode('utf-8') for n in names ]
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("rivet.core.AnalysisLoader.stdAnalysisNames", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "rivet/core.pyx":225
  * 
  *     @staticmethod
  *     def getAnalysis(name):             # <<<<<<<<<<<<<<
@@ -5062,9 +6452,9 @@ static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_analysisNames(void) {
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_14AnalysisLoader_3getAnalysis(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_5rivet_4core_14AnalysisLoader_3getAnalysis = {"getAnalysis", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_14AnalysisLoader_3getAnalysis, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5rivet_4core_14AnalysisLoader_3getAnalysis(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5rivet_4core_14AnalysisLoader_5getAnalysis(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_14AnalysisLoader_5getAnalysis = {"getAnalysis", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_14AnalysisLoader_5getAnalysis, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5rivet_4core_14AnalysisLoader_5getAnalysis(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_name = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -5088,7 +6478,7 @@ static PyObject *__pyx_pw_5rivet_4core_14AnalysisLoader_3getAnalysis(CYTHON_UNUS
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "getAnalysis") < 0)) __PYX_ERR(0, 171, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "getAnalysis") < 0)) __PYX_ERR(0, 225, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 1) {
       goto __pyx_L5_argtuple_error;
@@ -5099,20 +6489,20 @@ static PyObject *__pyx_pw_5rivet_4core_14AnalysisLoader_3getAnalysis(CYTHON_UNUS
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("getAnalysis", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 171, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("getAnalysis", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 225, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("rivet.core.AnalysisLoader.getAnalysis", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5rivet_4core_14AnalysisLoader_2getAnalysis(__pyx_v_name);
+  __pyx_r = __pyx_pf_5rivet_4core_14AnalysisLoader_4getAnalysis(__pyx_v_name);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_2getAnalysis(PyObject *__pyx_v_name) {
+static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_4getAnalysis(PyObject *__pyx_v_name) {
   std::unique_ptr<Rivet::Analysis>  __pyx_v_ptr;
   struct __pyx_obj_5rivet_4core_Analysis *__pyx_v_pyobj = 0;
   PyObject *__pyx_r = NULL;
@@ -5125,14 +6515,14 @@ static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_2getAnalysis(PyObject *_
   __Pyx_RefNannySetupContext("getAnalysis", 0);
   __Pyx_INCREF(__pyx_v_name);
 
-  /* "rivet/core.pyx":172
+  /* "rivet/core.pyx":226
  *     @staticmethod
  *     def getAnalysis(name):
  *         name = name.encode('utf-8')             # <<<<<<<<<<<<<<
  *         cdef c.unique_ptr[c.Analysis] ptr = c.AnalysisLoader_getAnalysis(name)
  *         cdef Analysis pyobj = Analysis.__new__(Analysis)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 172, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -5146,35 +6536,35 @@ static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_2getAnalysis(PyObject *_
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_kp_s_utf_8);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 172, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF_SET(__pyx_v_name, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "rivet/core.pyx":173
+  /* "rivet/core.pyx":227
  *     def getAnalysis(name):
  *         name = name.encode('utf-8')
  *         cdef c.unique_ptr[c.Analysis] ptr = c.AnalysisLoader_getAnalysis(name)             # <<<<<<<<<<<<<<
  *         cdef Analysis pyobj = Analysis.__new__(Analysis)
  *         if not ptr:
  */
-  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_v_name); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 173, __pyx_L1_error)
+  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_v_name); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 227, __pyx_L1_error)
   __pyx_v_ptr = Rivet::AnalysisLoader::getAnalysis(__pyx_t_4);
 
-  /* "rivet/core.pyx":174
+  /* "rivet/core.pyx":228
  *         name = name.encode('utf-8')
  *         cdef c.unique_ptr[c.Analysis] ptr = c.AnalysisLoader_getAnalysis(name)
  *         cdef Analysis pyobj = Analysis.__new__(Analysis)             # <<<<<<<<<<<<<<
  *         if not ptr:
  *             return None
  */
-  __pyx_t_1 = ((PyObject *)__pyx_tp_new_5rivet_4core_Analysis(((PyTypeObject *)__pyx_ptype_5rivet_4core_Analysis), __pyx_empty_tuple, NULL)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 174, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)__pyx_tp_new_5rivet_4core_Analysis(((PyTypeObject *)__pyx_ptype_5rivet_4core_Analysis), __pyx_empty_tuple, NULL)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(((PyObject *)__pyx_t_1));
   __pyx_v_pyobj = ((struct __pyx_obj_5rivet_4core_Analysis *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "rivet/core.pyx":175
+  /* "rivet/core.pyx":229
  *         cdef c.unique_ptr[c.Analysis] ptr = c.AnalysisLoader_getAnalysis(name)
  *         cdef Analysis pyobj = Analysis.__new__(Analysis)
  *         if not ptr:             # <<<<<<<<<<<<<<
@@ -5184,7 +6574,7 @@ static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_2getAnalysis(PyObject *_
   __pyx_t_5 = ((!__pyx_v_ptr) != 0);
   if (__pyx_t_5) {
 
-    /* "rivet/core.pyx":176
+    /* "rivet/core.pyx":230
  *         cdef Analysis pyobj = Analysis.__new__(Analysis)
  *         if not ptr:
  *             return None             # <<<<<<<<<<<<<<
@@ -5195,7 +6585,7 @@ static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_2getAnalysis(PyObject *_
     __pyx_r = Py_None; __Pyx_INCREF(Py_None);
     goto __pyx_L0;
 
-    /* "rivet/core.pyx":175
+    /* "rivet/core.pyx":229
  *         cdef c.unique_ptr[c.Analysis] ptr = c.AnalysisLoader_getAnalysis(name)
  *         cdef Analysis pyobj = Analysis.__new__(Analysis)
  *         if not ptr:             # <<<<<<<<<<<<<<
@@ -5204,7 +6594,7 @@ static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_2getAnalysis(PyObject *_
  */
   }
 
-  /* "rivet/core.pyx":177
+  /* "rivet/core.pyx":231
  *         if not ptr:
  *             return None
  *         pyobj._ptr = move(ptr)             # <<<<<<<<<<<<<<
@@ -5213,7 +6603,7 @@ static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_2getAnalysis(PyObject *_
  */
   __pyx_v_pyobj->_ptr = std::move(__pyx_v_ptr);
 
-  /* "rivet/core.pyx":179
+  /* "rivet/core.pyx":233
  *         pyobj._ptr = move(ptr)
  *         # Create python object
  *         return pyobj             # <<<<<<<<<<<<<<
@@ -5225,7 +6615,7 @@ static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_2getAnalysis(PyObject *_
   __pyx_r = ((PyObject *)__pyx_v_pyobj);
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":171
+  /* "rivet/core.pyx":225
  * 
  *     @staticmethod
  *     def getAnalysis(name):             # <<<<<<<<<<<<<<
@@ -5255,19 +6645,19 @@ static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_2getAnalysis(PyObject *_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_14AnalysisLoader_5__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_14AnalysisLoader_5__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_14AnalysisLoader_7__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_14AnalysisLoader_7__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_14AnalysisLoader_4__reduce_cython__(((struct __pyx_obj_5rivet_4core_AnalysisLoader *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5rivet_4core_14AnalysisLoader_6__reduce_cython__(((struct __pyx_obj_5rivet_4core_AnalysisLoader *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_4__reduce_cython__(struct __pyx_obj_5rivet_4core_AnalysisLoader *__pyx_v_self) {
+static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_6__reduce_cython__(struct __pyx_obj_5rivet_4core_AnalysisLoader *__pyx_v_self) {
   PyObject *__pyx_v_state = 0;
   PyObject *__pyx_v__dict = 0;
   int __pyx_v_use_setstate;
@@ -5481,19 +6871,19 @@ static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_4__reduce_cython__(struc
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_14AnalysisLoader_7__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
-static PyObject *__pyx_pw_5rivet_4core_14AnalysisLoader_7__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pw_5rivet_4core_14AnalysisLoader_9__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_5rivet_4core_14AnalysisLoader_9__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_14AnalysisLoader_6__setstate_cython__(((struct __pyx_obj_5rivet_4core_AnalysisLoader *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+  __pyx_r = __pyx_pf_5rivet_4core_14AnalysisLoader_8__setstate_cython__(((struct __pyx_obj_5rivet_4core_AnalysisLoader *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_6__setstate_cython__(struct __pyx_obj_5rivet_4core_AnalysisLoader *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_8__setstate_cython__(struct __pyx_obj_5rivet_4core_AnalysisLoader *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5529,29 +6919,291 @@ static PyObject *__pyx_pf_5rivet_4core_14AnalysisLoader_6__setstate_cython__(str
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":182
+/* "rivet/core.pyx":237
  * 
+ * ## Convenience versions in main rivet namespace
+ * def analysisNames():             # <<<<<<<<<<<<<<
+ *     return AnalysisLoader.analysisNames()
  * 
- * def getAnalysisLibPaths():             # <<<<<<<<<<<<<<
- *     ps = c.getAnalysisLibPaths()
- *     return [ p.decode('utf-8') for p in ps ]
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_1getAnalysisLibPaths(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyMethodDef __pyx_mdef_5rivet_4core_1getAnalysisLibPaths = {"getAnalysisLibPaths", (PyCFunction)__pyx_pw_5rivet_4core_1getAnalysisLibPaths, METH_NOARGS, 0};
-static PyObject *__pyx_pw_5rivet_4core_1getAnalysisLibPaths(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_1analysisNames(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_1analysisNames = {"analysisNames", (PyCFunction)__pyx_pw_5rivet_4core_1analysisNames, METH_NOARGS, 0};
+static PyObject *__pyx_pw_5rivet_4core_1analysisNames(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("getAnalysisLibPaths (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_getAnalysisLibPaths(__pyx_self);
+  __Pyx_RefNannySetupContext("analysisNames (wrapper)", 0);
+  __pyx_r = __pyx_pf_5rivet_4core_analysisNames(__pyx_self);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_getAnalysisLibPaths(CYTHON_UNUSED PyObject *__pyx_self) {
+static PyObject *__pyx_pf_5rivet_4core_analysisNames(CYTHON_UNUSED PyObject *__pyx_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  __Pyx_RefNannySetupContext("analysisNames", 0);
+
+  /* "rivet/core.pyx":238
+ * ## Convenience versions in main rivet namespace
+ * def analysisNames():
+ *     return AnalysisLoader.analysisNames()             # <<<<<<<<<<<<<<
+ * 
+ * def stdAnalysisNames():
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_5rivet_4core_AnalysisLoader), __pyx_n_s_analysisNames); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 238, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 238, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "rivet/core.pyx":237
+ * 
+ * ## Convenience versions in main rivet namespace
+ * def analysisNames():             # <<<<<<<<<<<<<<
+ *     return AnalysisLoader.analysisNames()
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_AddTraceback("rivet.core.analysisNames", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "rivet/core.pyx":240
+ *     return AnalysisLoader.analysisNames()
+ * 
+ * def stdAnalysisNames():             # <<<<<<<<<<<<<<
+ *     return AnalysisLoader.stdAnalysisNames()
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5rivet_4core_3stdAnalysisNames(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_3stdAnalysisNames = {"stdAnalysisNames", (PyCFunction)__pyx_pw_5rivet_4core_3stdAnalysisNames, METH_NOARGS, 0};
+static PyObject *__pyx_pw_5rivet_4core_3stdAnalysisNames(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("stdAnalysisNames (wrapper)", 0);
+  __pyx_r = __pyx_pf_5rivet_4core_2stdAnalysisNames(__pyx_self);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5rivet_4core_2stdAnalysisNames(CYTHON_UNUSED PyObject *__pyx_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  __Pyx_RefNannySetupContext("stdAnalysisNames", 0);
+
+  /* "rivet/core.pyx":241
+ * 
+ * def stdAnalysisNames():
+ *     return AnalysisLoader.stdAnalysisNames()             # <<<<<<<<<<<<<<
+ * 
+ * def getAnalysis(name):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_5rivet_4core_AnalysisLoader), __pyx_n_s_stdAnalysisNames); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 241, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 241, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "rivet/core.pyx":240
+ *     return AnalysisLoader.analysisNames()
+ * 
+ * def stdAnalysisNames():             # <<<<<<<<<<<<<<
+ *     return AnalysisLoader.stdAnalysisNames()
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_AddTraceback("rivet.core.stdAnalysisNames", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "rivet/core.pyx":243
+ *     return AnalysisLoader.stdAnalysisNames()
+ * 
+ * def getAnalysis(name):             # <<<<<<<<<<<<<<
+ *     return AnalysisLoader.getAnalysis(name.encode('utf-8'))
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5rivet_4core_5getAnalysis(PyObject *__pyx_self, PyObject *__pyx_v_name); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_5getAnalysis = {"getAnalysis", (PyCFunction)__pyx_pw_5rivet_4core_5getAnalysis, METH_O, 0};
+static PyObject *__pyx_pw_5rivet_4core_5getAnalysis(PyObject *__pyx_self, PyObject *__pyx_v_name) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("getAnalysis (wrapper)", 0);
+  __pyx_r = __pyx_pf_5rivet_4core_4getAnalysis(__pyx_self, ((PyObject *)__pyx_v_name));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5rivet_4core_4getAnalysis(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_name) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  __Pyx_RefNannySetupContext("getAnalysis", 0);
+
+  /* "rivet/core.pyx":244
+ * 
+ * def getAnalysis(name):
+ *     return AnalysisLoader.getAnalysis(name.encode('utf-8'))             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_5rivet_4core_AnalysisLoader), __pyx_n_s_getAnalysis); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 244, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 244, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
+    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+    if (likely(__pyx_t_5)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+      __Pyx_INCREF(__pyx_t_5);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_4, function);
+    }
+  }
+  __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_kp_s_utf_8);
+  __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 244, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_1 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_4, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 244, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "rivet/core.pyx":243
+ *     return AnalysisLoader.stdAnalysisNames()
+ * 
+ * def getAnalysis(name):             # <<<<<<<<<<<<<<
+ *     return AnalysisLoader.getAnalysis(name.encode('utf-8'))
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("rivet.core.getAnalysis", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "rivet/core.pyx":248
+ * 
+ * ## Path functions
+ * def getAnalysisLibPaths():             # <<<<<<<<<<<<<<
+ *     ps = c.getAnalysisLibPaths()
+ *     return [ p.decode('utf-8') for p in ps ]
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5rivet_4core_7getAnalysisLibPaths(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_7getAnalysisLibPaths = {"getAnalysisLibPaths", (PyCFunction)__pyx_pw_5rivet_4core_7getAnalysisLibPaths, METH_NOARGS, 0};
+static PyObject *__pyx_pw_5rivet_4core_7getAnalysisLibPaths(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("getAnalysisLibPaths (wrapper)", 0);
+  __pyx_r = __pyx_pf_5rivet_4core_6getAnalysisLibPaths(__pyx_self);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5rivet_4core_6getAnalysisLibPaths(CYTHON_UNUSED PyObject *__pyx_self) {
   std::vector<std::string>  __pyx_v_ps;
   std::string __pyx_v_p;
   PyObject *__pyx_r = NULL;
@@ -5562,8 +7214,8 @@ static PyObject *__pyx_pf_5rivet_4core_getAnalysisLibPaths(CYTHON_UNUSED PyObjec
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("getAnalysisLibPaths", 0);
 
-  /* "rivet/core.pyx":183
- * 
+  /* "rivet/core.pyx":249
+ * ## Path functions
  * def getAnalysisLibPaths():
  *     ps = c.getAnalysisLibPaths()             # <<<<<<<<<<<<<<
  *     return [ p.decode('utf-8') for p in ps ]
@@ -5571,7 +7223,7 @@ static PyObject *__pyx_pf_5rivet_4core_getAnalysisLibPaths(CYTHON_UNUSED PyObjec
  */
   __pyx_v_ps = Rivet::getAnalysisLibPaths();
 
-  /* "rivet/core.pyx":184
+  /* "rivet/core.pyx":250
  * def getAnalysisLibPaths():
  *     ps = c.getAnalysisLibPaths()
  *     return [ p.decode('utf-8') for p in ps ]             # <<<<<<<<<<<<<<
@@ -5579,7 +7231,7 @@ static PyObject *__pyx_pf_5rivet_4core_getAnalysisLibPaths(CYTHON_UNUSED PyObjec
  * def setAnalysisLibPaths(xs):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 184, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 250, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __pyx_v_ps.begin();
   for (;;) {
@@ -5587,18 +7239,18 @@ static PyObject *__pyx_pf_5rivet_4core_getAnalysisLibPaths(CYTHON_UNUSED PyObjec
     __pyx_t_3 = *__pyx_t_2;
     ++__pyx_t_2;
     __pyx_v_p = __pyx_t_3;
-    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_p, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 184, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_p, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 250, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 184, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 250, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":182
+  /* "rivet/core.pyx":248
  * 
- * 
+ * ## Path functions
  * def getAnalysisLibPaths():             # <<<<<<<<<<<<<<
  *     ps = c.getAnalysisLibPaths()
  *     return [ p.decode('utf-8') for p in ps ]
@@ -5616,7 +7268,7 @@ static PyObject *__pyx_pf_5rivet_4core_getAnalysisLibPaths(CYTHON_UNUSED PyObjec
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":186
+/* "rivet/core.pyx":252
  *     return [ p.decode('utf-8') for p in ps ]
  * 
  * def setAnalysisLibPaths(xs):             # <<<<<<<<<<<<<<
@@ -5625,20 +7277,20 @@ static PyObject *__pyx_pf_5rivet_4core_getAnalysisLibPaths(CYTHON_UNUSED PyObjec
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_3setAnalysisLibPaths(PyObject *__pyx_self, PyObject *__pyx_v_xs); /*proto*/
-static PyMethodDef __pyx_mdef_5rivet_4core_3setAnalysisLibPaths = {"setAnalysisLibPaths", (PyCFunction)__pyx_pw_5rivet_4core_3setAnalysisLibPaths, METH_O, 0};
-static PyObject *__pyx_pw_5rivet_4core_3setAnalysisLibPaths(PyObject *__pyx_self, PyObject *__pyx_v_xs) {
+static PyObject *__pyx_pw_5rivet_4core_9setAnalysisLibPaths(PyObject *__pyx_self, PyObject *__pyx_v_xs); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_9setAnalysisLibPaths = {"setAnalysisLibPaths", (PyCFunction)__pyx_pw_5rivet_4core_9setAnalysisLibPaths, METH_O, 0};
+static PyObject *__pyx_pw_5rivet_4core_9setAnalysisLibPaths(PyObject *__pyx_self, PyObject *__pyx_v_xs) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("setAnalysisLibPaths (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_2setAnalysisLibPaths(__pyx_self, ((PyObject *)__pyx_v_xs));
+  __pyx_r = __pyx_pf_5rivet_4core_8setAnalysisLibPaths(__pyx_self, ((PyObject *)__pyx_v_xs));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_2setAnalysisLibPaths(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_xs) {
+static PyObject *__pyx_pf_5rivet_4core_8setAnalysisLibPaths(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_xs) {
   PyObject *__pyx_v_bs = NULL;
   PyObject *__pyx_v_x = NULL;
   PyObject *__pyx_r = NULL;
@@ -5653,39 +7305,39 @@ static PyObject *__pyx_pf_5rivet_4core_2setAnalysisLibPaths(CYTHON_UNUSED PyObje
   std::vector<std::string>  __pyx_t_8;
   __Pyx_RefNannySetupContext("setAnalysisLibPaths", 0);
 
-  /* "rivet/core.pyx":187
+  /* "rivet/core.pyx":253
  * 
  * def setAnalysisLibPaths(xs):
  *     bs = [ x.encode('utf-8') for x in xs ]             # <<<<<<<<<<<<<<
  *     c.setAnalysisLibPaths(bs)
  * 
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 253, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_v_xs)) || PyTuple_CheckExact(__pyx_v_xs)) {
     __pyx_t_2 = __pyx_v_xs; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
     __pyx_t_4 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_xs); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_xs); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 253, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_4)) {
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_5 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_5); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 187, __pyx_L1_error)
+        __pyx_t_5 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_5); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 253, __pyx_L1_error)
         #else
-        __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 187, __pyx_L1_error)
+        __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 253, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         #endif
       } else {
         if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_5); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 187, __pyx_L1_error)
+        __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_5); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 253, __pyx_L1_error)
         #else
-        __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 187, __pyx_L1_error)
+        __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 253, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         #endif
       }
@@ -5695,7 +7347,7 @@ static PyObject *__pyx_pf_5rivet_4core_2setAnalysisLibPaths(CYTHON_UNUSED PyObje
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 187, __pyx_L1_error)
+          else __PYX_ERR(0, 253, __pyx_L1_error)
         }
         break;
       }
@@ -5703,7 +7355,7 @@ static PyObject *__pyx_pf_5rivet_4core_2setAnalysisLibPaths(CYTHON_UNUSED PyObje
     }
     __Pyx_XDECREF_SET(__pyx_v_x, __pyx_t_5);
     __pyx_t_5 = 0;
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_x, __pyx_n_s_encode); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_x, __pyx_n_s_encode); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_7 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
@@ -5717,27 +7369,27 @@ static PyObject *__pyx_pf_5rivet_4core_2setAnalysisLibPaths(CYTHON_UNUSED PyObje
     }
     __pyx_t_5 = (__pyx_t_7) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_7, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_kp_s_utf_8);
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 187, __pyx_L1_error)
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 187, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_bs = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "rivet/core.pyx":188
+  /* "rivet/core.pyx":254
  * def setAnalysisLibPaths(xs):
  *     bs = [ x.encode('utf-8') for x in xs ]
  *     c.setAnalysisLibPaths(bs)             # <<<<<<<<<<<<<<
  * 
  * def addAnalysisLibPath(path):
  */
-  __pyx_t_8 = __pyx_convert_vector_from_py_std_3a__3a_string(__pyx_v_bs); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 188, __pyx_L1_error)
+  __pyx_t_8 = __pyx_convert_vector_from_py_std_3a__3a_string(__pyx_v_bs); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 254, __pyx_L1_error)
   Rivet::setAnalysisLibPaths(__pyx_t_8);
 
-  /* "rivet/core.pyx":186
+  /* "rivet/core.pyx":252
  *     return [ p.decode('utf-8') for p in ps ]
  * 
  * def setAnalysisLibPaths(xs):             # <<<<<<<<<<<<<<
@@ -5764,7 +7416,7 @@ static PyObject *__pyx_pf_5rivet_4core_2setAnalysisLibPaths(CYTHON_UNUSED PyObje
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":190
+/* "rivet/core.pyx":256
  *     c.setAnalysisLibPaths(bs)
  * 
  * def addAnalysisLibPath(path):             # <<<<<<<<<<<<<<
@@ -5773,20 +7425,20 @@ static PyObject *__pyx_pf_5rivet_4core_2setAnalysisLibPaths(CYTHON_UNUSED PyObje
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_5addAnalysisLibPath(PyObject *__pyx_self, PyObject *__pyx_v_path); /*proto*/
-static PyMethodDef __pyx_mdef_5rivet_4core_5addAnalysisLibPath = {"addAnalysisLibPath", (PyCFunction)__pyx_pw_5rivet_4core_5addAnalysisLibPath, METH_O, 0};
-static PyObject *__pyx_pw_5rivet_4core_5addAnalysisLibPath(PyObject *__pyx_self, PyObject *__pyx_v_path) {
+static PyObject *__pyx_pw_5rivet_4core_11addAnalysisLibPath(PyObject *__pyx_self, PyObject *__pyx_v_path); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_11addAnalysisLibPath = {"addAnalysisLibPath", (PyCFunction)__pyx_pw_5rivet_4core_11addAnalysisLibPath, METH_O, 0};
+static PyObject *__pyx_pw_5rivet_4core_11addAnalysisLibPath(PyObject *__pyx_self, PyObject *__pyx_v_path) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("addAnalysisLibPath (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_4addAnalysisLibPath(__pyx_self, ((PyObject *)__pyx_v_path));
+  __pyx_r = __pyx_pf_5rivet_4core_10addAnalysisLibPath(__pyx_self, ((PyObject *)__pyx_v_path));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_4addAnalysisLibPath(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_path) {
+static PyObject *__pyx_pf_5rivet_4core_10addAnalysisLibPath(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_path) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5795,14 +7447,14 @@ static PyObject *__pyx_pf_5rivet_4core_4addAnalysisLibPath(CYTHON_UNUSED PyObjec
   std::string __pyx_t_4;
   __Pyx_RefNannySetupContext("addAnalysisLibPath", 0);
 
-  /* "rivet/core.pyx":191
+  /* "rivet/core.pyx":257
  * 
  * def addAnalysisLibPath(path):
  *     c.addAnalysisLibPath(path.encode('utf-8'))             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_path, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 191, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_path, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -5816,14 +7468,14 @@ static PyObject *__pyx_pf_5rivet_4core_4addAnalysisLibPath(CYTHON_UNUSED PyObjec
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_kp_s_utf_8);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 191, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 191, __pyx_L1_error)
+  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   Rivet::addAnalysisLibPath(__pyx_t_4);
 
-  /* "rivet/core.pyx":190
+  /* "rivet/core.pyx":256
  *     c.setAnalysisLibPaths(bs)
  * 
  * def addAnalysisLibPath(path):             # <<<<<<<<<<<<<<
@@ -5846,7 +7498,7 @@ static PyObject *__pyx_pf_5rivet_4core_4addAnalysisLibPath(CYTHON_UNUSED PyObjec
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":194
+/* "rivet/core.pyx":260
  * 
  * 
  * def setAnalysisDataPaths(xs):             # <<<<<<<<<<<<<<
@@ -5855,20 +7507,20 @@ static PyObject *__pyx_pf_5rivet_4core_4addAnalysisLibPath(CYTHON_UNUSED PyObjec
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_7setAnalysisDataPaths(PyObject *__pyx_self, PyObject *__pyx_v_xs); /*proto*/
-static PyMethodDef __pyx_mdef_5rivet_4core_7setAnalysisDataPaths = {"setAnalysisDataPaths", (PyCFunction)__pyx_pw_5rivet_4core_7setAnalysisDataPaths, METH_O, 0};
-static PyObject *__pyx_pw_5rivet_4core_7setAnalysisDataPaths(PyObject *__pyx_self, PyObject *__pyx_v_xs) {
+static PyObject *__pyx_pw_5rivet_4core_13setAnalysisDataPaths(PyObject *__pyx_self, PyObject *__pyx_v_xs); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_13setAnalysisDataPaths = {"setAnalysisDataPaths", (PyCFunction)__pyx_pw_5rivet_4core_13setAnalysisDataPaths, METH_O, 0};
+static PyObject *__pyx_pw_5rivet_4core_13setAnalysisDataPaths(PyObject *__pyx_self, PyObject *__pyx_v_xs) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("setAnalysisDataPaths (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_6setAnalysisDataPaths(__pyx_self, ((PyObject *)__pyx_v_xs));
+  __pyx_r = __pyx_pf_5rivet_4core_12setAnalysisDataPaths(__pyx_self, ((PyObject *)__pyx_v_xs));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_6setAnalysisDataPaths(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_xs) {
+static PyObject *__pyx_pf_5rivet_4core_12setAnalysisDataPaths(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_xs) {
   PyObject *__pyx_v_bs = NULL;
   PyObject *__pyx_v_x = NULL;
   PyObject *__pyx_r = NULL;
@@ -5883,39 +7535,39 @@ static PyObject *__pyx_pf_5rivet_4core_6setAnalysisDataPaths(CYTHON_UNUSED PyObj
   std::vector<std::string>  __pyx_t_8;
   __Pyx_RefNannySetupContext("setAnalysisDataPaths", 0);
 
-  /* "rivet/core.pyx":195
+  /* "rivet/core.pyx":261
  * 
  * def setAnalysisDataPaths(xs):
  *     bs = [ x.encode('utf-8') for x in xs ]             # <<<<<<<<<<<<<<
  *     c.setAnalysisDataPaths(bs)
  * 
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_v_xs)) || PyTuple_CheckExact(__pyx_v_xs)) {
     __pyx_t_2 = __pyx_v_xs; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
     __pyx_t_4 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_xs); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 195, __pyx_L1_error)
+    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_xs); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 261, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 195, __pyx_L1_error)
+    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 261, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_4)) {
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_5 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_5); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 195, __pyx_L1_error)
+        __pyx_t_5 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_5); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 261, __pyx_L1_error)
         #else
-        __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 195, __pyx_L1_error)
+        __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 261, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         #endif
       } else {
         if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_5); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 195, __pyx_L1_error)
+        __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_5); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 261, __pyx_L1_error)
         #else
-        __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 195, __pyx_L1_error)
+        __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 261, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         #endif
       }
@@ -5925,7 +7577,7 @@ static PyObject *__pyx_pf_5rivet_4core_6setAnalysisDataPaths(CYTHON_UNUSED PyObj
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 195, __pyx_L1_error)
+          else __PYX_ERR(0, 261, __pyx_L1_error)
         }
         break;
       }
@@ -5933,7 +7585,7 @@ static PyObject *__pyx_pf_5rivet_4core_6setAnalysisDataPaths(CYTHON_UNUSED PyObj
     }
     __Pyx_XDECREF_SET(__pyx_v_x, __pyx_t_5);
     __pyx_t_5 = 0;
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_x, __pyx_n_s_encode); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 195, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_x, __pyx_n_s_encode); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 261, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_7 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
@@ -5947,27 +7599,27 @@ static PyObject *__pyx_pf_5rivet_4core_6setAnalysisDataPaths(CYTHON_UNUSED PyObj
     }
     __pyx_t_5 = (__pyx_t_7) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_7, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_kp_s_utf_8);
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 195, __pyx_L1_error)
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 261, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 195, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 261, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_bs = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "rivet/core.pyx":196
+  /* "rivet/core.pyx":262
  * def setAnalysisDataPaths(xs):
  *     bs = [ x.encode('utf-8') for x in xs ]
  *     c.setAnalysisDataPaths(bs)             # <<<<<<<<<<<<<<
  * 
  * def addAnalysisDataPath(path):
  */
-  __pyx_t_8 = __pyx_convert_vector_from_py_std_3a__3a_string(__pyx_v_bs); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 196, __pyx_L1_error)
+  __pyx_t_8 = __pyx_convert_vector_from_py_std_3a__3a_string(__pyx_v_bs); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 262, __pyx_L1_error)
   Rivet::setAnalysisDataPaths(__pyx_t_8);
 
-  /* "rivet/core.pyx":194
+  /* "rivet/core.pyx":260
  * 
  * 
  * def setAnalysisDataPaths(xs):             # <<<<<<<<<<<<<<
@@ -5994,7 +7646,7 @@ static PyObject *__pyx_pf_5rivet_4core_6setAnalysisDataPaths(CYTHON_UNUSED PyObj
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":198
+/* "rivet/core.pyx":264
  *     c.setAnalysisDataPaths(bs)
  * 
  * def addAnalysisDataPath(path):             # <<<<<<<<<<<<<<
@@ -6003,20 +7655,20 @@ static PyObject *__pyx_pf_5rivet_4core_6setAnalysisDataPaths(CYTHON_UNUSED PyObj
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_9addAnalysisDataPath(PyObject *__pyx_self, PyObject *__pyx_v_path); /*proto*/
-static PyMethodDef __pyx_mdef_5rivet_4core_9addAnalysisDataPath = {"addAnalysisDataPath", (PyCFunction)__pyx_pw_5rivet_4core_9addAnalysisDataPath, METH_O, 0};
-static PyObject *__pyx_pw_5rivet_4core_9addAnalysisDataPath(PyObject *__pyx_self, PyObject *__pyx_v_path) {
+static PyObject *__pyx_pw_5rivet_4core_15addAnalysisDataPath(PyObject *__pyx_self, PyObject *__pyx_v_path); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_15addAnalysisDataPath = {"addAnalysisDataPath", (PyCFunction)__pyx_pw_5rivet_4core_15addAnalysisDataPath, METH_O, 0};
+static PyObject *__pyx_pw_5rivet_4core_15addAnalysisDataPath(PyObject *__pyx_self, PyObject *__pyx_v_path) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("addAnalysisDataPath (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_8addAnalysisDataPath(__pyx_self, ((PyObject *)__pyx_v_path));
+  __pyx_r = __pyx_pf_5rivet_4core_14addAnalysisDataPath(__pyx_self, ((PyObject *)__pyx_v_path));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_8addAnalysisDataPath(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_path) {
+static PyObject *__pyx_pf_5rivet_4core_14addAnalysisDataPath(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_path) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6025,14 +7677,14 @@ static PyObject *__pyx_pf_5rivet_4core_8addAnalysisDataPath(CYTHON_UNUSED PyObje
   std::string __pyx_t_4;
   __Pyx_RefNannySetupContext("addAnalysisDataPath", 0);
 
-  /* "rivet/core.pyx":199
+  /* "rivet/core.pyx":265
  * 
  * def addAnalysisDataPath(path):
  *     c.addAnalysisDataPath(path.encode('utf-8'))             # <<<<<<<<<<<<<<
  * 
  * def getAnalysisDataPaths():
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_path, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_path, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -6046,14 +7698,14 @@ static PyObject *__pyx_pf_5rivet_4core_8addAnalysisDataPath(CYTHON_UNUSED PyObje
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_kp_s_utf_8);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 199, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 265, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   Rivet::addAnalysisDataPath(__pyx_t_4);
 
-  /* "rivet/core.pyx":198
+  /* "rivet/core.pyx":264
  *     c.setAnalysisDataPaths(bs)
  * 
  * def addAnalysisDataPath(path):             # <<<<<<<<<<<<<<
@@ -6076,7 +7728,7 @@ static PyObject *__pyx_pf_5rivet_4core_8addAnalysisDataPath(CYTHON_UNUSED PyObje
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":201
+/* "rivet/core.pyx":267
  *     c.addAnalysisDataPath(path.encode('utf-8'))
  * 
  * def getAnalysisDataPaths():             # <<<<<<<<<<<<<<
@@ -6085,20 +7737,20 @@ static PyObject *__pyx_pf_5rivet_4core_8addAnalysisDataPath(CYTHON_UNUSED PyObje
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_11getAnalysisDataPaths(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyMethodDef __pyx_mdef_5rivet_4core_11getAnalysisDataPaths = {"getAnalysisDataPaths", (PyCFunction)__pyx_pw_5rivet_4core_11getAnalysisDataPaths, METH_NOARGS, 0};
-static PyObject *__pyx_pw_5rivet_4core_11getAnalysisDataPaths(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_17getAnalysisDataPaths(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_17getAnalysisDataPaths = {"getAnalysisDataPaths", (PyCFunction)__pyx_pw_5rivet_4core_17getAnalysisDataPaths, METH_NOARGS, 0};
+static PyObject *__pyx_pw_5rivet_4core_17getAnalysisDataPaths(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getAnalysisDataPaths (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_10getAnalysisDataPaths(__pyx_self);
+  __pyx_r = __pyx_pf_5rivet_4core_16getAnalysisDataPaths(__pyx_self);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_10getAnalysisDataPaths(CYTHON_UNUSED PyObject *__pyx_self) {
+static PyObject *__pyx_pf_5rivet_4core_16getAnalysisDataPaths(CYTHON_UNUSED PyObject *__pyx_self) {
   std::vector<std::string>  __pyx_v_ps;
   std::string __pyx_v_p;
   PyObject *__pyx_r = NULL;
@@ -6109,7 +7761,7 @@ static PyObject *__pyx_pf_5rivet_4core_10getAnalysisDataPaths(CYTHON_UNUSED PyOb
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("getAnalysisDataPaths", 0);
 
-  /* "rivet/core.pyx":202
+  /* "rivet/core.pyx":268
  * 
  * def getAnalysisDataPaths():
  *     ps = c.getAnalysisDataPaths()             # <<<<<<<<<<<<<<
@@ -6118,7 +7770,7 @@ static PyObject *__pyx_pf_5rivet_4core_10getAnalysisDataPaths(CYTHON_UNUSED PyOb
  */
   __pyx_v_ps = Rivet::getAnalysisDataPaths();
 
-  /* "rivet/core.pyx":203
+  /* "rivet/core.pyx":269
  * def getAnalysisDataPaths():
  *     ps = c.getAnalysisDataPaths()
  *     return [ p.decode('utf-8') for p in ps ]             # <<<<<<<<<<<<<<
@@ -6126,7 +7778,7 @@ static PyObject *__pyx_pf_5rivet_4core_10getAnalysisDataPaths(CYTHON_UNUSED PyOb
  * def findAnalysisDataFile(q):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 203, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 269, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __pyx_v_ps.begin();
   for (;;) {
@@ -6134,16 +7786,16 @@ static PyObject *__pyx_pf_5rivet_4core_10getAnalysisDataPaths(CYTHON_UNUSED PyOb
     __pyx_t_3 = *__pyx_t_2;
     ++__pyx_t_2;
     __pyx_v_p = __pyx_t_3;
-    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_p, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 203, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_p, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 269, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 203, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 269, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":201
+  /* "rivet/core.pyx":267
  *     c.addAnalysisDataPath(path.encode('utf-8'))
  * 
  * def getAnalysisDataPaths():             # <<<<<<<<<<<<<<
@@ -6163,7 +7815,7 @@ static PyObject *__pyx_pf_5rivet_4core_10getAnalysisDataPaths(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":205
+/* "rivet/core.pyx":271
  *     return [ p.decode('utf-8') for p in ps ]
  * 
  * def findAnalysisDataFile(q):             # <<<<<<<<<<<<<<
@@ -6172,20 +7824,20 @@ static PyObject *__pyx_pf_5rivet_4core_10getAnalysisDataPaths(CYTHON_UNUSED PyOb
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_13findAnalysisDataFile(PyObject *__pyx_self, PyObject *__pyx_v_q); /*proto*/
-static PyMethodDef __pyx_mdef_5rivet_4core_13findAnalysisDataFile = {"findAnalysisDataFile", (PyCFunction)__pyx_pw_5rivet_4core_13findAnalysisDataFile, METH_O, 0};
-static PyObject *__pyx_pw_5rivet_4core_13findAnalysisDataFile(PyObject *__pyx_self, PyObject *__pyx_v_q) {
+static PyObject *__pyx_pw_5rivet_4core_19findAnalysisDataFile(PyObject *__pyx_self, PyObject *__pyx_v_q); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_19findAnalysisDataFile = {"findAnalysisDataFile", (PyCFunction)__pyx_pw_5rivet_4core_19findAnalysisDataFile, METH_O, 0};
+static PyObject *__pyx_pw_5rivet_4core_19findAnalysisDataFile(PyObject *__pyx_self, PyObject *__pyx_v_q) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("findAnalysisDataFile (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_12findAnalysisDataFile(__pyx_self, ((PyObject *)__pyx_v_q));
+  __pyx_r = __pyx_pf_5rivet_4core_18findAnalysisDataFile(__pyx_self, ((PyObject *)__pyx_v_q));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_12findAnalysisDataFile(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_q) {
+static PyObject *__pyx_pf_5rivet_4core_18findAnalysisDataFile(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_q) {
   std::string __pyx_v_f;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -6195,14 +7847,14 @@ static PyObject *__pyx_pf_5rivet_4core_12findAnalysisDataFile(CYTHON_UNUSED PyOb
   std::string __pyx_t_4;
   __Pyx_RefNannySetupContext("findAnalysisDataFile", 0);
 
-  /* "rivet/core.pyx":206
+  /* "rivet/core.pyx":272
  * 
  * def findAnalysisDataFile(q):
  *     f = c.findAnalysisDataFile(q.encode('utf-8'))             # <<<<<<<<<<<<<<
  *     return f.decode('utf-8')
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_q, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 206, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_q, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 272, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -6216,14 +7868,14 @@ static PyObject *__pyx_pf_5rivet_4core_12findAnalysisDataFile(CYTHON_UNUSED PyOb
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_kp_s_utf_8);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 206, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 272, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 206, __pyx_L1_error)
+  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 272, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_f = Rivet::findAnalysisDataFile(__pyx_t_4);
 
-  /* "rivet/core.pyx":207
+  /* "rivet/core.pyx":273
  * def findAnalysisDataFile(q):
  *     f = c.findAnalysisDataFile(q.encode('utf-8'))
  *     return f.decode('utf-8')             # <<<<<<<<<<<<<<
@@ -6231,13 +7883,13 @@ static PyObject *__pyx_pf_5rivet_4core_12findAnalysisDataFile(CYTHON_UNUSED PyOb
  * def getAnalysisRefPaths():
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_decode_cpp_string(__pyx_v_f, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 207, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_decode_cpp_string(__pyx_v_f, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 273, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":205
+  /* "rivet/core.pyx":271
  *     return [ p.decode('utf-8') for p in ps ]
  * 
  * def findAnalysisDataFile(q):             # <<<<<<<<<<<<<<
@@ -6258,7 +7910,7 @@ static PyObject *__pyx_pf_5rivet_4core_12findAnalysisDataFile(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":209
+/* "rivet/core.pyx":275
  *     return f.decode('utf-8')
  * 
  * def getAnalysisRefPaths():             # <<<<<<<<<<<<<<
@@ -6267,20 +7919,20 @@ static PyObject *__pyx_pf_5rivet_4core_12findAnalysisDataFile(CYTHON_UNUSED PyOb
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_15getAnalysisRefPaths(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyMethodDef __pyx_mdef_5rivet_4core_15getAnalysisRefPaths = {"getAnalysisRefPaths", (PyCFunction)__pyx_pw_5rivet_4core_15getAnalysisRefPaths, METH_NOARGS, 0};
-static PyObject *__pyx_pw_5rivet_4core_15getAnalysisRefPaths(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_21getAnalysisRefPaths(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_21getAnalysisRefPaths = {"getAnalysisRefPaths", (PyCFunction)__pyx_pw_5rivet_4core_21getAnalysisRefPaths, METH_NOARGS, 0};
+static PyObject *__pyx_pw_5rivet_4core_21getAnalysisRefPaths(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getAnalysisRefPaths (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_14getAnalysisRefPaths(__pyx_self);
+  __pyx_r = __pyx_pf_5rivet_4core_20getAnalysisRefPaths(__pyx_self);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_14getAnalysisRefPaths(CYTHON_UNUSED PyObject *__pyx_self) {
+static PyObject *__pyx_pf_5rivet_4core_20getAnalysisRefPaths(CYTHON_UNUSED PyObject *__pyx_self) {
   std::vector<std::string>  __pyx_v_ps;
   std::string __pyx_v_p;
   PyObject *__pyx_r = NULL;
@@ -6291,7 +7943,7 @@ static PyObject *__pyx_pf_5rivet_4core_14getAnalysisRefPaths(CYTHON_UNUSED PyObj
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("getAnalysisRefPaths", 0);
 
-  /* "rivet/core.pyx":210
+  /* "rivet/core.pyx":276
  * 
  * def getAnalysisRefPaths():
  *     ps = c.getAnalysisRefPaths()             # <<<<<<<<<<<<<<
@@ -6300,7 +7952,7 @@ static PyObject *__pyx_pf_5rivet_4core_14getAnalysisRefPaths(CYTHON_UNUSED PyObj
  */
   __pyx_v_ps = Rivet::getAnalysisRefPaths();
 
-  /* "rivet/core.pyx":211
+  /* "rivet/core.pyx":277
  * def getAnalysisRefPaths():
  *     ps = c.getAnalysisRefPaths()
  *     return [ p.decode('utf-8') for p in ps ]             # <<<<<<<<<<<<<<
@@ -6308,7 +7960,7 @@ static PyObject *__pyx_pf_5rivet_4core_14getAnalysisRefPaths(CYTHON_UNUSED PyObj
  * def findAnalysisRefFile(q):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 211, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __pyx_v_ps.begin();
   for (;;) {
@@ -6316,16 +7968,16 @@ static PyObject *__pyx_pf_5rivet_4core_14getAnalysisRefPaths(CYTHON_UNUSED PyObj
     __pyx_t_3 = *__pyx_t_2;
     ++__pyx_t_2;
     __pyx_v_p = __pyx_t_3;
-    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_p, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 211, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_p, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 277, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 211, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 277, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":209
+  /* "rivet/core.pyx":275
  *     return f.decode('utf-8')
  * 
  * def getAnalysisRefPaths():             # <<<<<<<<<<<<<<
@@ -6345,7 +7997,7 @@ static PyObject *__pyx_pf_5rivet_4core_14getAnalysisRefPaths(CYTHON_UNUSED PyObj
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":213
+/* "rivet/core.pyx":279
  *     return [ p.decode('utf-8') for p in ps ]
  * 
  * def findAnalysisRefFile(q):             # <<<<<<<<<<<<<<
@@ -6354,20 +8006,20 @@ static PyObject *__pyx_pf_5rivet_4core_14getAnalysisRefPaths(CYTHON_UNUSED PyObj
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_17findAnalysisRefFile(PyObject *__pyx_self, PyObject *__pyx_v_q); /*proto*/
-static PyMethodDef __pyx_mdef_5rivet_4core_17findAnalysisRefFile = {"findAnalysisRefFile", (PyCFunction)__pyx_pw_5rivet_4core_17findAnalysisRefFile, METH_O, 0};
-static PyObject *__pyx_pw_5rivet_4core_17findAnalysisRefFile(PyObject *__pyx_self, PyObject *__pyx_v_q) {
+static PyObject *__pyx_pw_5rivet_4core_23findAnalysisRefFile(PyObject *__pyx_self, PyObject *__pyx_v_q); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_23findAnalysisRefFile = {"findAnalysisRefFile", (PyCFunction)__pyx_pw_5rivet_4core_23findAnalysisRefFile, METH_O, 0};
+static PyObject *__pyx_pw_5rivet_4core_23findAnalysisRefFile(PyObject *__pyx_self, PyObject *__pyx_v_q) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("findAnalysisRefFile (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_16findAnalysisRefFile(__pyx_self, ((PyObject *)__pyx_v_q));
+  __pyx_r = __pyx_pf_5rivet_4core_22findAnalysisRefFile(__pyx_self, ((PyObject *)__pyx_v_q));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_16findAnalysisRefFile(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_q) {
+static PyObject *__pyx_pf_5rivet_4core_22findAnalysisRefFile(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_q) {
   std::string __pyx_v_f;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -6377,14 +8029,14 @@ static PyObject *__pyx_pf_5rivet_4core_16findAnalysisRefFile(CYTHON_UNUSED PyObj
   std::string __pyx_t_4;
   __Pyx_RefNannySetupContext("findAnalysisRefFile", 0);
 
-  /* "rivet/core.pyx":214
+  /* "rivet/core.pyx":280
  * 
  * def findAnalysisRefFile(q):
  *     f = c.findAnalysisRefFile(q.encode('utf-8'))             # <<<<<<<<<<<<<<
  *     return f.decode('utf-8')
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_q, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 214, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_q, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 280, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -6398,14 +8050,14 @@ static PyObject *__pyx_pf_5rivet_4core_16findAnalysisRefFile(CYTHON_UNUSED PyObj
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_kp_s_utf_8);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 214, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 280, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 214, __pyx_L1_error)
+  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 280, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_f = Rivet::findAnalysisRefFile(__pyx_t_4);
 
-  /* "rivet/core.pyx":215
+  /* "rivet/core.pyx":281
  * def findAnalysisRefFile(q):
  *     f = c.findAnalysisRefFile(q.encode('utf-8'))
  *     return f.decode('utf-8')             # <<<<<<<<<<<<<<
@@ -6413,13 +8065,13 @@ static PyObject *__pyx_pf_5rivet_4core_16findAnalysisRefFile(CYTHON_UNUSED PyObj
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_decode_cpp_string(__pyx_v_f, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 215, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_decode_cpp_string(__pyx_v_f, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 281, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":213
+  /* "rivet/core.pyx":279
  *     return [ p.decode('utf-8') for p in ps ]
  * 
  * def findAnalysisRefFile(q):             # <<<<<<<<<<<<<<
@@ -6440,7 +8092,7 @@ static PyObject *__pyx_pf_5rivet_4core_16findAnalysisRefFile(CYTHON_UNUSED PyObj
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":218
+/* "rivet/core.pyx":284
  * 
  * 
  * def getAnalysisInfoPaths():             # <<<<<<<<<<<<<<
@@ -6449,20 +8101,20 @@ static PyObject *__pyx_pf_5rivet_4core_16findAnalysisRefFile(CYTHON_UNUSED PyObj
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_19getAnalysisInfoPaths(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyMethodDef __pyx_mdef_5rivet_4core_19getAnalysisInfoPaths = {"getAnalysisInfoPaths", (PyCFunction)__pyx_pw_5rivet_4core_19getAnalysisInfoPaths, METH_NOARGS, 0};
-static PyObject *__pyx_pw_5rivet_4core_19getAnalysisInfoPaths(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_25getAnalysisInfoPaths(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_25getAnalysisInfoPaths = {"getAnalysisInfoPaths", (PyCFunction)__pyx_pw_5rivet_4core_25getAnalysisInfoPaths, METH_NOARGS, 0};
+static PyObject *__pyx_pw_5rivet_4core_25getAnalysisInfoPaths(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getAnalysisInfoPaths (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_18getAnalysisInfoPaths(__pyx_self);
+  __pyx_r = __pyx_pf_5rivet_4core_24getAnalysisInfoPaths(__pyx_self);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_18getAnalysisInfoPaths(CYTHON_UNUSED PyObject *__pyx_self) {
+static PyObject *__pyx_pf_5rivet_4core_24getAnalysisInfoPaths(CYTHON_UNUSED PyObject *__pyx_self) {
   std::vector<std::string>  __pyx_v_ps;
   std::string __pyx_v_p;
   PyObject *__pyx_r = NULL;
@@ -6473,7 +8125,7 @@ static PyObject *__pyx_pf_5rivet_4core_18getAnalysisInfoPaths(CYTHON_UNUSED PyOb
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("getAnalysisInfoPaths", 0);
 
-  /* "rivet/core.pyx":219
+  /* "rivet/core.pyx":285
  * 
  * def getAnalysisInfoPaths():
  *     ps = c.getAnalysisInfoPaths()             # <<<<<<<<<<<<<<
@@ -6482,7 +8134,7 @@ static PyObject *__pyx_pf_5rivet_4core_18getAnalysisInfoPaths(CYTHON_UNUSED PyOb
  */
   __pyx_v_ps = Rivet::getAnalysisInfoPaths();
 
-  /* "rivet/core.pyx":220
+  /* "rivet/core.pyx":286
  * def getAnalysisInfoPaths():
  *     ps = c.getAnalysisInfoPaths()
  *     return [ p.decode('utf-8') for p in ps ]             # <<<<<<<<<<<<<<
@@ -6490,7 +8142,7 @@ static PyObject *__pyx_pf_5rivet_4core_18getAnalysisInfoPaths(CYTHON_UNUSED PyOb
  * def findAnalysisInfoFile(q):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 286, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __pyx_v_ps.begin();
   for (;;) {
@@ -6498,16 +8150,16 @@ static PyObject *__pyx_pf_5rivet_4core_18getAnalysisInfoPaths(CYTHON_UNUSED PyOb
     __pyx_t_3 = *__pyx_t_2;
     ++__pyx_t_2;
     __pyx_v_p = __pyx_t_3;
-    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_p, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 220, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_p, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 286, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 220, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 286, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":218
+  /* "rivet/core.pyx":284
  * 
  * 
  * def getAnalysisInfoPaths():             # <<<<<<<<<<<<<<
@@ -6527,7 +8179,7 @@ static PyObject *__pyx_pf_5rivet_4core_18getAnalysisInfoPaths(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":222
+/* "rivet/core.pyx":288
  *     return [ p.decode('utf-8') for p in ps ]
  * 
  * def findAnalysisInfoFile(q):             # <<<<<<<<<<<<<<
@@ -6536,20 +8188,20 @@ static PyObject *__pyx_pf_5rivet_4core_18getAnalysisInfoPaths(CYTHON_UNUSED PyOb
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_21findAnalysisInfoFile(PyObject *__pyx_self, PyObject *__pyx_v_q); /*proto*/
-static PyMethodDef __pyx_mdef_5rivet_4core_21findAnalysisInfoFile = {"findAnalysisInfoFile", (PyCFunction)__pyx_pw_5rivet_4core_21findAnalysisInfoFile, METH_O, 0};
-static PyObject *__pyx_pw_5rivet_4core_21findAnalysisInfoFile(PyObject *__pyx_self, PyObject *__pyx_v_q) {
+static PyObject *__pyx_pw_5rivet_4core_27findAnalysisInfoFile(PyObject *__pyx_self, PyObject *__pyx_v_q); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_27findAnalysisInfoFile = {"findAnalysisInfoFile", (PyCFunction)__pyx_pw_5rivet_4core_27findAnalysisInfoFile, METH_O, 0};
+static PyObject *__pyx_pw_5rivet_4core_27findAnalysisInfoFile(PyObject *__pyx_self, PyObject *__pyx_v_q) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("findAnalysisInfoFile (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_20findAnalysisInfoFile(__pyx_self, ((PyObject *)__pyx_v_q));
+  __pyx_r = __pyx_pf_5rivet_4core_26findAnalysisInfoFile(__pyx_self, ((PyObject *)__pyx_v_q));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_20findAnalysisInfoFile(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_q) {
+static PyObject *__pyx_pf_5rivet_4core_26findAnalysisInfoFile(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_q) {
   std::string __pyx_v_f;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -6559,14 +8211,14 @@ static PyObject *__pyx_pf_5rivet_4core_20findAnalysisInfoFile(CYTHON_UNUSED PyOb
   std::string __pyx_t_4;
   __Pyx_RefNannySetupContext("findAnalysisInfoFile", 0);
 
-  /* "rivet/core.pyx":223
+  /* "rivet/core.pyx":289
  * 
  * def findAnalysisInfoFile(q):
  *     f = c.findAnalysisInfoFile(q.encode('utf-8'))             # <<<<<<<<<<<<<<
  *     return f.decode('utf-8')
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_q, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 223, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_q, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 289, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -6580,14 +8232,14 @@ static PyObject *__pyx_pf_5rivet_4core_20findAnalysisInfoFile(CYTHON_UNUSED PyOb
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_kp_s_utf_8);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 223, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 289, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 223, __pyx_L1_error)
+  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 289, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_f = Rivet::findAnalysisInfoFile(__pyx_t_4);
 
-  /* "rivet/core.pyx":224
+  /* "rivet/core.pyx":290
  * def findAnalysisInfoFile(q):
  *     f = c.findAnalysisInfoFile(q.encode('utf-8'))
  *     return f.decode('utf-8')             # <<<<<<<<<<<<<<
@@ -6595,13 +8247,13 @@ static PyObject *__pyx_pf_5rivet_4core_20findAnalysisInfoFile(CYTHON_UNUSED PyOb
  * def getAnalysisPlotPaths():
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_decode_cpp_string(__pyx_v_f, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 224, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_decode_cpp_string(__pyx_v_f, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 290, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":222
+  /* "rivet/core.pyx":288
  *     return [ p.decode('utf-8') for p in ps ]
  * 
  * def findAnalysisInfoFile(q):             # <<<<<<<<<<<<<<
@@ -6622,7 +8274,7 @@ static PyObject *__pyx_pf_5rivet_4core_20findAnalysisInfoFile(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":226
+/* "rivet/core.pyx":292
  *     return f.decode('utf-8')
  * 
  * def getAnalysisPlotPaths():             # <<<<<<<<<<<<<<
@@ -6631,20 +8283,20 @@ static PyObject *__pyx_pf_5rivet_4core_20findAnalysisInfoFile(CYTHON_UNUSED PyOb
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_23getAnalysisPlotPaths(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyMethodDef __pyx_mdef_5rivet_4core_23getAnalysisPlotPaths = {"getAnalysisPlotPaths", (PyCFunction)__pyx_pw_5rivet_4core_23getAnalysisPlotPaths, METH_NOARGS, 0};
-static PyObject *__pyx_pw_5rivet_4core_23getAnalysisPlotPaths(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_29getAnalysisPlotPaths(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_29getAnalysisPlotPaths = {"getAnalysisPlotPaths", (PyCFunction)__pyx_pw_5rivet_4core_29getAnalysisPlotPaths, METH_NOARGS, 0};
+static PyObject *__pyx_pw_5rivet_4core_29getAnalysisPlotPaths(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getAnalysisPlotPaths (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_22getAnalysisPlotPaths(__pyx_self);
+  __pyx_r = __pyx_pf_5rivet_4core_28getAnalysisPlotPaths(__pyx_self);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_22getAnalysisPlotPaths(CYTHON_UNUSED PyObject *__pyx_self) {
+static PyObject *__pyx_pf_5rivet_4core_28getAnalysisPlotPaths(CYTHON_UNUSED PyObject *__pyx_self) {
   std::vector<std::string>  __pyx_v_ps;
   std::string __pyx_v_p;
   PyObject *__pyx_r = NULL;
@@ -6655,7 +8307,7 @@ static PyObject *__pyx_pf_5rivet_4core_22getAnalysisPlotPaths(CYTHON_UNUSED PyOb
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("getAnalysisPlotPaths", 0);
 
-  /* "rivet/core.pyx":227
+  /* "rivet/core.pyx":293
  * 
  * def getAnalysisPlotPaths():
  *     ps = c.getAnalysisPlotPaths()             # <<<<<<<<<<<<<<
@@ -6664,7 +8316,7 @@ static PyObject *__pyx_pf_5rivet_4core_22getAnalysisPlotPaths(CYTHON_UNUSED PyOb
  */
   __pyx_v_ps = Rivet::getAnalysisPlotPaths();
 
-  /* "rivet/core.pyx":228
+  /* "rivet/core.pyx":294
  * def getAnalysisPlotPaths():
  *     ps = c.getAnalysisPlotPaths()
  *     return [ p.decode('utf-8') for p in ps ]             # <<<<<<<<<<<<<<
@@ -6672,7 +8324,7 @@ static PyObject *__pyx_pf_5rivet_4core_22getAnalysisPlotPaths(CYTHON_UNUSED PyOb
  * def findAnalysisPlotFile(q):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 228, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 294, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __pyx_v_ps.begin();
   for (;;) {
@@ -6680,16 +8332,16 @@ static PyObject *__pyx_pf_5rivet_4core_22getAnalysisPlotPaths(CYTHON_UNUSED PyOb
     __pyx_t_3 = *__pyx_t_2;
     ++__pyx_t_2;
     __pyx_v_p = __pyx_t_3;
-    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_p, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 228, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_decode_cpp_string(__pyx_v_p, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 294, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 228, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 294, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":226
+  /* "rivet/core.pyx":292
  *     return f.decode('utf-8')
  * 
  * def getAnalysisPlotPaths():             # <<<<<<<<<<<<<<
@@ -6709,7 +8361,7 @@ static PyObject *__pyx_pf_5rivet_4core_22getAnalysisPlotPaths(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":230
+/* "rivet/core.pyx":296
  *     return [ p.decode('utf-8') for p in ps ]
  * 
  * def findAnalysisPlotFile(q):             # <<<<<<<<<<<<<<
@@ -6718,20 +8370,20 @@ static PyObject *__pyx_pf_5rivet_4core_22getAnalysisPlotPaths(CYTHON_UNUSED PyOb
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_25findAnalysisPlotFile(PyObject *__pyx_self, PyObject *__pyx_v_q); /*proto*/
-static PyMethodDef __pyx_mdef_5rivet_4core_25findAnalysisPlotFile = {"findAnalysisPlotFile", (PyCFunction)__pyx_pw_5rivet_4core_25findAnalysisPlotFile, METH_O, 0};
-static PyObject *__pyx_pw_5rivet_4core_25findAnalysisPlotFile(PyObject *__pyx_self, PyObject *__pyx_v_q) {
+static PyObject *__pyx_pw_5rivet_4core_31findAnalysisPlotFile(PyObject *__pyx_self, PyObject *__pyx_v_q); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_31findAnalysisPlotFile = {"findAnalysisPlotFile", (PyCFunction)__pyx_pw_5rivet_4core_31findAnalysisPlotFile, METH_O, 0};
+static PyObject *__pyx_pw_5rivet_4core_31findAnalysisPlotFile(PyObject *__pyx_self, PyObject *__pyx_v_q) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("findAnalysisPlotFile (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_24findAnalysisPlotFile(__pyx_self, ((PyObject *)__pyx_v_q));
+  __pyx_r = __pyx_pf_5rivet_4core_30findAnalysisPlotFile(__pyx_self, ((PyObject *)__pyx_v_q));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_24findAnalysisPlotFile(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_q) {
+static PyObject *__pyx_pf_5rivet_4core_30findAnalysisPlotFile(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_q) {
   std::string __pyx_v_f;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -6741,14 +8393,14 @@ static PyObject *__pyx_pf_5rivet_4core_24findAnalysisPlotFile(CYTHON_UNUSED PyOb
   std::string __pyx_t_4;
   __Pyx_RefNannySetupContext("findAnalysisPlotFile", 0);
 
-  /* "rivet/core.pyx":231
+  /* "rivet/core.pyx":297
  * 
  * def findAnalysisPlotFile(q):
  *     f = c.findAnalysisPlotFile(q.encode('utf-8'))             # <<<<<<<<<<<<<<
  *     return f.decode('utf-8')
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_q, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_q, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 297, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -6762,14 +8414,14 @@ static PyObject *__pyx_pf_5rivet_4core_24findAnalysisPlotFile(CYTHON_UNUSED PyOb
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_kp_s_utf_8);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 231, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 297, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 297, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_f = Rivet::findAnalysisPlotFile(__pyx_t_4);
 
-  /* "rivet/core.pyx":232
+  /* "rivet/core.pyx":298
  * def findAnalysisPlotFile(q):
  *     f = c.findAnalysisPlotFile(q.encode('utf-8'))
  *     return f.decode('utf-8')             # <<<<<<<<<<<<<<
@@ -6777,13 +8429,13 @@ static PyObject *__pyx_pf_5rivet_4core_24findAnalysisPlotFile(CYTHON_UNUSED PyOb
  * def version():
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_decode_cpp_string(__pyx_v_f, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 232, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_decode_cpp_string(__pyx_v_f, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 298, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":230
+  /* "rivet/core.pyx":296
  *     return [ p.decode('utf-8') for p in ps ]
  * 
  * def findAnalysisPlotFile(q):             # <<<<<<<<<<<<<<
@@ -6804,7 +8456,7 @@ static PyObject *__pyx_pf_5rivet_4core_24findAnalysisPlotFile(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":234
+/* "rivet/core.pyx":300
  *     return f.decode('utf-8')
  * 
  * def version():             # <<<<<<<<<<<<<<
@@ -6813,26 +8465,26 @@ static PyObject *__pyx_pf_5rivet_4core_24findAnalysisPlotFile(CYTHON_UNUSED PyOb
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_27version(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyMethodDef __pyx_mdef_5rivet_4core_27version = {"version", (PyCFunction)__pyx_pw_5rivet_4core_27version, METH_NOARGS, 0};
-static PyObject *__pyx_pw_5rivet_4core_27version(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5rivet_4core_33version(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_33version = {"version", (PyCFunction)__pyx_pw_5rivet_4core_33version, METH_NOARGS, 0};
+static PyObject *__pyx_pw_5rivet_4core_33version(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("version (wrapper)", 0);
-  __pyx_r = __pyx_pf_5rivet_4core_26version(__pyx_self);
+  __pyx_r = __pyx_pf_5rivet_4core_32version(__pyx_self);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_26version(CYTHON_UNUSED PyObject *__pyx_self) {
+static PyObject *__pyx_pf_5rivet_4core_32version(CYTHON_UNUSED PyObject *__pyx_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("version", 0);
 
-  /* "rivet/core.pyx":235
+  /* "rivet/core.pyx":301
  * 
  * def version():
  *     return c.version().decode('utf-8')             # <<<<<<<<<<<<<<
@@ -6840,13 +8492,13 @@ static PyObject *__pyx_pf_5rivet_4core_26version(CYTHON_UNUSED PyObject *__pyx_s
  * def setLogLevel(name, level):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_decode_cpp_string(Rivet::version(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 235, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_decode_cpp_string(Rivet::version(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 301, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rivet/core.pyx":234
+  /* "rivet/core.pyx":300
  *     return f.decode('utf-8')
  * 
  * def version():             # <<<<<<<<<<<<<<
@@ -6865,7 +8517,7 @@ static PyObject *__pyx_pf_5rivet_4core_26version(CYTHON_UNUSED PyObject *__pyx_s
   return __pyx_r;
 }
 
-/* "rivet/core.pyx":237
+/* "rivet/core.pyx":303
  *     return c.version().decode('utf-8')
  * 
  * def setLogLevel(name, level):             # <<<<<<<<<<<<<<
@@ -6873,9 +8525,9 @@ static PyObject *__pyx_pf_5rivet_4core_26version(CYTHON_UNUSED PyObject *__pyx_s
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_29setLogLevel(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_5rivet_4core_29setLogLevel = {"setLogLevel", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_29setLogLevel, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5rivet_4core_29setLogLevel(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5rivet_4core_35setLogLevel(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_35setLogLevel = {"setLogLevel", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_35setLogLevel, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5rivet_4core_35setLogLevel(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_name = 0;
   PyObject *__pyx_v_level = 0;
   PyObject *__pyx_r = 0;
@@ -6904,11 +8556,11 @@ static PyObject *__pyx_pw_5rivet_4core_29setLogLevel(PyObject *__pyx_self, PyObj
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_level)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("setLogLevel", 1, 2, 2, 1); __PYX_ERR(0, 237, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("setLogLevel", 1, 2, 2, 1); __PYX_ERR(0, 303, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "setLogLevel") < 0)) __PYX_ERR(0, 237, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "setLogLevel") < 0)) __PYX_ERR(0, 303, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -6921,20 +8573,20 @@ static PyObject *__pyx_pw_5rivet_4core_29setLogLevel(PyObject *__pyx_self, PyObj
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("setLogLevel", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 237, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("setLogLevel", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 303, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("rivet.core.setLogLevel", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5rivet_4core_28setLogLevel(__pyx_self, __pyx_v_name, __pyx_v_level);
+  __pyx_r = __pyx_pf_5rivet_4core_34setLogLevel(__pyx_self, __pyx_v_name, __pyx_v_level);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_28setLogLevel(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_name, PyObject *__pyx_v_level) {
+static PyObject *__pyx_pf_5rivet_4core_34setLogLevel(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_name, PyObject *__pyx_v_level) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6944,12 +8596,12 @@ static PyObject *__pyx_pf_5rivet_4core_28setLogLevel(CYTHON_UNUSED PyObject *__p
   int __pyx_t_5;
   __Pyx_RefNannySetupContext("setLogLevel", 0);
 
-  /* "rivet/core.pyx":238
+  /* "rivet/core.pyx":304
  * 
  * def setLogLevel(name, level):
  *     c.setLogLevel(name.encode('utf-8'), level)             # <<<<<<<<<<<<<<
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 238, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -6963,15 +8615,15 @@ static PyObject *__pyx_pf_5rivet_4core_28setLogLevel(CYTHON_UNUSED PyObject *__p
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_kp_s_utf_8) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_kp_s_utf_8);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 238, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 238, __pyx_L1_error)
+  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_v_level); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 238, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_v_level); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 304, __pyx_L1_error)
   Rivet::Log::setLevel(__pyx_t_4, __pyx_t_5);
 
-  /* "rivet/core.pyx":237
+  /* "rivet/core.pyx":303
  *     return c.version().decode('utf-8')
  * 
  * def setLogLevel(name, level):             # <<<<<<<<<<<<<<
@@ -7000,9 +8652,9 @@ static PyObject *__pyx_pf_5rivet_4core_28setLogLevel(CYTHON_UNUSED PyObject *__p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5rivet_4core_31__pyx_unpickle_AnalysisLoader(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_5rivet_4core_31__pyx_unpickle_AnalysisLoader = {"__pyx_unpickle_AnalysisLoader", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_31__pyx_unpickle_AnalysisLoader, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5rivet_4core_31__pyx_unpickle_AnalysisLoader(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5rivet_4core_37__pyx_unpickle_AnalysisLoader(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_5rivet_4core_37__pyx_unpickle_AnalysisLoader = {"__pyx_unpickle_AnalysisLoader", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_37__pyx_unpickle_AnalysisLoader, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5rivet_4core_37__pyx_unpickle_AnalysisLoader(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v___pyx_type = 0;
   long __pyx_v___pyx_checksum;
   PyObject *__pyx_v___pyx_state = 0;
@@ -7065,14 +8717,14 @@ static PyObject *__pyx_pw_5rivet_4core_31__pyx_unpickle_AnalysisLoader(PyObject 
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5rivet_4core_30__pyx_unpickle_AnalysisLoader(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
+  __pyx_r = __pyx_pf_5rivet_4core_36__pyx_unpickle_AnalysisLoader(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5rivet_4core_30__pyx_unpickle_AnalysisLoader(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_5rivet_4core_36__pyx_unpickle_AnalysisLoader(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_v___pyx_PickleError = 0;
   PyObject *__pyx_v___pyx_result = 0;
   PyObject *__pyx_r = NULL;
@@ -8041,16 +9693,22 @@ static void __pyx_tp_dealloc_5rivet_4core_AnalysisHandler(PyObject *o) {
 static PyMethodDef __pyx_methods_5rivet_4core_AnalysisHandler[] = {
   {"__del__", (PyCFunction)__pyx_pw_5rivet_4core_15AnalysisHandler_3__del__, METH_NOARGS, 0},
   {"setIgnoreBeams", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_15AnalysisHandler_5setIgnoreBeams, METH_VARARGS|METH_KEYWORDS, 0},
-  {"addAnalysis", (PyCFunction)__pyx_pw_5rivet_4core_15AnalysisHandler_7addAnalysis, METH_O, 0},
-  {"analysisNames", (PyCFunction)__pyx_pw_5rivet_4core_15AnalysisHandler_9analysisNames, METH_NOARGS, 0},
-  {"readData", (PyCFunction)__pyx_pw_5rivet_4core_15AnalysisHandler_11readData, METH_O, 0},
-  {"writeData", (PyCFunction)__pyx_pw_5rivet_4core_15AnalysisHandler_13writeData, METH_O, 0},
-  {"crossSection", (PyCFunction)__pyx_pw_5rivet_4core_15AnalysisHandler_15crossSection, METH_NOARGS, 0},
-  {"finalize", (PyCFunction)__pyx_pw_5rivet_4core_15AnalysisHandler_17finalize, METH_NOARGS, 0},
-  {"dump", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_15AnalysisHandler_19dump, METH_VARARGS|METH_KEYWORDS, 0},
-  {"mergeYodas", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_15AnalysisHandler_21mergeYodas, METH_VARARGS|METH_KEYWORDS, 0},
-  {"__reduce_cython__", (PyCFunction)__pyx_pw_5rivet_4core_15AnalysisHandler_23__reduce_cython__, METH_NOARGS, 0},
-  {"__setstate_cython__", (PyCFunction)__pyx_pw_5rivet_4core_15AnalysisHandler_25__setstate_cython__, METH_O, 0},
+  {"skipMultiWeights", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_15AnalysisHandler_7skipMultiWeights, METH_VARARGS|METH_KEYWORDS, 0},
+  {"selectMultiWeights", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_15AnalysisHandler_9selectMultiWeights, METH_VARARGS|METH_KEYWORDS, 0},
+  {"deselectMultiWeights", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_15AnalysisHandler_11deselectMultiWeights, METH_VARARGS|METH_KEYWORDS, 0},
+  {"setWeightCap", (PyCFunction)__pyx_pw_5rivet_4core_15AnalysisHandler_13setWeightCap, METH_O, 0},
+  {"setNLOSmearing", (PyCFunction)__pyx_pw_5rivet_4core_15AnalysisHandler_15setNLOSmearing, METH_O, 0},
+  {"addAnalysis", (PyCFunction)__pyx_pw_5rivet_4core_15AnalysisHandler_17addAnalysis, METH_O, 0},
+  {"analysisNames", (PyCFunction)__pyx_pw_5rivet_4core_15AnalysisHandler_19analysisNames, METH_NOARGS, 0},
+  {"stdAnalysisNames", (PyCFunction)__pyx_pw_5rivet_4core_15AnalysisHandler_21stdAnalysisNames, METH_NOARGS, 0},
+  {"readData", (PyCFunction)__pyx_pw_5rivet_4core_15AnalysisHandler_23readData, METH_O, 0},
+  {"writeData", (PyCFunction)__pyx_pw_5rivet_4core_15AnalysisHandler_25writeData, METH_O, 0},
+  {"nominalCrossSection", (PyCFunction)__pyx_pw_5rivet_4core_15AnalysisHandler_27nominalCrossSection, METH_NOARGS, 0},
+  {"finalize", (PyCFunction)__pyx_pw_5rivet_4core_15AnalysisHandler_29finalize, METH_NOARGS, 0},
+  {"dump", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_15AnalysisHandler_31dump, METH_VARARGS|METH_KEYWORDS, 0},
+  {"mergeYodas", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_15AnalysisHandler_33mergeYodas, METH_VARARGS|METH_KEYWORDS, 0},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_5rivet_4core_15AnalysisHandler_35__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_5rivet_4core_15AnalysisHandler_37__setstate_cython__, METH_O, 0},
   {0, 0, 0, 0}
 };
 
@@ -8143,11 +9801,10 @@ static PyMethodDef __pyx_methods_5rivet_4core_Run[] = {
   {"init", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_3Run_9init, METH_VARARGS|METH_KEYWORDS, 0},
   {"openFile", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_3Run_11openFile, METH_VARARGS|METH_KEYWORDS, 0},
   {"readEvent", (PyCFunction)__pyx_pw_5rivet_4core_3Run_13readEvent, METH_NOARGS, 0},
-  {"skipEvent", (PyCFunction)__pyx_pw_5rivet_4core_3Run_15skipEvent, METH_NOARGS, 0},
-  {"processEvent", (PyCFunction)__pyx_pw_5rivet_4core_3Run_17processEvent, METH_NOARGS, 0},
-  {"finalize", (PyCFunction)__pyx_pw_5rivet_4core_3Run_19finalize, METH_NOARGS, 0},
-  {"__reduce_cython__", (PyCFunction)__pyx_pw_5rivet_4core_3Run_21__reduce_cython__, METH_NOARGS, 0},
-  {"__setstate_cython__", (PyCFunction)__pyx_pw_5rivet_4core_3Run_23__setstate_cython__, METH_O, 0},
+  {"processEvent", (PyCFunction)__pyx_pw_5rivet_4core_3Run_15processEvent, METH_NOARGS, 0},
+  {"finalize", (PyCFunction)__pyx_pw_5rivet_4core_3Run_17finalize, METH_NOARGS, 0},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_5rivet_4core_3Run_19__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_5rivet_4core_3Run_21__setstate_cython__, METH_O, 0},
   {0, 0, 0, 0}
 };
 
@@ -8238,23 +9895,28 @@ static PyMethodDef __pyx_methods_5rivet_4core_Analysis[] = {
   {"requiredBeams", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_3requiredBeams, METH_NOARGS, 0},
   {"requiredEnergies", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_5requiredEnergies, METH_NOARGS, 0},
   {"keywords", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_7keywords, METH_NOARGS, 0},
-  {"authors", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_9authors, METH_NOARGS, 0},
-  {"bibKey", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_11bibKey, METH_NOARGS, 0},
-  {"name", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_13name, METH_NOARGS, 0},
-  {"bibTeX", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_15bibTeX, METH_NOARGS, 0},
-  {"references", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_17references, METH_NOARGS, 0},
-  {"collider", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_19collider, METH_NOARGS, 0},
-  {"description", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_21description, METH_NOARGS, 0},
-  {"experiment", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_23experiment, METH_NOARGS, 0},
-  {"inspireId", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_25inspireId, METH_NOARGS, 0},
-  {"spiresId", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_27spiresId, METH_NOARGS, 0},
-  {"runInfo", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_29runInfo, METH_NOARGS, 0},
-  {"status", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_31status, METH_NOARGS, 0},
-  {"summary", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_33summary, METH_NOARGS, 0},
-  {"year", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_35year, METH_NOARGS, 0},
-  {"luminosityfb", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_37luminosityfb, METH_NOARGS, 0},
-  {"__reduce_cython__", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_39__reduce_cython__, METH_NOARGS, 0},
-  {"__setstate_cython__", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_41__setstate_cython__, METH_O, 0},
+  {"validation", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_9validation, METH_NOARGS, 0},
+  {"reentrant", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_11reentrant, METH_NOARGS, 0},
+  {"authors", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_13authors, METH_NOARGS, 0},
+  {"bibKey", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_15bibKey, METH_NOARGS, 0},
+  {"name", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_17name, METH_NOARGS, 0},
+  {"bibTeX", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_19bibTeX, METH_NOARGS, 0},
+  {"references", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_21references, METH_NOARGS, 0},
+  {"collider", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_23collider, METH_NOARGS, 0},
+  {"description", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_25description, METH_NOARGS, 0},
+  {"experiment", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_27experiment, METH_NOARGS, 0},
+  {"inspireId", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_29inspireId, METH_NOARGS, 0},
+  {"spiresId", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_31spiresId, METH_NOARGS, 0},
+  {"runInfo", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_33runInfo, METH_NOARGS, 0},
+  {"status", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_35status, METH_NOARGS, 0},
+  {"summary", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_37summary, METH_NOARGS, 0},
+  {"year", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_39year, METH_NOARGS, 0},
+  {"luminosity", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_41luminosity, METH_NOARGS, 0},
+  {"luminosityfb", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_43luminosityfb, METH_NOARGS, 0},
+  {"refFile", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_45refFile, METH_NOARGS, 0},
+  {"refData", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_8Analysis_47refData, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5rivet_4core_8Analysis_46refData},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_49__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_5rivet_4core_8Analysis_51__setstate_cython__, METH_O, 0},
   {0, 0, 0, 0}
 };
 
@@ -8338,9 +10000,10 @@ static void __pyx_tp_dealloc_5rivet_4core_AnalysisLoader(PyObject *o) {
 
 static PyMethodDef __pyx_methods_5rivet_4core_AnalysisLoader[] = {
   {"analysisNames", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_14AnalysisLoader_1analysisNames, METH_VARARGS|METH_KEYWORDS, 0},
-  {"getAnalysis", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_14AnalysisLoader_3getAnalysis, METH_VARARGS|METH_KEYWORDS, 0},
-  {"__reduce_cython__", (PyCFunction)__pyx_pw_5rivet_4core_14AnalysisLoader_5__reduce_cython__, METH_NOARGS, 0},
-  {"__setstate_cython__", (PyCFunction)__pyx_pw_5rivet_4core_14AnalysisLoader_7__setstate_cython__, METH_O, 0},
+  {"stdAnalysisNames", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_14AnalysisLoader_3stdAnalysisNames, METH_VARARGS|METH_KEYWORDS, 0},
+  {"getAnalysis", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5rivet_4core_14AnalysisLoader_5getAnalysis, METH_VARARGS|METH_KEYWORDS, 0},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_5rivet_4core_14AnalysisLoader_7__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_5rivet_4core_14AnalysisLoader_9__setstate_cython__, METH_O, 0},
   {0, 0, 0, 0}
 };
 
@@ -8448,6 +10111,7 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
+  {&__pyx_kp_s_, __pyx_k_, sizeof(__pyx_k_), 0, 0, 1, 0},
   {&__pyx_n_s_ALWAYS, __pyx_k_ALWAYS, sizeof(__pyx_k_ALWAYS), 0, 0, 1, 1},
   {&__pyx_n_s_Analysis, __pyx_k_Analysis, sizeof(__pyx_k_Analysis), 0, 0, 1, 1},
   {&__pyx_n_s_AnalysisHandler, __pyx_k_AnalysisHandler, sizeof(__pyx_k_AnalysisHandler), 0, 0, 1, 1},
@@ -8468,7 +10132,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_WARNING, __pyx_k_WARNING, sizeof(__pyx_k_WARNING), 0, 0, 1, 1},
   {&__pyx_n_s_addAnalysisDataPath, __pyx_k_addAnalysisDataPath, sizeof(__pyx_k_addAnalysisDataPath), 0, 0, 1, 1},
   {&__pyx_n_s_addAnalysisLibPath, __pyx_k_addAnalysisLibPath, sizeof(__pyx_k_addAnalysisLibPath), 0, 0, 1, 1},
+  {&__pyx_n_s_addopts, __pyx_k_addopts, sizeof(__pyx_k_addopts), 0, 0, 1, 1},
   {&__pyx_n_s_analysisNames, __pyx_k_analysisNames, sizeof(__pyx_k_analysisNames), 0, 0, 1, 1},
+  {&__pyx_n_s_asdict, __pyx_k_asdict, sizeof(__pyx_k_asdict), 0, 0, 1, 1},
   {&__pyx_n_s_bs, __pyx_k_bs, sizeof(__pyx_k_bs), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_kp_s_core_pyx, __pyx_k_core_pyx, sizeof(__pyx_k_core_pyx), 0, 0, 1, 0},
@@ -8477,7 +10143,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_encode, __pyx_k_encode, sizeof(__pyx_k_encode), 0, 0, 1, 1},
   {&__pyx_n_s_equiv, __pyx_k_equiv, sizeof(__pyx_k_equiv), 0, 0, 1, 1},
   {&__pyx_n_s_f, __pyx_k_f, sizeof(__pyx_k_f), 0, 0, 1, 1},
-  {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
   {&__pyx_n_s_filelist, __pyx_k_filelist, sizeof(__pyx_k_filelist), 0, 0, 1, 1},
   {&__pyx_n_s_findAnalysisDataFile, __pyx_k_findAnalysisDataFile, sizeof(__pyx_k_findAnalysisDataFile), 0, 0, 1, 1},
   {&__pyx_n_s_findAnalysisInfoFile, __pyx_k_findAnalysisInfoFile, sizeof(__pyx_k_findAnalysisInfoFile), 0, 0, 1, 1},
@@ -8503,6 +10168,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_no_default___reduce___due_to_non, __pyx_k_no_default___reduce___due_to_non, sizeof(__pyx_k_no_default___reduce___due_to_non), 0, 0, 1, 0},
   {&__pyx_n_s_p, __pyx_k_p, sizeof(__pyx_k_p), 0, 0, 1, 1},
   {&__pyx_n_s_path, __pyx_k_path, sizeof(__pyx_k_path), 0, 0, 1, 1},
+  {&__pyx_n_s_patterns, __pyx_k_patterns, sizeof(__pyx_k_patterns), 0, 0, 1, 1},
   {&__pyx_n_s_period, __pyx_k_period, sizeof(__pyx_k_period), 0, 0, 1, 1},
   {&__pyx_n_s_pickle, __pyx_k_pickle, sizeof(__pyx_k_pickle), 0, 0, 1, 1},
   {&__pyx_n_s_ps, __pyx_k_ps, sizeof(__pyx_k_ps), 0, 0, 1, 1},
@@ -8516,9 +10182,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_pyx_unpickle_AnalysisLoader, __pyx_k_pyx_unpickle_AnalysisLoader, sizeof(__pyx_k_pyx_unpickle_AnalysisLoader), 0, 0, 1, 1},
   {&__pyx_n_s_q, __pyx_k_q, sizeof(__pyx_k_q), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
+  {&__pyx_n_s_read, __pyx_k_read, sizeof(__pyx_k_read), 0, 0, 1, 1},
   {&__pyx_n_s_reduce, __pyx_k_reduce, sizeof(__pyx_k_reduce), 0, 0, 1, 1},
   {&__pyx_n_s_reduce_cython, __pyx_k_reduce_cython, sizeof(__pyx_k_reduce_cython), 0, 0, 1, 1},
   {&__pyx_n_s_reduce_ex, __pyx_k_reduce_ex, sizeof(__pyx_k_reduce_ex), 0, 0, 1, 1},
+  {&__pyx_n_s_refFile, __pyx_k_refFile, sizeof(__pyx_k_refFile), 0, 0, 1, 1},
   {&__pyx_n_s_rivet_core, __pyx_k_rivet_core, sizeof(__pyx_k_rivet_core), 0, 0, 1, 1},
   {&__pyx_kp_s_self__ptr_cannot_be_converted_to, __pyx_k_self__ptr_cannot_be_converted_to, sizeof(__pyx_k_self__ptr_cannot_be_converted_to), 0, 0, 1, 0},
   {&__pyx_n_s_setAnalysisDataPaths, __pyx_k_setAnalysisDataPaths, sizeof(__pyx_k_setAnalysisDataPaths), 0, 0, 1, 1},
@@ -8527,20 +10195,23 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_setstate, __pyx_k_setstate, sizeof(__pyx_k_setstate), 0, 0, 1, 1},
   {&__pyx_n_s_setstate_cython, __pyx_k_setstate_cython, sizeof(__pyx_k_setstate_cython), 0, 0, 1, 1},
   {&__pyx_n_s_staticmethod, __pyx_k_staticmethod, sizeof(__pyx_k_staticmethod), 0, 0, 1, 1},
+  {&__pyx_n_s_stdAnalysisNames, __pyx_k_stdAnalysisNames, sizeof(__pyx_k_stdAnalysisNames), 0, 0, 1, 1},
   {&__pyx_kp_s_stringsource, __pyx_k_stringsource, sizeof(__pyx_k_stringsource), 0, 0, 1, 0},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
+  {&__pyx_n_s_unpatterns, __pyx_k_unpatterns, sizeof(__pyx_k_unpatterns), 0, 0, 1, 1},
   {&__pyx_n_s_update, __pyx_k_update, sizeof(__pyx_k_update), 0, 0, 1, 1},
   {&__pyx_kp_s_utf_8, __pyx_k_utf_8, sizeof(__pyx_k_utf_8), 0, 0, 1, 0},
   {&__pyx_n_s_version, __pyx_k_version, sizeof(__pyx_k_version), 0, 0, 1, 1},
   {&__pyx_n_s_weight, __pyx_k_weight, sizeof(__pyx_k_weight), 0, 0, 1, 1},
   {&__pyx_n_s_x, __pyx_k_x, sizeof(__pyx_k_x), 0, 0, 1, 1},
   {&__pyx_n_s_xs, __pyx_k_xs, sizeof(__pyx_k_xs), 0, 0, 1, 1},
+  {&__pyx_n_s_yoda, __pyx_k_yoda, sizeof(__pyx_k_yoda), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_staticmethod = __Pyx_GetBuiltinName(__pyx_n_s_staticmethod); if (!__pyx_builtin_staticmethod) __PYX_ERR(0, 164, __pyx_L1_error)
+  __pyx_builtin_staticmethod = __Pyx_GetBuiltinName(__pyx_n_s_staticmethod); if (!__pyx_builtin_staticmethod) __PYX_ERR(0, 208, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(1, 2, __pyx_L1_error)
-  __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(0, 98, __pyx_L1_error)
+  __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(0, 120, __pyx_L1_error)
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(1, 61, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
@@ -8557,18 +10228,18 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple_)) __PYX_ERR(1, 2, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple_);
-  __Pyx_GIVEREF(__pyx_tuple_);
+  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(1, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__2);
+  __Pyx_GIVEREF(__pyx_tuple__2);
 
   /* "(tree fragment)":4
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
  */
-  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(1, 4, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__2);
-  __Pyx_GIVEREF(__pyx_tuple__2);
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(1, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__3);
+  __Pyx_GIVEREF(__pyx_tuple__3);
 
   /* "(tree fragment)":2
  * def __reduce_cython__(self):
@@ -8576,29 +10247,29 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(1, 2, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__3);
-  __Pyx_GIVEREF(__pyx_tuple__3);
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(1, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__4);
+  __Pyx_GIVEREF(__pyx_tuple__4);
 
   /* "(tree fragment)":4
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
  */
-  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(1, 4, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__4);
-  __Pyx_GIVEREF(__pyx_tuple__4);
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(1, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__5);
+  __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "rivet/core.pyx":98
+  /* "rivet/core.pyx":120
  * 
  *     def __init__(self):
  *         raise RuntimeError('This class cannot be instantiated')             # <<<<<<<<<<<<<<
  * 
  *     def requiredBeams(self):
  */
-  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_This_class_cannot_be_instantiate); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 98, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__5);
-  __Pyx_GIVEREF(__pyx_tuple__5);
+  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_s_This_class_cannot_be_instantiate); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 120, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__6);
+  __Pyx_GIVEREF(__pyx_tuple__6);
 
   /* "(tree fragment)":2
  * def __reduce_cython__(self):
@@ -8606,228 +10277,270 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("self._ptr cannot be converted to a Python object for pickling")
  */
-  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_s_self__ptr_cannot_be_converted_to); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(1, 2, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__6);
-  __Pyx_GIVEREF(__pyx_tuple__6);
+  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_self__ptr_cannot_be_converted_to); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(1, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__7);
+  __Pyx_GIVEREF(__pyx_tuple__7);
 
   /* "(tree fragment)":4
  *     raise TypeError("self._ptr cannot be converted to a Python object for pickling")
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("self._ptr cannot be converted to a Python object for pickling")             # <<<<<<<<<<<<<<
  */
-  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_self__ptr_cannot_be_converted_to); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(1, 4, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__7);
-  __Pyx_GIVEREF(__pyx_tuple__7);
+  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_kp_s_self__ptr_cannot_be_converted_to); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(1, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__8);
+  __Pyx_GIVEREF(__pyx_tuple__8);
 
-  /* "rivet/core.pyx":165
- * cdef class AnalysisLoader:
+  /* "rivet/core.pyx":209
+ * 
  *     @staticmethod
  *     def analysisNames():             # <<<<<<<<<<<<<<
  *         names = c.AnalysisLoader_analysisNames()
  *         return [ n.decode('utf-8') for n in names ]
  */
-  __pyx_tuple__8 = PyTuple_Pack(2, __pyx_n_s_names, __pyx_n_s_n); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 165, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__8);
-  __Pyx_GIVEREF(__pyx_tuple__8);
-  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_analysisNames, 165, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __pyx_tuple__9 = PyTuple_Pack(2, __pyx_n_s_names, __pyx_n_s_n); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 209, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__9);
+  __Pyx_GIVEREF(__pyx_tuple__9);
+  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_analysisNames, 209, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(0, 209, __pyx_L1_error)
 
-  /* "rivet/core.pyx":171
+  /* "rivet/core.pyx":219
+ * 
+ *     @staticmethod
+ *     def stdAnalysisNames():             # <<<<<<<<<<<<<<
+ *         names = c.AnalysisLoader_stdAnalysisNames()
+ *         return [ n.decode('utf-8') for n in names ]
+ */
+  __pyx_tuple__11 = PyTuple_Pack(2, __pyx_n_s_names, __pyx_n_s_n); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 219, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__11);
+  __Pyx_GIVEREF(__pyx_tuple__11);
+  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_stdAnalysisNames, 219, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 219, __pyx_L1_error)
+
+  /* "rivet/core.pyx":225
  * 
  *     @staticmethod
  *     def getAnalysis(name):             # <<<<<<<<<<<<<<
  *         name = name.encode('utf-8')
  *         cdef c.unique_ptr[c.Analysis] ptr = c.AnalysisLoader_getAnalysis(name)
  */
-  __pyx_tuple__10 = PyTuple_Pack(3, __pyx_n_s_name, __pyx_n_s_ptr, __pyx_n_s_pyobj); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 171, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__10);
-  __Pyx_GIVEREF(__pyx_tuple__10);
-  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_getAnalysis, 171, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 171, __pyx_L1_error)
+  __pyx_tuple__13 = PyTuple_Pack(3, __pyx_n_s_name, __pyx_n_s_ptr, __pyx_n_s_pyobj); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 225, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__13);
+  __Pyx_GIVEREF(__pyx_tuple__13);
+  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_getAnalysis, 225, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 225, __pyx_L1_error)
 
-  /* "rivet/core.pyx":182
+  /* "rivet/core.pyx":237
  * 
+ * ## Convenience versions in main rivet namespace
+ * def analysisNames():             # <<<<<<<<<<<<<<
+ *     return AnalysisLoader.analysisNames()
  * 
+ */
+  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_analysisNames, 237, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(0, 237, __pyx_L1_error)
+
+  /* "rivet/core.pyx":240
+ *     return AnalysisLoader.analysisNames()
+ * 
+ * def stdAnalysisNames():             # <<<<<<<<<<<<<<
+ *     return AnalysisLoader.stdAnalysisNames()
+ * 
+ */
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_stdAnalysisNames, 240, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 240, __pyx_L1_error)
+
+  /* "rivet/core.pyx":243
+ *     return AnalysisLoader.stdAnalysisNames()
+ * 
+ * def getAnalysis(name):             # <<<<<<<<<<<<<<
+ *     return AnalysisLoader.getAnalysis(name.encode('utf-8'))
+ * 
+ */
+  __pyx_tuple__17 = PyTuple_Pack(1, __pyx_n_s_name); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 243, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__17);
+  __Pyx_GIVEREF(__pyx_tuple__17);
+  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_getAnalysis, 243, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(0, 243, __pyx_L1_error)
+
+  /* "rivet/core.pyx":248
+ * 
+ * ## Path functions
  * def getAnalysisLibPaths():             # <<<<<<<<<<<<<<
  *     ps = c.getAnalysisLibPaths()
  *     return [ p.decode('utf-8') for p in ps ]
  */
-  __pyx_tuple__12 = PyTuple_Pack(2, __pyx_n_s_ps, __pyx_n_s_p); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 182, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__12);
-  __Pyx_GIVEREF(__pyx_tuple__12);
-  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_getAnalysisLibPaths, 182, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 182, __pyx_L1_error)
+  __pyx_tuple__19 = PyTuple_Pack(2, __pyx_n_s_ps, __pyx_n_s_p); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(0, 248, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__19);
+  __Pyx_GIVEREF(__pyx_tuple__19);
+  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_getAnalysisLibPaths, 248, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(0, 248, __pyx_L1_error)
 
-  /* "rivet/core.pyx":186
+  /* "rivet/core.pyx":252
  *     return [ p.decode('utf-8') for p in ps ]
  * 
  * def setAnalysisLibPaths(xs):             # <<<<<<<<<<<<<<
  *     bs = [ x.encode('utf-8') for x in xs ]
  *     c.setAnalysisLibPaths(bs)
  */
-  __pyx_tuple__14 = PyTuple_Pack(3, __pyx_n_s_xs, __pyx_n_s_bs, __pyx_n_s_x); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(0, 186, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__14);
-  __Pyx_GIVEREF(__pyx_tuple__14);
-  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_setAnalysisLibPaths, 186, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(0, 186, __pyx_L1_error)
+  __pyx_tuple__21 = PyTuple_Pack(3, __pyx_n_s_xs, __pyx_n_s_bs, __pyx_n_s_x); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 252, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__21);
+  __Pyx_GIVEREF(__pyx_tuple__21);
+  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_setAnalysisLibPaths, 252, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 252, __pyx_L1_error)
 
-  /* "rivet/core.pyx":190
+  /* "rivet/core.pyx":256
  *     c.setAnalysisLibPaths(bs)
  * 
  * def addAnalysisLibPath(path):             # <<<<<<<<<<<<<<
  *     c.addAnalysisLibPath(path.encode('utf-8'))
  * 
  */
-  __pyx_tuple__16 = PyTuple_Pack(1, __pyx_n_s_path); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(0, 190, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__16);
-  __Pyx_GIVEREF(__pyx_tuple__16);
-  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_addAnalysisLibPath, 190, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(0, 190, __pyx_L1_error)
+  __pyx_tuple__23 = PyTuple_Pack(1, __pyx_n_s_path); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__23);
+  __Pyx_GIVEREF(__pyx_tuple__23);
+  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_addAnalysisLibPath, 256, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 256, __pyx_L1_error)
 
-  /* "rivet/core.pyx":194
+  /* "rivet/core.pyx":260
  * 
  * 
  * def setAnalysisDataPaths(xs):             # <<<<<<<<<<<<<<
  *     bs = [ x.encode('utf-8') for x in xs ]
  *     c.setAnalysisDataPaths(bs)
  */
-  __pyx_tuple__18 = PyTuple_Pack(3, __pyx_n_s_xs, __pyx_n_s_bs, __pyx_n_s_x); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 194, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__18);
-  __Pyx_GIVEREF(__pyx_tuple__18);
-  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_setAnalysisDataPaths, 194, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_tuple__25 = PyTuple_Pack(3, __pyx_n_s_xs, __pyx_n_s_bs, __pyx_n_s_x); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__25);
+  __Pyx_GIVEREF(__pyx_tuple__25);
+  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_setAnalysisDataPaths, 260, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 260, __pyx_L1_error)
 
-  /* "rivet/core.pyx":198
+  /* "rivet/core.pyx":264
  *     c.setAnalysisDataPaths(bs)
  * 
  * def addAnalysisDataPath(path):             # <<<<<<<<<<<<<<
  *     c.addAnalysisDataPath(path.encode('utf-8'))
  * 
  */
-  __pyx_tuple__20 = PyTuple_Pack(1, __pyx_n_s_path); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 198, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__20);
-  __Pyx_GIVEREF(__pyx_tuple__20);
-  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_addAnalysisDataPath, 198, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 198, __pyx_L1_error)
+  __pyx_tuple__27 = PyTuple_Pack(1, __pyx_n_s_path); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 264, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__27);
+  __Pyx_GIVEREF(__pyx_tuple__27);
+  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_addAnalysisDataPath, 264, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 264, __pyx_L1_error)
 
-  /* "rivet/core.pyx":201
+  /* "rivet/core.pyx":267
  *     c.addAnalysisDataPath(path.encode('utf-8'))
  * 
  * def getAnalysisDataPaths():             # <<<<<<<<<<<<<<
  *     ps = c.getAnalysisDataPaths()
  *     return [ p.decode('utf-8') for p in ps ]
  */
-  __pyx_tuple__22 = PyTuple_Pack(2, __pyx_n_s_ps, __pyx_n_s_p); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 201, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__22);
-  __Pyx_GIVEREF(__pyx_tuple__22);
-  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_getAnalysisDataPaths, 201, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 201, __pyx_L1_error)
+  __pyx_tuple__29 = PyTuple_Pack(2, __pyx_n_s_ps, __pyx_n_s_p); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 267, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__29);
+  __Pyx_GIVEREF(__pyx_tuple__29);
+  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_getAnalysisDataPaths, 267, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 267, __pyx_L1_error)
 
-  /* "rivet/core.pyx":205
+  /* "rivet/core.pyx":271
  *     return [ p.decode('utf-8') for p in ps ]
  * 
  * def findAnalysisDataFile(q):             # <<<<<<<<<<<<<<
  *     f = c.findAnalysisDataFile(q.encode('utf-8'))
  *     return f.decode('utf-8')
  */
-  __pyx_tuple__24 = PyTuple_Pack(2, __pyx_n_s_q, __pyx_n_s_f); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 205, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__24);
-  __Pyx_GIVEREF(__pyx_tuple__24);
-  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_findAnalysisDataFile, 205, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 205, __pyx_L1_error)
+  __pyx_tuple__31 = PyTuple_Pack(2, __pyx_n_s_q, __pyx_n_s_f); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 271, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__31);
+  __Pyx_GIVEREF(__pyx_tuple__31);
+  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_findAnalysisDataFile, 271, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 271, __pyx_L1_error)
 
-  /* "rivet/core.pyx":209
+  /* "rivet/core.pyx":275
  *     return f.decode('utf-8')
  * 
  * def getAnalysisRefPaths():             # <<<<<<<<<<<<<<
  *     ps = c.getAnalysisRefPaths()
  *     return [ p.decode('utf-8') for p in ps ]
  */
-  __pyx_tuple__26 = PyTuple_Pack(2, __pyx_n_s_ps, __pyx_n_s_p); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 209, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__26);
-  __Pyx_GIVEREF(__pyx_tuple__26);
-  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_getAnalysisRefPaths, 209, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(0, 209, __pyx_L1_error)
+  __pyx_tuple__33 = PyTuple_Pack(2, __pyx_n_s_ps, __pyx_n_s_p); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 275, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__33);
+  __Pyx_GIVEREF(__pyx_tuple__33);
+  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_getAnalysisRefPaths, 275, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 275, __pyx_L1_error)
 
-  /* "rivet/core.pyx":213
+  /* "rivet/core.pyx":279
  *     return [ p.decode('utf-8') for p in ps ]
  * 
  * def findAnalysisRefFile(q):             # <<<<<<<<<<<<<<
  *     f = c.findAnalysisRefFile(q.encode('utf-8'))
  *     return f.decode('utf-8')
  */
-  __pyx_tuple__28 = PyTuple_Pack(2, __pyx_n_s_q, __pyx_n_s_f); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 213, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__28);
-  __Pyx_GIVEREF(__pyx_tuple__28);
-  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_findAnalysisRefFile, 213, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 213, __pyx_L1_error)
+  __pyx_tuple__35 = PyTuple_Pack(2, __pyx_n_s_q, __pyx_n_s_f); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(0, 279, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__35);
+  __Pyx_GIVEREF(__pyx_tuple__35);
+  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__35, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_findAnalysisRefFile, 279, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) __PYX_ERR(0, 279, __pyx_L1_error)
 
-  /* "rivet/core.pyx":218
+  /* "rivet/core.pyx":284
  * 
  * 
  * def getAnalysisInfoPaths():             # <<<<<<<<<<<<<<
  *     ps = c.getAnalysisInfoPaths()
  *     return [ p.decode('utf-8') for p in ps ]
  */
-  __pyx_tuple__30 = PyTuple_Pack(2, __pyx_n_s_ps, __pyx_n_s_p); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(0, 218, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__30);
-  __Pyx_GIVEREF(__pyx_tuple__30);
-  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_getAnalysisInfoPaths, 218, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 218, __pyx_L1_error)
+  __pyx_tuple__37 = PyTuple_Pack(2, __pyx_n_s_ps, __pyx_n_s_p); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 284, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__37);
+  __Pyx_GIVEREF(__pyx_tuple__37);
+  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_getAnalysisInfoPaths, 284, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 284, __pyx_L1_error)
 
-  /* "rivet/core.pyx":222
+  /* "rivet/core.pyx":288
  *     return [ p.decode('utf-8') for p in ps ]
  * 
  * def findAnalysisInfoFile(q):             # <<<<<<<<<<<<<<
  *     f = c.findAnalysisInfoFile(q.encode('utf-8'))
  *     return f.decode('utf-8')
  */
-  __pyx_tuple__32 = PyTuple_Pack(2, __pyx_n_s_q, __pyx_n_s_f); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(0, 222, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__32);
-  __Pyx_GIVEREF(__pyx_tuple__32);
-  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__32, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_findAnalysisInfoFile, 222, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __pyx_tuple__39 = PyTuple_Pack(2, __pyx_n_s_q, __pyx_n_s_f); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 288, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__39);
+  __Pyx_GIVEREF(__pyx_tuple__39);
+  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_findAnalysisInfoFile, 288, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 288, __pyx_L1_error)
 
-  /* "rivet/core.pyx":226
+  /* "rivet/core.pyx":292
  *     return f.decode('utf-8')
  * 
  * def getAnalysisPlotPaths():             # <<<<<<<<<<<<<<
  *     ps = c.getAnalysisPlotPaths()
  *     return [ p.decode('utf-8') for p in ps ]
  */
-  __pyx_tuple__34 = PyTuple_Pack(2, __pyx_n_s_ps, __pyx_n_s_p); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(0, 226, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__34);
-  __Pyx_GIVEREF(__pyx_tuple__34);
-  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_getAnalysisPlotPaths, 226, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_tuple__41 = PyTuple_Pack(2, __pyx_n_s_ps, __pyx_n_s_p); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 292, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__41);
+  __Pyx_GIVEREF(__pyx_tuple__41);
+  __pyx_codeobj__42 = (PyObject*)__Pyx_PyCode_New(0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_getAnalysisPlotPaths, 292, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__42)) __PYX_ERR(0, 292, __pyx_L1_error)
 
-  /* "rivet/core.pyx":230
+  /* "rivet/core.pyx":296
  *     return [ p.decode('utf-8') for p in ps ]
  * 
  * def findAnalysisPlotFile(q):             # <<<<<<<<<<<<<<
  *     f = c.findAnalysisPlotFile(q.encode('utf-8'))
  *     return f.decode('utf-8')
  */
-  __pyx_tuple__36 = PyTuple_Pack(2, __pyx_n_s_q, __pyx_n_s_f); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(0, 230, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__36);
-  __Pyx_GIVEREF(__pyx_tuple__36);
-  __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_findAnalysisPlotFile, 230, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) __PYX_ERR(0, 230, __pyx_L1_error)
+  __pyx_tuple__43 = PyTuple_Pack(2, __pyx_n_s_q, __pyx_n_s_f); if (unlikely(!__pyx_tuple__43)) __PYX_ERR(0, 296, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__43);
+  __Pyx_GIVEREF(__pyx_tuple__43);
+  __pyx_codeobj__44 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__43, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_findAnalysisPlotFile, 296, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__44)) __PYX_ERR(0, 296, __pyx_L1_error)
 
-  /* "rivet/core.pyx":234
+  /* "rivet/core.pyx":300
  *     return f.decode('utf-8')
  * 
  * def version():             # <<<<<<<<<<<<<<
  *     return c.version().decode('utf-8')
  * 
  */
-  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_version, 234, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 234, __pyx_L1_error)
+  __pyx_codeobj__45 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_version, 300, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__45)) __PYX_ERR(0, 300, __pyx_L1_error)
 
-  /* "rivet/core.pyx":237
+  /* "rivet/core.pyx":303
  *     return c.version().decode('utf-8')
  * 
  * def setLogLevel(name, level):             # <<<<<<<<<<<<<<
  *     c.setLogLevel(name.encode('utf-8'), level)
  */
-  __pyx_tuple__39 = PyTuple_Pack(2, __pyx_n_s_name, __pyx_n_s_level); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 237, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__39);
-  __Pyx_GIVEREF(__pyx_tuple__39);
-  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_setLogLevel, 237, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 237, __pyx_L1_error)
+  __pyx_tuple__46 = PyTuple_Pack(2, __pyx_n_s_name, __pyx_n_s_level); if (unlikely(!__pyx_tuple__46)) __PYX_ERR(0, 303, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__46);
+  __Pyx_GIVEREF(__pyx_tuple__46);
+  __pyx_codeobj__47 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__46, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_core_pyx, __pyx_n_s_setLogLevel, 303, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__47)) __PYX_ERR(0, 303, __pyx_L1_error)
 
   /* "(tree fragment)":1
  * def __pyx_unpickle_AnalysisLoader(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_tuple__41 = PyTuple_Pack(5, __pyx_n_s_pyx_type, __pyx_n_s_pyx_checksum, __pyx_n_s_pyx_state, __pyx_n_s_pyx_PickleError, __pyx_n_s_pyx_result); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__41);
-  __Pyx_GIVEREF(__pyx_tuple__41);
-  __pyx_codeobj__42 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_AnalysisLoader, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__42)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_tuple__48 = PyTuple_Pack(5, __pyx_n_s_pyx_type, __pyx_n_s_pyx_checksum, __pyx_n_s_pyx_state, __pyx_n_s_pyx_PickleError, __pyx_n_s_pyx_result); if (unlikely(!__pyx_tuple__48)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__48);
+  __Pyx_GIVEREF(__pyx_tuple__48);
+  __pyx_codeobj__49 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__48, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_AnalysisLoader, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__49)) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -8894,29 +10607,29 @@ static int __Pyx_modinit_type_init_code(void) {
   if (PyObject_SetAttr(__pyx_m, __pyx_n_s_AnalysisHandler, (PyObject *)&__pyx_type_5rivet_4core_AnalysisHandler) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
   if (__Pyx_setup_reduce((PyObject*)&__pyx_type_5rivet_4core_AnalysisHandler) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
   __pyx_ptype_5rivet_4core_AnalysisHandler = &__pyx_type_5rivet_4core_AnalysisHandler;
-  if (PyType_Ready(&__pyx_type_5rivet_4core_Run) < 0) __PYX_ERR(0, 58, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_5rivet_4core_Run) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
   __pyx_type_5rivet_4core_Run.tp_print = 0;
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_5rivet_4core_Run.tp_dictoffset && __pyx_type_5rivet_4core_Run.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_5rivet_4core_Run.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Run, (PyObject *)&__pyx_type_5rivet_4core_Run) < 0) __PYX_ERR(0, 58, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_5rivet_4core_Run) < 0) __PYX_ERR(0, 58, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Run, (PyObject *)&__pyx_type_5rivet_4core_Run) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_5rivet_4core_Run) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
   __pyx_ptype_5rivet_4core_Run = &__pyx_type_5rivet_4core_Run;
-  if (PyType_Ready(&__pyx_type_5rivet_4core_Analysis) < 0) __PYX_ERR(0, 94, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_5rivet_4core_Analysis) < 0) __PYX_ERR(0, 116, __pyx_L1_error)
   __pyx_type_5rivet_4core_Analysis.tp_print = 0;
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_5rivet_4core_Analysis.tp_dictoffset && __pyx_type_5rivet_4core_Analysis.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_5rivet_4core_Analysis.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Analysis, (PyObject *)&__pyx_type_5rivet_4core_Analysis) < 0) __PYX_ERR(0, 94, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_5rivet_4core_Analysis) < 0) __PYX_ERR(0, 94, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Analysis, (PyObject *)&__pyx_type_5rivet_4core_Analysis) < 0) __PYX_ERR(0, 116, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_5rivet_4core_Analysis) < 0) __PYX_ERR(0, 116, __pyx_L1_error)
   __pyx_ptype_5rivet_4core_Analysis = &__pyx_type_5rivet_4core_Analysis;
-  if (PyType_Ready(&__pyx_type_5rivet_4core_AnalysisLoader) < 0) __PYX_ERR(0, 163, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_5rivet_4core_AnalysisLoader) < 0) __PYX_ERR(0, 206, __pyx_L1_error)
   __pyx_type_5rivet_4core_AnalysisLoader.tp_print = 0;
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_5rivet_4core_AnalysisLoader.tp_dictoffset && __pyx_type_5rivet_4core_AnalysisLoader.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_5rivet_4core_AnalysisLoader.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_AnalysisLoader, (PyObject *)&__pyx_type_5rivet_4core_AnalysisLoader) < 0) __PYX_ERR(0, 163, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_5rivet_4core_AnalysisLoader) < 0) __PYX_ERR(0, 163, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_AnalysisLoader, (PyObject *)&__pyx_type_5rivet_4core_AnalysisLoader) < 0) __PYX_ERR(0, 206, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_5rivet_4core_AnalysisLoader) < 0) __PYX_ERR(0, 206, __pyx_L1_error)
   __pyx_ptype_5rivet_4core_AnalysisLoader = &__pyx_type_5rivet_4core_AnalysisLoader;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -9147,282 +10860,347 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "rivet/core.pyx":158
+  /* "rivet/core.pyx":201
  * 
  * #cdef object
  * LEVELS = dict(TRACE = 0, DEBUG = 10, INFO = 20,             # <<<<<<<<<<<<<<
  *               WARN = 30, WARNING = 30, ERROR = 40,
  *               CRITICAL = 50, ALWAYS = 50)
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 158, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 201, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_TRACE, __pyx_int_0) < 0) __PYX_ERR(0, 158, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_DEBUG, __pyx_int_10) < 0) __PYX_ERR(0, 158, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_INFO, __pyx_int_20) < 0) __PYX_ERR(0, 158, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_WARN, __pyx_int_30) < 0) __PYX_ERR(0, 158, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_WARNING, __pyx_int_30) < 0) __PYX_ERR(0, 158, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_ERROR, __pyx_int_40) < 0) __PYX_ERR(0, 158, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_CRITICAL, __pyx_int_50) < 0) __PYX_ERR(0, 158, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_ALWAYS, __pyx_int_50) < 0) __PYX_ERR(0, 158, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_LEVELS, __pyx_t_1) < 0) __PYX_ERR(0, 158, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_TRACE, __pyx_int_0) < 0) __PYX_ERR(0, 201, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_DEBUG, __pyx_int_10) < 0) __PYX_ERR(0, 201, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_INFO, __pyx_int_20) < 0) __PYX_ERR(0, 201, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_WARN, __pyx_int_30) < 0) __PYX_ERR(0, 201, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_WARNING, __pyx_int_30) < 0) __PYX_ERR(0, 201, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_ERROR, __pyx_int_40) < 0) __PYX_ERR(0, 201, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_CRITICAL, __pyx_int_50) < 0) __PYX_ERR(0, 201, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_ALWAYS, __pyx_int_50) < 0) __PYX_ERR(0, 201, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_LEVELS, __pyx_t_1) < 0) __PYX_ERR(0, 201, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "rivet/core.pyx":165
- * cdef class AnalysisLoader:
+  /* "rivet/core.pyx":209
+ * 
  *     @staticmethod
  *     def analysisNames():             # <<<<<<<<<<<<<<
  *         names = c.AnalysisLoader_analysisNames()
  *         return [ n.decode('utf-8') for n in names ]
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_14AnalysisLoader_1analysisNames, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_14AnalysisLoader_1analysisNames, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_5rivet_4core_AnalysisLoader->tp_dict, __pyx_n_s_analysisNames, __pyx_t_1) < 0) __PYX_ERR(0, 165, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_5rivet_4core_AnalysisLoader->tp_dict, __pyx_n_s_analysisNames, __pyx_t_1) < 0) __PYX_ERR(0, 209, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_5rivet_4core_AnalysisLoader);
 
-  /* "rivet/core.pyx":164
- * 
+  /* "rivet/core.pyx":208
  * cdef class AnalysisLoader:
+ * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def analysisNames():
  *         names = c.AnalysisLoader_analysisNames()
  */
-  __Pyx_GetNameInClass(__pyx_t_1, (PyObject *)__pyx_ptype_5rivet_4core_AnalysisLoader, __pyx_n_s_analysisNames); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __Pyx_GetNameInClass(__pyx_t_1, (PyObject *)__pyx_ptype_5rivet_4core_AnalysisLoader, __pyx_n_s_analysisNames); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_staticmethod, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 164, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_staticmethod, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 208, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_5rivet_4core_AnalysisLoader->tp_dict, __pyx_n_s_analysisNames, __pyx_t_2) < 0) __PYX_ERR(0, 165, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_5rivet_4core_AnalysisLoader->tp_dict, __pyx_n_s_analysisNames, __pyx_t_2) < 0) __PYX_ERR(0, 209, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_5rivet_4core_AnalysisLoader);
 
-  /* "rivet/core.pyx":171
+  /* "rivet/core.pyx":219
+ * 
+ *     @staticmethod
+ *     def stdAnalysisNames():             # <<<<<<<<<<<<<<
+ *         names = c.AnalysisLoader_stdAnalysisNames()
+ *         return [ n.decode('utf-8') for n in names ]
+ */
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_14AnalysisLoader_3stdAnalysisNames, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 219, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_5rivet_4core_AnalysisLoader->tp_dict, __pyx_n_s_stdAnalysisNames, __pyx_t_2) < 0) __PYX_ERR(0, 219, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  PyType_Modified(__pyx_ptype_5rivet_4core_AnalysisLoader);
+
+  /* "rivet/core.pyx":218
+ *     #     return { n.decode('utf-8') for n in names }
+ * 
+ *     @staticmethod             # <<<<<<<<<<<<<<
+ *     def stdAnalysisNames():
+ *         names = c.AnalysisLoader_stdAnalysisNames()
+ */
+  __Pyx_GetNameInClass(__pyx_t_2, (PyObject *)__pyx_ptype_5rivet_4core_AnalysisLoader, __pyx_n_s_stdAnalysisNames); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 219, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_staticmethod, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 218, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_5rivet_4core_AnalysisLoader->tp_dict, __pyx_n_s_stdAnalysisNames, __pyx_t_1) < 0) __PYX_ERR(0, 219, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  PyType_Modified(__pyx_ptype_5rivet_4core_AnalysisLoader);
+
+  /* "rivet/core.pyx":225
  * 
  *     @staticmethod
  *     def getAnalysis(name):             # <<<<<<<<<<<<<<
  *         name = name.encode('utf-8')
  *         cdef c.unique_ptr[c.Analysis] ptr = c.AnalysisLoader_getAnalysis(name)
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_14AnalysisLoader_3getAnalysis, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 171, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_5rivet_4core_AnalysisLoader->tp_dict, __pyx_n_s_getAnalysis, __pyx_t_2) < 0) __PYX_ERR(0, 171, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_14AnalysisLoader_5getAnalysis, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 225, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_5rivet_4core_AnalysisLoader->tp_dict, __pyx_n_s_getAnalysis, __pyx_t_1) < 0) __PYX_ERR(0, 225, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_5rivet_4core_AnalysisLoader);
 
-  /* "rivet/core.pyx":170
+  /* "rivet/core.pyx":224
  * 
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def getAnalysis(name):
  *         name = name.encode('utf-8')
  */
-  __Pyx_GetNameInClass(__pyx_t_2, (PyObject *)__pyx_ptype_5rivet_4core_AnalysisLoader, __pyx_n_s_getAnalysis); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 171, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_staticmethod, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 170, __pyx_L1_error)
+  __Pyx_GetNameInClass(__pyx_t_1, (PyObject *)__pyx_ptype_5rivet_4core_AnalysisLoader, __pyx_n_s_getAnalysis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 225, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_5rivet_4core_AnalysisLoader->tp_dict, __pyx_n_s_getAnalysis, __pyx_t_1) < 0) __PYX_ERR(0, 171, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_staticmethod, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 224, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_5rivet_4core_AnalysisLoader->tp_dict, __pyx_n_s_getAnalysis, __pyx_t_2) < 0) __PYX_ERR(0, 225, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_5rivet_4core_AnalysisLoader);
 
-  /* "rivet/core.pyx":182
+  /* "rivet/core.pyx":237
  * 
+ * ## Convenience versions in main rivet namespace
+ * def analysisNames():             # <<<<<<<<<<<<<<
+ *     return AnalysisLoader.analysisNames()
  * 
+ */
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_1analysisNames, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 237, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_analysisNames, __pyx_t_2) < 0) __PYX_ERR(0, 237, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "rivet/core.pyx":240
+ *     return AnalysisLoader.analysisNames()
+ * 
+ * def stdAnalysisNames():             # <<<<<<<<<<<<<<
+ *     return AnalysisLoader.stdAnalysisNames()
+ * 
+ */
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_3stdAnalysisNames, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_stdAnalysisNames, __pyx_t_2) < 0) __PYX_ERR(0, 240, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "rivet/core.pyx":243
+ *     return AnalysisLoader.stdAnalysisNames()
+ * 
+ * def getAnalysis(name):             # <<<<<<<<<<<<<<
+ *     return AnalysisLoader.getAnalysis(name.encode('utf-8'))
+ * 
+ */
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_5getAnalysis, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 243, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_getAnalysis, __pyx_t_2) < 0) __PYX_ERR(0, 243, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "rivet/core.pyx":248
+ * 
+ * ## Path functions
  * def getAnalysisLibPaths():             # <<<<<<<<<<<<<<
  *     ps = c.getAnalysisLibPaths()
  *     return [ p.decode('utf-8') for p in ps ]
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_1getAnalysisLibPaths, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_getAnalysisLibPaths, __pyx_t_1) < 0) __PYX_ERR(0, 182, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_7getAnalysisLibPaths, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_getAnalysisLibPaths, __pyx_t_2) < 0) __PYX_ERR(0, 248, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "rivet/core.pyx":186
+  /* "rivet/core.pyx":252
  *     return [ p.decode('utf-8') for p in ps ]
  * 
  * def setAnalysisLibPaths(xs):             # <<<<<<<<<<<<<<
  *     bs = [ x.encode('utf-8') for x in xs ]
  *     c.setAnalysisLibPaths(bs)
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_3setAnalysisLibPaths, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 186, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_setAnalysisLibPaths, __pyx_t_1) < 0) __PYX_ERR(0, 186, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_9setAnalysisLibPaths, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 252, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_setAnalysisLibPaths, __pyx_t_2) < 0) __PYX_ERR(0, 252, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "rivet/core.pyx":190
+  /* "rivet/core.pyx":256
  *     c.setAnalysisLibPaths(bs)
  * 
  * def addAnalysisLibPath(path):             # <<<<<<<<<<<<<<
  *     c.addAnalysisLibPath(path.encode('utf-8'))
  * 
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_5addAnalysisLibPath, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_addAnalysisLibPath, __pyx_t_1) < 0) __PYX_ERR(0, 190, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_11addAnalysisLibPath, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_addAnalysisLibPath, __pyx_t_2) < 0) __PYX_ERR(0, 256, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "rivet/core.pyx":194
+  /* "rivet/core.pyx":260
  * 
  * 
  * def setAnalysisDataPaths(xs):             # <<<<<<<<<<<<<<
  *     bs = [ x.encode('utf-8') for x in xs ]
  *     c.setAnalysisDataPaths(bs)
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_7setAnalysisDataPaths, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 194, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_setAnalysisDataPaths, __pyx_t_1) < 0) __PYX_ERR(0, 194, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_13setAnalysisDataPaths, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_setAnalysisDataPaths, __pyx_t_2) < 0) __PYX_ERR(0, 260, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "rivet/core.pyx":198
+  /* "rivet/core.pyx":264
  *     c.setAnalysisDataPaths(bs)
  * 
  * def addAnalysisDataPath(path):             # <<<<<<<<<<<<<<
  *     c.addAnalysisDataPath(path.encode('utf-8'))
  * 
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_9addAnalysisDataPath, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 198, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_addAnalysisDataPath, __pyx_t_1) < 0) __PYX_ERR(0, 198, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_15addAnalysisDataPath, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 264, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_addAnalysisDataPath, __pyx_t_2) < 0) __PYX_ERR(0, 264, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "rivet/core.pyx":201
+  /* "rivet/core.pyx":267
  *     c.addAnalysisDataPath(path.encode('utf-8'))
  * 
  * def getAnalysisDataPaths():             # <<<<<<<<<<<<<<
  *     ps = c.getAnalysisDataPaths()
  *     return [ p.decode('utf-8') for p in ps ]
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_11getAnalysisDataPaths, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 201, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_getAnalysisDataPaths, __pyx_t_1) < 0) __PYX_ERR(0, 201, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_17getAnalysisDataPaths, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 267, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_getAnalysisDataPaths, __pyx_t_2) < 0) __PYX_ERR(0, 267, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "rivet/core.pyx":205
+  /* "rivet/core.pyx":271
  *     return [ p.decode('utf-8') for p in ps ]
  * 
  * def findAnalysisDataFile(q):             # <<<<<<<<<<<<<<
  *     f = c.findAnalysisDataFile(q.encode('utf-8'))
  *     return f.decode('utf-8')
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_13findAnalysisDataFile, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 205, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_findAnalysisDataFile, __pyx_t_1) < 0) __PYX_ERR(0, 205, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_19findAnalysisDataFile, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 271, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_findAnalysisDataFile, __pyx_t_2) < 0) __PYX_ERR(0, 271, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "rivet/core.pyx":209
+  /* "rivet/core.pyx":275
  *     return f.decode('utf-8')
  * 
  * def getAnalysisRefPaths():             # <<<<<<<<<<<<<<
  *     ps = c.getAnalysisRefPaths()
  *     return [ p.decode('utf-8') for p in ps ]
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_15getAnalysisRefPaths, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_getAnalysisRefPaths, __pyx_t_1) < 0) __PYX_ERR(0, 209, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_21getAnalysisRefPaths, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 275, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_getAnalysisRefPaths, __pyx_t_2) < 0) __PYX_ERR(0, 275, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "rivet/core.pyx":213
+  /* "rivet/core.pyx":279
  *     return [ p.decode('utf-8') for p in ps ]
  * 
  * def findAnalysisRefFile(q):             # <<<<<<<<<<<<<<
  *     f = c.findAnalysisRefFile(q.encode('utf-8'))
  *     return f.decode('utf-8')
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_17findAnalysisRefFile, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 213, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_findAnalysisRefFile, __pyx_t_1) < 0) __PYX_ERR(0, 213, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_23findAnalysisRefFile, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 279, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_findAnalysisRefFile, __pyx_t_2) < 0) __PYX_ERR(0, 279, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "rivet/core.pyx":218
+  /* "rivet/core.pyx":284
  * 
  * 
  * def getAnalysisInfoPaths():             # <<<<<<<<<<<<<<
  *     ps = c.getAnalysisInfoPaths()
  *     return [ p.decode('utf-8') for p in ps ]
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_19getAnalysisInfoPaths, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 218, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_getAnalysisInfoPaths, __pyx_t_1) < 0) __PYX_ERR(0, 218, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_25getAnalysisInfoPaths, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 284, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_getAnalysisInfoPaths, __pyx_t_2) < 0) __PYX_ERR(0, 284, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "rivet/core.pyx":222
+  /* "rivet/core.pyx":288
  *     return [ p.decode('utf-8') for p in ps ]
  * 
  * def findAnalysisInfoFile(q):             # <<<<<<<<<<<<<<
  *     f = c.findAnalysisInfoFile(q.encode('utf-8'))
  *     return f.decode('utf-8')
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_21findAnalysisInfoFile, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_findAnalysisInfoFile, __pyx_t_1) < 0) __PYX_ERR(0, 222, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_27findAnalysisInfoFile, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 288, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_findAnalysisInfoFile, __pyx_t_2) < 0) __PYX_ERR(0, 288, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "rivet/core.pyx":226
+  /* "rivet/core.pyx":292
  *     return f.decode('utf-8')
  * 
  * def getAnalysisPlotPaths():             # <<<<<<<<<<<<<<
  *     ps = c.getAnalysisPlotPaths()
  *     return [ p.decode('utf-8') for p in ps ]
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_23getAnalysisPlotPaths, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 226, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_getAnalysisPlotPaths, __pyx_t_1) < 0) __PYX_ERR(0, 226, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_29getAnalysisPlotPaths, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 292, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_getAnalysisPlotPaths, __pyx_t_2) < 0) __PYX_ERR(0, 292, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "rivet/core.pyx":230
+  /* "rivet/core.pyx":296
  *     return [ p.decode('utf-8') for p in ps ]
  * 
  * def findAnalysisPlotFile(q):             # <<<<<<<<<<<<<<
  *     f = c.findAnalysisPlotFile(q.encode('utf-8'))
  *     return f.decode('utf-8')
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_25findAnalysisPlotFile, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 230, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_findAnalysisPlotFile, __pyx_t_1) < 0) __PYX_ERR(0, 230, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_31findAnalysisPlotFile, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 296, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_findAnalysisPlotFile, __pyx_t_2) < 0) __PYX_ERR(0, 296, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "rivet/core.pyx":234
+  /* "rivet/core.pyx":300
  *     return f.decode('utf-8')
  * 
  * def version():             # <<<<<<<<<<<<<<
  *     return c.version().decode('utf-8')
  * 
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_27version, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 234, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_version, __pyx_t_1) < 0) __PYX_ERR(0, 234, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_33version, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 300, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_version, __pyx_t_2) < 0) __PYX_ERR(0, 300, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "rivet/core.pyx":237
+  /* "rivet/core.pyx":303
  *     return c.version().decode('utf-8')
  * 
  * def setLogLevel(name, level):             # <<<<<<<<<<<<<<
  *     c.setLogLevel(name.encode('utf-8'), level)
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_29setLogLevel, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 237, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_setLogLevel, __pyx_t_1) < 0) __PYX_ERR(0, 237, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_35setLogLevel, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 303, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_setLogLevel, __pyx_t_2) < 0) __PYX_ERR(0, 303, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "(tree fragment)":1
  * def __pyx_unpickle_AnalysisLoader(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_31__pyx_unpickle_AnalysisLoader, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_AnalysisLoader, __pyx_t_1) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5rivet_4core_37__pyx_unpickle_AnalysisLoader, NULL, __pyx_n_s_rivet_core); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_AnalysisLoader, __pyx_t_2) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "rivet/core.pyx":1
  * # distutils: language = c++             # <<<<<<<<<<<<<<
  * 
  * cimport rivet as c
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_2) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "vector.to_py":60
  * 
@@ -10167,6 +11945,93 @@ static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *nam
     return 0;
 }
 
+/* Import */
+static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level) {
+    PyObject *empty_list = 0;
+    PyObject *module = 0;
+    PyObject *global_dict = 0;
+    PyObject *empty_dict = 0;
+    PyObject *list;
+    #if PY_MAJOR_VERSION < 3
+    PyObject *py_import;
+    py_import = __Pyx_PyObject_GetAttrStr(__pyx_b, __pyx_n_s_import);
+    if (!py_import)
+        goto bad;
+    #endif
+    if (from_list)
+        list = from_list;
+    else {
+        empty_list = PyList_New(0);
+        if (!empty_list)
+            goto bad;
+        list = empty_list;
+    }
+    global_dict = PyModule_GetDict(__pyx_m);
+    if (!global_dict)
+        goto bad;
+    empty_dict = PyDict_New();
+    if (!empty_dict)
+        goto bad;
+    {
+        #if PY_MAJOR_VERSION >= 3
+        if (level == -1) {
+            if (strchr(__Pyx_MODULE_NAME, '.')) {
+                module = PyImport_ImportModuleLevelObject(
+                    name, global_dict, empty_dict, list, 1);
+                if (!module) {
+                    if (!PyErr_ExceptionMatches(PyExc_ImportError))
+                        goto bad;
+                    PyErr_Clear();
+                }
+            }
+            level = 0;
+        }
+        #endif
+        if (!module) {
+            #if PY_MAJOR_VERSION < 3
+            PyObject *py_level = PyInt_FromLong(level);
+            if (!py_level)
+                goto bad;
+            module = PyObject_CallFunctionObjArgs(py_import,
+                name, global_dict, empty_dict, list, py_level, (PyObject *)NULL);
+            Py_DECREF(py_level);
+            #else
+            module = PyImport_ImportModuleLevelObject(
+                name, global_dict, empty_dict, list, level);
+            #endif
+        }
+    }
+bad:
+    #if PY_MAJOR_VERSION < 3
+    Py_XDECREF(py_import);
+    #endif
+    Py_XDECREF(empty_list);
+    Py_XDECREF(empty_dict);
+    return module;
+}
+
+/* PyObjectCallNoArg */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
+#if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(func)) {
+        return __Pyx_PyFunction_FastCall(func, NULL, 0);
+    }
+#endif
+#ifdef __Pyx_CyFunction_USED
+    if (likely(PyCFunction_Check(func) || __Pyx_CyFunction_Check(func)))
+#else
+    if (likely(PyCFunction_Check(func)))
+#endif
+    {
+        if (likely(PyCFunction_GET_FLAGS(func) & METH_NOARGS)) {
+            return __Pyx_PyObject_CallMethO(func, NULL);
+        }
+    }
+    return __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL);
+}
+#endif
+
 /* PyErrExceptionMatches */
 #if CYTHON_FAST_THREAD_STATE
 static int __Pyx_PyErr_ExceptionMatchesTuple(PyObject *exc_type, PyObject *tuple) {
@@ -10279,71 +12144,6 @@ static CYTHON_INLINE PyObject *__Pyx__GetModuleGlobalName(PyObject *name)
     PyErr_Clear();
 #endif
     return __Pyx_GetBuiltinName(name);
-}
-
-/* Import */
-static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level) {
-    PyObject *empty_list = 0;
-    PyObject *module = 0;
-    PyObject *global_dict = 0;
-    PyObject *empty_dict = 0;
-    PyObject *list;
-    #if PY_MAJOR_VERSION < 3
-    PyObject *py_import;
-    py_import = __Pyx_PyObject_GetAttrStr(__pyx_b, __pyx_n_s_import);
-    if (!py_import)
-        goto bad;
-    #endif
-    if (from_list)
-        list = from_list;
-    else {
-        empty_list = PyList_New(0);
-        if (!empty_list)
-            goto bad;
-        list = empty_list;
-    }
-    global_dict = PyModule_GetDict(__pyx_m);
-    if (!global_dict)
-        goto bad;
-    empty_dict = PyDict_New();
-    if (!empty_dict)
-        goto bad;
-    {
-        #if PY_MAJOR_VERSION >= 3
-        if (level == -1) {
-            if (strchr(__Pyx_MODULE_NAME, '.')) {
-                module = PyImport_ImportModuleLevelObject(
-                    name, global_dict, empty_dict, list, 1);
-                if (!module) {
-                    if (!PyErr_ExceptionMatches(PyExc_ImportError))
-                        goto bad;
-                    PyErr_Clear();
-                }
-            }
-            level = 0;
-        }
-        #endif
-        if (!module) {
-            #if PY_MAJOR_VERSION < 3
-            PyObject *py_level = PyInt_FromLong(level);
-            if (!py_level)
-                goto bad;
-            module = PyObject_CallFunctionObjArgs(py_import,
-                name, global_dict, empty_dict, list, py_level, (PyObject *)NULL);
-            Py_DECREF(py_level);
-            #else
-            module = PyImport_ImportModuleLevelObject(
-                name, global_dict, empty_dict, list, level);
-            #endif
-        }
-    }
-bad:
-    #if PY_MAJOR_VERSION < 3
-    Py_XDECREF(py_import);
-    #endif
-    Py_XDECREF(empty_list);
-    Py_XDECREF(empty_dict);
-    return module;
 }
 
 /* ImportFrom */

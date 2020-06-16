@@ -89,11 +89,13 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
+@ENABLE_HEPMC_3_TRUE@am__append_1 = RivetHepMC_3.cc ReaderCompressedAscii.cc WriterCompressedAscii.cc
+@ENABLE_HEPMC_3_FALSE@am__append_2 = RivetHepMC_2.cc
 subdir = src/Tools
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_zlib.m4 \
 	$(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
-	$(top_srcdir)/m4/ax_openmp.m4 \
+	$(top_srcdir)/m4/ax_execinfo.m4 $(top_srcdir)/m4/ax_openmp.m4 \
 	$(top_srcdir)/m4/ax_python_devel.m4 $(top_srcdir)/m4/cxx.m4 \
 	$(top_srcdir)/m4/cython.m4 $(top_srcdir)/m4/lcg.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
@@ -106,15 +108,22 @@ DIST_COMMON = $(srcdir)/Makefile.am $(dist_noinst_HEADERS) \
 	$(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/include/Rivet/Config/DummyConfig.hh \
-	$(top_builddir)/include/Rivet/Config/RivetConfig.hh \
-	$(top_builddir)/include/Rivet/Config/BuildOptions.hh
+	$(top_builddir)/include/Rivet/Config/RivetConfig.hh
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
-libRivetTools_la_DEPENDENCIES =  \
-	fjcontrib/EnergyCorrelator/libRivetEnergyCorrelator.la \
-	fjcontrib/Nsubjettiness/libRivetNsubjettiness.la \
-	fjcontrib/RecursiveTools/libRivetRecursiveTools.la
+libRivetTools_la_LIBADD =
+am__libRivetTools_la_SOURCES_DIST = BinnedHistogram.cc Correlators.cc \
+	Cuts.cc JetUtils.cc Random.cc Logging.cc ParticleUtils.cc \
+	ParticleName.cc Percentile.cc RivetYODA.cc RivetMT2.cc \
+	RivetPaths.cc Utils.cc binreloc.c RivetHepMC_3.cc \
+	ReaderCompressedAscii.cc WriterCompressedAscii.cc \
+	RivetHepMC_2.cc
+@ENABLE_HEPMC_3_TRUE@am__objects_1 = libRivetTools_la-RivetHepMC_3.lo \
+@ENABLE_HEPMC_3_TRUE@	libRivetTools_la-ReaderCompressedAscii.lo \
+@ENABLE_HEPMC_3_TRUE@	libRivetTools_la-WriterCompressedAscii.lo
+@ENABLE_HEPMC_3_FALSE@am__objects_2 =  \
+@ENABLE_HEPMC_3_FALSE@	libRivetTools_la-RivetHepMC_2.lo
 am_libRivetTools_la_OBJECTS = libRivetTools_la-BinnedHistogram.lo \
 	libRivetTools_la-Correlators.lo libRivetTools_la-Cuts.lo \
 	libRivetTools_la-JetUtils.lo libRivetTools_la-Random.lo \
@@ -122,7 +131,8 @@ am_libRivetTools_la_OBJECTS = libRivetTools_la-BinnedHistogram.lo \
 	libRivetTools_la-ParticleName.lo \
 	libRivetTools_la-Percentile.lo libRivetTools_la-RivetYODA.lo \
 	libRivetTools_la-RivetMT2.lo libRivetTools_la-RivetPaths.lo \
-	libRivetTools_la-Utils.lo libRivetTools_la-binreloc.lo
+	libRivetTools_la-Utils.lo libRivetTools_la-binreloc.lo \
+	$(am__objects_1) $(am__objects_2)
 libRivetTools_la_OBJECTS = $(am_libRivetTools_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -181,29 +191,13 @@ am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
 SOURCES = $(libRivetTools_la_SOURCES)
-DIST_SOURCES = $(libRivetTools_la_SOURCES)
-RECURSIVE_TARGETS = all-recursive check-recursive cscopelist-recursive \
-	ctags-recursive dvi-recursive html-recursive info-recursive \
-	install-data-recursive install-dvi-recursive \
-	install-exec-recursive install-html-recursive \
-	install-info-recursive install-pdf-recursive \
-	install-ps-recursive install-recursive installcheck-recursive \
-	installdirs-recursive pdf-recursive ps-recursive \
-	tags-recursive uninstall-recursive
+DIST_SOURCES = $(am__libRivetTools_la_SOURCES_DIST)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
 HEADERS = $(dist_noinst_HEADERS)
-RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
-  distclean-recursive maintainer-clean-recursive
-am__recursive_targets = \
-  $(RECURSIVE_TARGETS) \
-  $(RECURSIVE_CLEAN_TARGETS) \
-  $(am__extra_recursive_targets)
-AM_RECURSIVE_TARGETS = $(am__recursive_targets:-recursive=) TAGS CTAGS \
-	distdir
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
 # and print each of them once, without duplicates.  Input order is
@@ -223,34 +217,8 @@ am__define_uniq_tagged_files = \
   done | $(am__uniquify_input)`
 ETAGS = etags
 CTAGS = ctags
-DIST_SUBDIRS = $(SUBDIRS)
 am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/depcomp
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-am__relativize = \
-  dir0=`pwd`; \
-  sed_first='s,^\([^/]*\)/.*$$,\1,'; \
-  sed_rest='s,^[^/]*/*,,'; \
-  sed_last='s,^.*/\([^/]*\)$$,\1,'; \
-  sed_butlast='s,/*[^/]*$$,,'; \
-  while test -n "$$dir1"; do \
-    first=`echo "$$dir1" | sed -e "$$sed_first"`; \
-    if test "$$first" != "."; then \
-      if test "$$first" = ".."; then \
-        dir2=`echo "$$dir0" | sed -e "$$sed_last"`/"$$dir2"; \
-        dir0=`echo "$$dir0" | sed -e "$$sed_butlast"`; \
-      else \
-        first2=`echo "$$dir2" | sed -e "$$sed_first"`; \
-        if test "$$first2" = "$$first"; then \
-          dir2=`echo "$$dir2" | sed -e "$$sed_rest"`; \
-        else \
-          dir2="../$$dir2"; \
-        fi; \
-        dir0="$$dir0"/"$$first"; \
-      fi; \
-    fi; \
-    dir1=`echo "$$dir1" | sed -e "$$sed_rest"`; \
-  done; \
-  reldir="$$dir2"
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
 AM_CPPFLAGS = @AM_CPPFLAGS@
@@ -284,20 +252,32 @@ ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EMPTY = @EMPTY@
 EXEEXT = @EXEEXT@
-FASTJETCONFIGLIBADD = @FASTJETCONFIGLIBADD@
 FASTJETCPPFLAGS = @FASTJETCPPFLAGS@
 FASTJETINCNAME = @FASTJETINCNAME@
 FASTJETINCPATH = @FASTJETINCPATH@
 FASTJETLDFLAGS = @FASTJETLDFLAGS@
 FASTJETLDLIBS = @FASTJETLDLIBS@
 FASTJETLIB = @FASTJETLIB@
+FASTJETLIBADD = @FASTJETLIBADD@
 FASTJETLIBNAME = @FASTJETLIBNAME@
 FASTJETLIBPATH = @FASTJETLIBPATH@
 FASTJETPATH = @FASTJETPATH@
 FGREP = @FGREP@
 FJCONFIG = @FJCONFIG@
+FJCONTRIBCPPFLAGS = @FJCONTRIBCPPFLAGS@
+FJCONTRIBINCPATH = @FJCONTRIBINCPATH@
+FJCONTRIBLIBPATH = @FJCONTRIBLIBPATH@
 GREP = @GREP@
-HAVE_CXX11 = @HAVE_CXX11@
+HAVE_CXX14 = @HAVE_CXX14@
+HEPMC3CPPFLAGS = @HEPMC3CPPFLAGS@
+HEPMC3INCNAME = @HEPMC3INCNAME@
+HEPMC3INCPATH = @HEPMC3INCPATH@
+HEPMC3LDFLAGS = @HEPMC3LDFLAGS@
+HEPMC3LDLIBS = @HEPMC3LDLIBS@
+HEPMC3LIB = @HEPMC3LIB@
+HEPMC3LIBNAME = @HEPMC3LIBNAME@
+HEPMC3LIBPATH = @HEPMC3LIBPATH@
+HEPMC3PATH = @HEPMC3PATH@
 HEPMCCPPFLAGS = @HEPMCCPPFLAGS@
 HEPMCINCNAME = @HEPMCINCNAME@
 HEPMCINCPATH = @HEPMCINCPATH@
@@ -342,7 +322,6 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
-PDFLATEX = @PDFLATEX@
 PYEXT_CXXFLAGS = @PYEXT_CXXFLAGS@
 PYTHON = @PYTHON@
 PYTHON_CPPFLAGS = @PYTHON_CPPFLAGS@
@@ -436,32 +415,15 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = fjcontrib
 noinst_LTLIBRARIES = libRivetTools.la
-libRivetTools_la_SOURCES = \
-  BinnedHistogram.cc \
-  Correlators.cc \
-  Cuts.cc \
-  JetUtils.cc \
-  Random.cc \
-  Logging.cc \
-  ParticleUtils.cc \
-  ParticleName.cc \
-  Percentile.cc \
-  RivetYODA.cc \
-  RivetMT2.cc \
-  RivetPaths.cc \
-  Utils.cc \
-  binreloc.c
-
+libRivetTools_la_SOURCES = BinnedHistogram.cc Correlators.cc Cuts.cc \
+	JetUtils.cc Random.cc Logging.cc ParticleUtils.cc \
+	ParticleName.cc Percentile.cc RivetYODA.cc RivetMT2.cc \
+	RivetPaths.cc Utils.cc binreloc.c $(am__append_1) \
+	$(am__append_2)
 dist_noinst_HEADERS = binreloc.h lester_mt2_bisect.hh
 libRivetTools_la_CPPFLAGS = $(AM_CPPFLAGS) -DENABLE_BINRELOC -DDEFAULTDATADIR=\"$(datadir)\" -DDEFAULTLIBDIR=\"$(libdir)\"
-libRivetTools_la_LIBADD = \
-  fjcontrib/EnergyCorrelator/libRivetEnergyCorrelator.la \
-  fjcontrib/Nsubjettiness/libRivetNsubjettiness.la \
-  fjcontrib/RecursiveTools/libRivetRecursiveTools.la
-
-all: all-recursive
+all: all-am
 
 .SUFFIXES:
 .SUFFIXES: .c .cc .lo .o .obj
@@ -474,9 +436,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu src/Tools/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign src/Tools/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu src/Tools/Makefile
+	  $(AUTOMAKE) --foreign src/Tools/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \
@@ -524,10 +486,14 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libRivetTools_la-ParticleUtils.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libRivetTools_la-Percentile.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libRivetTools_la-Random.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libRivetTools_la-ReaderCompressedAscii.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libRivetTools_la-RivetHepMC_2.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libRivetTools_la-RivetHepMC_3.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libRivetTools_la-RivetMT2.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libRivetTools_la-RivetPaths.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libRivetTools_la-RivetYODA.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libRivetTools_la-Utils.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libRivetTools_la-WriterCompressedAscii.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libRivetTools_la-binreloc.Plo@am__quote@
 
 .c.o:
@@ -670,67 +636,48 @@ libRivetTools_la-Utils.lo: Utils.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libRivetTools_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libRivetTools_la-Utils.lo `test -f 'Utils.cc' || echo '$(srcdir)/'`Utils.cc
 
+libRivetTools_la-RivetHepMC_3.lo: RivetHepMC_3.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libRivetTools_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libRivetTools_la-RivetHepMC_3.lo -MD -MP -MF $(DEPDIR)/libRivetTools_la-RivetHepMC_3.Tpo -c -o libRivetTools_la-RivetHepMC_3.lo `test -f 'RivetHepMC_3.cc' || echo '$(srcdir)/'`RivetHepMC_3.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libRivetTools_la-RivetHepMC_3.Tpo $(DEPDIR)/libRivetTools_la-RivetHepMC_3.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='RivetHepMC_3.cc' object='libRivetTools_la-RivetHepMC_3.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libRivetTools_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libRivetTools_la-RivetHepMC_3.lo `test -f 'RivetHepMC_3.cc' || echo '$(srcdir)/'`RivetHepMC_3.cc
+
+libRivetTools_la-ReaderCompressedAscii.lo: ReaderCompressedAscii.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libRivetTools_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libRivetTools_la-ReaderCompressedAscii.lo -MD -MP -MF $(DEPDIR)/libRivetTools_la-ReaderCompressedAscii.Tpo -c -o libRivetTools_la-ReaderCompressedAscii.lo `test -f 'ReaderCompressedAscii.cc' || echo '$(srcdir)/'`ReaderCompressedAscii.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libRivetTools_la-ReaderCompressedAscii.Tpo $(DEPDIR)/libRivetTools_la-ReaderCompressedAscii.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='ReaderCompressedAscii.cc' object='libRivetTools_la-ReaderCompressedAscii.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libRivetTools_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libRivetTools_la-ReaderCompressedAscii.lo `test -f 'ReaderCompressedAscii.cc' || echo '$(srcdir)/'`ReaderCompressedAscii.cc
+
+libRivetTools_la-WriterCompressedAscii.lo: WriterCompressedAscii.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libRivetTools_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libRivetTools_la-WriterCompressedAscii.lo -MD -MP -MF $(DEPDIR)/libRivetTools_la-WriterCompressedAscii.Tpo -c -o libRivetTools_la-WriterCompressedAscii.lo `test -f 'WriterCompressedAscii.cc' || echo '$(srcdir)/'`WriterCompressedAscii.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libRivetTools_la-WriterCompressedAscii.Tpo $(DEPDIR)/libRivetTools_la-WriterCompressedAscii.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='WriterCompressedAscii.cc' object='libRivetTools_la-WriterCompressedAscii.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libRivetTools_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libRivetTools_la-WriterCompressedAscii.lo `test -f 'WriterCompressedAscii.cc' || echo '$(srcdir)/'`WriterCompressedAscii.cc
+
+libRivetTools_la-RivetHepMC_2.lo: RivetHepMC_2.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libRivetTools_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libRivetTools_la-RivetHepMC_2.lo -MD -MP -MF $(DEPDIR)/libRivetTools_la-RivetHepMC_2.Tpo -c -o libRivetTools_la-RivetHepMC_2.lo `test -f 'RivetHepMC_2.cc' || echo '$(srcdir)/'`RivetHepMC_2.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libRivetTools_la-RivetHepMC_2.Tpo $(DEPDIR)/libRivetTools_la-RivetHepMC_2.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='RivetHepMC_2.cc' object='libRivetTools_la-RivetHepMC_2.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libRivetTools_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libRivetTools_la-RivetHepMC_2.lo `test -f 'RivetHepMC_2.cc' || echo '$(srcdir)/'`RivetHepMC_2.cc
+
 mostlyclean-libtool:
 	-rm -f *.lo
 
 clean-libtool:
 	-rm -rf .libs _libs
 
-# This directory's subdirectories are mostly independent; you can cd
-# into them and run 'make' without going through this Makefile.
-# To change the values of 'make' variables: instead of editing Makefiles,
-# (1) if the variable is set in 'config.status', edit 'config.status'
-#     (which will cause the Makefiles to be regenerated when you run 'make');
-# (2) otherwise, pass the desired values on the 'make' command line.
-$(am__recursive_targets):
-	@fail=; \
-	if $(am__make_keepgoing); then \
-	  failcom='fail=yes'; \
-	else \
-	  failcom='exit 1'; \
-	fi; \
-	dot_seen=no; \
-	target=`echo $@ | sed s/-recursive//`; \
-	case "$@" in \
-	  distclean-* | maintainer-clean-*) list='$(DIST_SUBDIRS)' ;; \
-	  *) list='$(SUBDIRS)' ;; \
-	esac; \
-	for subdir in $$list; do \
-	  echo "Making $$target in $$subdir"; \
-	  if test "$$subdir" = "."; then \
-	    dot_seen=yes; \
-	    local_target="$$target-am"; \
-	  else \
-	    local_target="$$target"; \
-	  fi; \
-	  ($(am__cd) $$subdir && $(MAKE) $(AM_MAKEFLAGS) $$local_target) \
-	  || eval $$failcom; \
-	done; \
-	if test "$$dot_seen" = "no"; then \
-	  $(MAKE) $(AM_MAKEFLAGS) "$$target-am" || exit 1; \
-	fi; test -z "$$fail"
-
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
-tags: tags-recursive
+tags: tags-am
 TAGS: tags
 
 tags-am: $(TAGS_DEPENDENCIES) $(am__tagged_files)
 	set x; \
 	here=`pwd`; \
-	if ($(ETAGS) --etags-include --version) >/dev/null 2>&1; then \
-	  include_option=--etags-include; \
-	  empty_fix=.; \
-	else \
-	  include_option=--include; \
-	  empty_fix=; \
-	fi; \
-	list='$(SUBDIRS)'; for subdir in $$list; do \
-	  if test "$$subdir" = .; then :; else \
-	    test ! -f $$subdir/TAGS || \
-	      set "$$@" "$$include_option=$$here/$$subdir/TAGS"; \
-	  fi; \
-	done; \
 	$(am__define_uniq_tagged_files); \
 	shift; \
 	if test -z "$(ETAGS_ARGS)$$*$$unique"; then :; else \
@@ -743,7 +690,7 @@ tags-am: $(TAGS_DEPENDENCIES) $(am__tagged_files)
 	      $$unique; \
 	  fi; \
 	fi
-ctags: ctags-recursive
+ctags: ctags-am
 
 CTAGS: ctags
 ctags-am: $(TAGS_DEPENDENCIES) $(am__tagged_files)
@@ -756,7 +703,7 @@ GTAGS:
 	here=`$(am__cd) $(top_builddir) && pwd` \
 	  && $(am__cd) $(top_srcdir) \
 	  && gtags -i $(GTAGS_ARGS) "$$here"
-cscopelist: cscopelist-recursive
+cscopelist: cscopelist-am
 
 cscopelist-am: $(am__tagged_files)
 	list='$(am__tagged_files)'; \
@@ -805,45 +752,19 @@ distdir: $(DISTFILES)
 	    || exit 1; \
 	  fi; \
 	done
-	@list='$(DIST_SUBDIRS)'; for subdir in $$list; do \
-	  if test "$$subdir" = .; then :; else \
-	    $(am__make_dryrun) \
-	      || test -d "$(distdir)/$$subdir" \
-	      || $(MKDIR_P) "$(distdir)/$$subdir" \
-	      || exit 1; \
-	    dir1=$$subdir; dir2="$(distdir)/$$subdir"; \
-	    $(am__relativize); \
-	    new_distdir=$$reldir; \
-	    dir1=$$subdir; dir2="$(top_distdir)"; \
-	    $(am__relativize); \
-	    new_top_distdir=$$reldir; \
-	    echo " (cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) top_distdir="$$new_top_distdir" distdir="$$new_distdir" \\"; \
-	    echo "     am__remove_distdir=: am__skip_length_check=: am__skip_mode_fix=: distdir)"; \
-	    ($(am__cd) $$subdir && \
-	      $(MAKE) $(AM_MAKEFLAGS) \
-	        top_distdir="$$new_top_distdir" \
-	        distdir="$$new_distdir" \
-		am__remove_distdir=: \
-		am__skip_length_check=: \
-		am__skip_mode_fix=: \
-	        distdir) \
-	      || exit 1; \
-	  fi; \
-	done
 check-am: all-am
-check: check-recursive
+check: check-am
 all-am: Makefile $(LTLIBRARIES) $(HEADERS)
-installdirs: installdirs-recursive
-installdirs-am:
-install: install-recursive
-install-exec: install-exec-recursive
-install-data: install-data-recursive
-uninstall: uninstall-recursive
+installdirs:
+install: install-am
+install-exec: install-exec-am
+install-data: install-data-am
+uninstall: uninstall-am
 
 install-am: all-am
 	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
 
-installcheck: installcheck-recursive
+installcheck: installcheck-am
 install-strip:
 	if test -z '$(STRIP)'; then \
 	  $(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
@@ -865,93 +786,92 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-clean: clean-recursive
+clean: clean-am
 
 clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
 	mostlyclean-am
 
-distclean: distclean-recursive
+distclean: distclean-am
 	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
 
-dvi: dvi-recursive
+dvi: dvi-am
 
 dvi-am:
 
-html: html-recursive
+html: html-am
 
 html-am:
 
-info: info-recursive
+info: info-am
 
 info-am:
 
 install-data-am:
 
-install-dvi: install-dvi-recursive
+install-dvi: install-dvi-am
 
 install-dvi-am:
 
 install-exec-am:
 
-install-html: install-html-recursive
+install-html: install-html-am
 
 install-html-am:
 
-install-info: install-info-recursive
+install-info: install-info-am
 
 install-info-am:
 
 install-man:
 
-install-pdf: install-pdf-recursive
+install-pdf: install-pdf-am
 
 install-pdf-am:
 
-install-ps: install-ps-recursive
+install-ps: install-ps-am
 
 install-ps-am:
 
 installcheck-am:
 
-maintainer-clean: maintainer-clean-recursive
+maintainer-clean: maintainer-clean-am
 	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
-mostlyclean: mostlyclean-recursive
+mostlyclean: mostlyclean-am
 
 mostlyclean-am: mostlyclean-compile mostlyclean-generic \
 	mostlyclean-libtool
 
-pdf: pdf-recursive
+pdf: pdf-am
 
 pdf-am:
 
-ps: ps-recursive
+ps: ps-am
 
 ps-am:
 
 uninstall-am:
 
-.MAKE: $(am__recursive_targets) install-am install-strip
+.MAKE: install-am install-strip
 
-.PHONY: $(am__recursive_targets) CTAGS GTAGS TAGS all all-am check \
-	check-am clean clean-generic clean-libtool \
-	clean-noinstLTLIBRARIES cscopelist-am ctags ctags-am distclean \
-	distclean-compile distclean-generic distclean-libtool \
-	distclean-tags distdir dvi dvi-am html html-am info info-am \
-	install install-am install-data install-data-am install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-info install-info-am install-man \
-	install-pdf install-pdf-am install-ps install-ps-am \
-	install-strip installcheck installcheck-am installdirs \
-	installdirs-am maintainer-clean maintainer-clean-generic \
-	mostlyclean mostlyclean-compile mostlyclean-generic \
-	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-am uninstall \
-	uninstall-am
+.PHONY: CTAGS GTAGS TAGS all all-am check check-am clean clean-generic \
+	clean-libtool clean-noinstLTLIBRARIES cscopelist-am ctags \
+	ctags-am distclean distclean-compile distclean-generic \
+	distclean-libtool distclean-tags distdir dvi dvi-am html \
+	html-am info info-am install install-am install-data \
+	install-data-am install-dvi install-dvi-am install-exec \
+	install-exec-am install-html install-html-am install-info \
+	install-info-am install-man install-pdf install-pdf-am \
+	install-ps install-ps-am install-strip installcheck \
+	installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-compile \
+	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
+	tags tags-am uninstall uninstall-am
 
 .PRECIOUS: Makefile
 

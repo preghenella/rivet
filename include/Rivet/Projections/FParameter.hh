@@ -9,6 +9,7 @@
 namespace Rivet {
 
 
+  /// Calculator of the @f$ F @f$-parameter observable
   class FParameter : public Projection {
   public:
 
@@ -30,11 +31,13 @@ namespace Rivet {
     void project(const Event& e);
 
     /// Compare with other projections
-    //int compare(const Projection& p) const;
+    //CmpState compare(const Projection& p) const;
     // Taken from Thrust.hh
-    int compare(const Projection& p) const {
+    CmpState compare(const Projection& p) const {
       return mkNamedPCmp(p, "FS");
     }
+
+
   public:
 
     /// Reset the projection

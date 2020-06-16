@@ -55,8 +55,8 @@ namespace Rivet {
 
 
       // Book histograms
-      _h_alphaT23 = bookHisto1D("alphaT23", 15, 0, 3);
-      _h_alphaT4 = bookHisto1D("alphaT4", 15, 0, 3);
+      book(_h_alphaT23, "alphaT23", 15, 0, 3);
+      book(_h_alphaT4 , "alphaT4", 15, 0, 3);
       /// @todo Add HT histograms
 
       // Book counters
@@ -66,13 +66,13 @@ namespace Rivet {
         for (size_t nb = 0; nb < njmax; ++nb) {
           for (size_t iht = 0; iht < 8; ++iht) {
             const size_t i = 8 * ((inj == 0 ? 0 : 3) + nb) + iht;
-            _h_srcounters[i] = bookCounter("srcount_j" + toString(njmax) + "_b" + toString(nb) + "_ht" + toString(iht+1));
+            book(_h_srcounters[i], "srcount_j" + toString(njmax) + "_b" + toString(nb) + "_ht" + toString(iht+1));
           }
         }
       }
       // Special nj >= 4, nb >= 4 bins
       for (size_t iht = 0; iht < 3; ++iht) {
-        _h_srcounters[8*7 + iht] = bookCounter("srcount_j4_b4_ht" + toString(iht+1));
+        book(_h_srcounters[8*7 + iht], "srcount_j4_b4_ht" + toString(iht+1));
       }
 
     }
@@ -179,7 +179,7 @@ namespace Rivet {
       /// @todo Need to include trigger efficiency sampling or weighting?
 
       // Fill histograms
-      const double weight = event.weight();
+      const double weight = 1.0;
       const size_t inj = nj < 4 ? 0 : 1;
       const size_t inb = nb < 4 ? nb : 4;
       if (iht >= 2)
@@ -198,7 +198,8 @@ namespace Rivet {
     void finalize() {
 
       const double sf = crossSection()/femtobarn*11.7/sumOfWeights();
-      scale({_h_alphaT23,_h_alphaT4}, sf);
+      scale(_h_alphaT23, sf);
+      scale(_h_alphaT4, sf);
       for (size_t i = 0; i < 8*7+3; ++i)
         scale(_h_srcounters[i], sf);
 
@@ -212,7 +213,8 @@ namespace Rivet {
 
     /// Sum the given values into two subsets according to the provided bitmask
     template <size_t N>
-    pair<double, double> partition_sum(const std::bitset<N>& mask, const vector<double>& vals) const {
+    pair<double, double> partition_sum(const std::bitset<N>& mask,
+                                       const vector<double>& vals) const {
       pair<double, double> rtn(0., 0.);
       for (size_t i = 0; i < vals.size(); ++i) {
         (!mask[vals.size()-1-i] ? rtn.first : rtn.second) += vals[i];

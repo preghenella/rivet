@@ -6,6 +6,7 @@
 namespace Rivet {
 
 
+  /// @brief Logging system for controlled & formatted writing to stdout
   class Log {
   public:
 
@@ -179,7 +180,7 @@ namespace Rivet {
 #define MSG_LVL(lvl, x) \
   do { \
     if (getLog().isActive(lvl)) { \
-      getLog() << lvl << x << endl;   \
+      getLog() << lvl << x << '\n';   \
     } \
   } while (0)
 

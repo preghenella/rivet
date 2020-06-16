@@ -91,14 +91,14 @@ check_PROGRAMS = testMath$(EXEEXT) testMatVec$(EXEEXT) \
 	testCmp$(EXEEXT) testApi$(EXEEXT) testNaN$(EXEEXT) \
 	testBeams$(EXEEXT)
 TESTS = testMath$(EXEEXT) testMatVec$(EXEEXT) testCmp$(EXEEXT) \
-	testApi$(EXEEXT) testNaN$(EXEEXT) testBeams$(EXEEXT) \
-	testImport.sh $(am__append_1)
+	testApi.sh testNaN.sh testBeams$(EXEEXT) testImport.sh \
+	$(am__append_1)
 @ENABLE_ANALYSES_TRUE@am__append_1 = testCmdLine.sh
 subdir = test
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_zlib.m4 \
 	$(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
-	$(top_srcdir)/m4/ax_openmp.m4 \
+	$(top_srcdir)/m4/ax_execinfo.m4 $(top_srcdir)/m4/ax_openmp.m4 \
 	$(top_srcdir)/m4/ax_python_devel.m4 $(top_srcdir)/m4/cxx.m4 \
 	$(top_srcdir)/m4/cython.m4 $(top_srcdir)/m4/lcg.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
@@ -110,8 +110,7 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/include/Rivet/Config/DummyConfig.hh \
-	$(top_builddir)/include/Rivet/Config/RivetConfig.hh \
-	$(top_builddir)/include/Rivet/Config/BuildOptions.hh
+	$(top_builddir)/include/Rivet/Config/RivetConfig.hh
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am_testApi_OBJECTS = testApi.$(OBJEXT)
@@ -443,20 +442,32 @@ ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EMPTY = @EMPTY@
 EXEEXT = @EXEEXT@
-FASTJETCONFIGLIBADD = @FASTJETCONFIGLIBADD@
 FASTJETCPPFLAGS = @FASTJETCPPFLAGS@
 FASTJETINCNAME = @FASTJETINCNAME@
 FASTJETINCPATH = @FASTJETINCPATH@
 FASTJETLDFLAGS = @FASTJETLDFLAGS@
 FASTJETLDLIBS = @FASTJETLDLIBS@
 FASTJETLIB = @FASTJETLIB@
+FASTJETLIBADD = @FASTJETLIBADD@
 FASTJETLIBNAME = @FASTJETLIBNAME@
 FASTJETLIBPATH = @FASTJETLIBPATH@
 FASTJETPATH = @FASTJETPATH@
 FGREP = @FGREP@
 FJCONFIG = @FJCONFIG@
+FJCONTRIBCPPFLAGS = @FJCONTRIBCPPFLAGS@
+FJCONTRIBINCPATH = @FJCONTRIBINCPATH@
+FJCONTRIBLIBPATH = @FJCONTRIBLIBPATH@
 GREP = @GREP@
-HAVE_CXX11 = @HAVE_CXX11@
+HAVE_CXX14 = @HAVE_CXX14@
+HEPMC3CPPFLAGS = @HEPMC3CPPFLAGS@
+HEPMC3INCNAME = @HEPMC3INCNAME@
+HEPMC3INCPATH = @HEPMC3INCPATH@
+HEPMC3LDFLAGS = @HEPMC3LDFLAGS@
+HEPMC3LDLIBS = @HEPMC3LDLIBS@
+HEPMC3LIB = @HEPMC3LIB@
+HEPMC3LIBNAME = @HEPMC3LIBNAME@
+HEPMC3LIBPATH = @HEPMC3LIBPATH@
+HEPMC3PATH = @HEPMC3PATH@
 HEPMCCPPFLAGS = @HEPMCCPPFLAGS@
 HEPMCINCNAME = @HEPMCINCNAME@
 HEPMCINCPATH = @HEPMCINCPATH@
@@ -477,7 +488,7 @@ LD = @LD@
 LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
 LIBPATHVARNAME = @LIBPATHVARNAME@
-LIBS = -lm $(GSL_LDFLAGS) -lYODA
+LIBS = -lm -lYODA
 LIBTOOL = @LIBTOOL@
 LIPO = @LIPO@
 LN_S = @LN_S@
@@ -501,7 +512,6 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
-PDFLATEX = @PDFLATEX@
 PYEXT_CXXFLAGS = @PYEXT_CXXFLAGS@
 PYTHON = @PYTHON@
 PYTHON_CPPFLAGS = @PYTHON_CPPFLAGS@
@@ -622,7 +632,7 @@ TESTS_ENVIRONMENT = \
   PYTHON=$(PYTHON) \
   RIVET_TESTS_SRC=$(srcdir)
 
-EXTRA_DIST = testApi.hepmc testCmdLine.sh testImport.sh
+EXTRA_DIST = testApi.hepmc testCmdLine.sh testImport.sh testApi.sh testNaN.sh
 CLEANFILES = log a.out fifo.hepmc file2.hepmc out.yoda NaN.aida Rivet.yoda
 all: all-am
 
@@ -637,9 +647,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu test/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign test/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu test/Makefile
+	  $(AUTOMAKE) --foreign test/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \
@@ -945,16 +955,16 @@ testCmp.log: testCmp$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-testApi.log: testApi$(EXEEXT)
-	@p='testApi$(EXEEXT)'; \
-	b='testApi'; \
+testApi.sh.log: testApi.sh
+	@p='testApi.sh'; \
+	b='testApi.sh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-testNaN.log: testNaN$(EXEEXT)
-	@p='testNaN$(EXEEXT)'; \
-	b='testNaN'; \
+testNaN.sh.log: testNaN.sh
+	@p='testNaN.sh'; \
+	b='testNaN.sh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

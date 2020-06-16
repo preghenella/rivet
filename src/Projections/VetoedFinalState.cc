@@ -4,15 +4,16 @@
 namespace Rivet {
 
 
-  int VetoedFinalState::compare(const Projection& p) const {
+  CmpState VetoedFinalState::compare(const Projection& p) const {
     const PCmp fscmp = mkNamedPCmp(p, "FS");
-    if (fscmp != EQUIVALENT) return fscmp;
+    if (fscmp != CmpState::EQ) return CmpState::NEQ;
     /// @todo We can do better than this...
-    if (_vetofsnames.size() != 0) return UNDEFINED;
+    if (_vetofsnames.size() != 0) return CmpState::NEQ;
     const VetoedFinalState& other = dynamic_cast<const VetoedFinalState&>(p);
     return \
       cmp(_vetoCuts, other._vetoCuts) ||
       cmp(_compositeVetoes, other._compositeVetoes) ||
+      cmp(_nCompositeDecays, other._nCompositeDecays) ||
       cmp(_parentVetoes, other._parentVetoes);
   }
 
@@ -85,15 +86,16 @@ namespace Rivet {
       _theParticles.erase(*p);
     }
 
+
     // Remove particles whose parents match entries in the parent veto PDG ID codes list
     /// @todo There must be a nice way to do this -- an STL algorithm (or we provide a nicer wrapper)
     for (PdgId vetoid : _parentVetoes) {
       for (Particles::iterator ip = _theParticles.begin(); ip != _theParticles.end(); ++ip) {
-        const GenVertex* startVtx = ip->genParticle()->production_vertex();
+        ConstGenVertexPtr startVtx = ip->genParticle()->production_vertex();
         if (startVtx == NULL) continue;
         // Loop over parents and test their IDs
         /// @todo Could use any() here?
-        for (const GenParticle* parent : Rivet::particles(startVtx, HepMC::ancestors)) {
+        for (ConstGenParticlePtr parent : HepMCUtils::particles(startVtx, Relatives::ANCESTORS)) {
           if (vetoid == parent->pdg_id()) {
             ip = _theParticles.erase(ip); --ip; //< Erase this _theParticles entry
             break;
@@ -101,6 +103,7 @@ namespace Rivet {
         }
       }
     }
+
 
     // Finally veto on the registered FSes
     for (const string& ifs : _vetofsnames) {

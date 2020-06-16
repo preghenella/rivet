@@ -1,6 +1,5 @@
 #ifndef PROJECTIONS_ALICECOMMON_HH
 #define PROJECTIONS_ALICECOMMON_HH
-
 #include "Rivet/Tools/AliceCommon.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/SingleValueProjection.hh"
@@ -11,6 +10,7 @@ namespace Rivet {
   namespace ALICE {
 
     /// @todo We should avoid experiment-specific projections and tools as much as possible...
+    /// Says Leif: on the contrary this is a good thing!
 
 
     /// Template for ALICE V0 multiplicity projection.   Which
@@ -56,12 +56,12 @@ namespace Rivet {
       virtual std::unique_ptr<Rivet::Projection> clone() const {
         return std::unique_ptr<Projection>(new V0Multiplicity<MODE>(*this));
       }
-
       /// Compare to another projection
       ///
       /// @param p Projection to compare against
-      virtual int compare(const Projection& p) const {
-        return dynamic_cast<const V0Multiplicity<MODE>*>(&p) ? EQUIVALENT : UNDEFINED;
+      virtual CmpState compare(const Projection& p) const {
+	return dynamic_cast<const V0Multiplicity<MODE>*>(&p) ?
+	  CmpState::EQ : CmpState::NEQ;
       }
 
     };
@@ -130,11 +130,13 @@ namespace Rivet {
       /// Compare to another projection
       ///
       /// @param p Projection to compare against
-      virtual int compare(const Projection& p) const {
-        return dynamic_cast<const CLMultiplicity<INNER>*>(&p) ? EQUIVALENT : UNDEFINED;
+      virtual CmpState compare(const Projection& p) const {
+	return dynamic_cast<const CLMultiplicity<INNER>*>(&p) ?
+	  CmpState::EQ : CmpState::NEQ;
       }
 
     };
+
 
     /// Convenience typedef for inside-CL multiplicity
     ///
@@ -194,8 +196,9 @@ namespace Rivet {
       ///
       /// @return true (EQUIVALENT) if the projection @a p is of the same
       /// type as this.
-      virtual int compare(const Projection& p) const {
-        return dynamic_cast<const V0Trigger<MODE>*>(&p) ? EQUIVALENT : UNDEFINED;
+      virtual CmpState compare(const Projection& p) const {
+	return dynamic_cast<const V0Trigger<MODE>*>(&p) ?
+	  CmpState::EQ : CmpState::NEQ;
       }
 
     };
@@ -244,8 +247,10 @@ namespace Rivet {
       /// Compare to projections.
       ///
       /// @param p Projection to compare to.
-      virtual int compare(const Projection& p) const {
-        return EQUIVALENT;
+      virtual CmpState compare(const Projection& p) const
+      {
+	return dynamic_cast<const V0AndTrigger*>(&p) ?
+	  CmpState::EQ : CmpState::NEQ;
       }
 
        /// Clone this projection
@@ -278,10 +283,10 @@ namespace Rivet {
        /// @return true (EQUIVALENT) if the projection @a p is of the same
        /// type as this, if the cuts are equal, and that the list of PDG
        /// IDs are the same.
-      virtual int compare(const Projection& p) const {
-        const PrimaryParticles* o = dynamic_cast<const PrimaryParticles*>(&p);
-        if (_cuts != o->_cuts) return UNDEFINED;
-        return mkPCmp(*o, "PrimaryParticles");
+      virtual CmpState compare(const Projection& p) const {
+	const PrimaryParticles* o = dynamic_cast<const PrimaryParticles*>(&p);
+	if (_cuts != o->_cuts) return CmpState::NEQ;
+	return mkPCmp(*o,"PrimaryParticles");
       }
 
       /// Clone this projection
@@ -304,8 +309,8 @@ namespace Rivet {
        /// anti-particles).  This means we do not use the base class
        /// list of particles.  Therefore, we also need to override the
        /// compare method.
-      bool isPrimaryPID(const HepMC::GenParticle* p) const {
-        const int pdg = PID::abspid(p->pdg_id());
+       bool isPrimaryPID(ConstGenParticlePtr p) const {
+        const int pdg = abs(p->pdg_id());
         // Check for nucleus
         if (pdg > 1000000000) return true;
 

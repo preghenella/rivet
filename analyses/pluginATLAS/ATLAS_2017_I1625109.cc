@@ -203,33 +203,31 @@ namespace Rivet {
       declare(FastJets(jet_input, FastJets::ANTIKT, 0.4), "jets");
 
       // // Book histograms
-      _h["pT_4l"] = bookHisto1D(2, 1, 1);
-      _h["pT_leading_dilepton"] = bookHisto1D(8, 1, 1);
-      _h["pT_subleading_dilepton"] = bookHisto1D(14, 1, 1);
-      _h["pT_lepton1"] = bookHisto1D(20, 1, 1);
-      _h["pT_lepton2"] = bookHisto1D(26, 1, 1);
-      _h["pT_lepton3"] = bookHisto1D(32, 1, 1);
-      _h["pT_lepton4"] = bookHisto1D(38, 1, 1);
-      _h["absy_4l"] = bookHisto1D(44, 1, 1);
-      _h["deltay_dileptons"] = bookHisto1D(50, 1, 1);
-      _h["deltaphi_dileptons"] = bookHisto1D(56, 1, 1);
-      _h["N_jets"] = bookHisto1D(62, 1, 1);
-      _h["N_central_jets"] = bookHisto1D(68, 1, 1);
-      _h["N_jets60"] = bookHisto1D(74, 1, 1);
-      _h["mass_dijet"] = bookHisto1D(80, 1, 1);
-      _h["deltay_dijet"] = bookHisto1D(86, 1, 1);
-      _h["scalarpTsum_jets"] = bookHisto1D(92, 1, 1);
-      _h["abseta_jet1"] = bookHisto1D(98, 1, 1);
-      _h["abseta_jet2"] = bookHisto1D(104, 1, 1);
-      _h["pT_jet1"] = bookHisto1D(110, 1, 1);
-      _h["pT_jet2"] = bookHisto1D(116, 1, 1);
+      book(_h["pT_4l"], 2, 1, 1);
+      book(_h["pT_leading_dilepton"], 8, 1, 1);
+      book(_h["pT_subleading_dilepton"], 14, 1, 1);
+      book(_h["pT_lepton1"], 20, 1, 1);
+      book(_h["pT_lepton2"], 26, 1, 1);
+      book(_h["pT_lepton3"], 32, 1, 1);
+      book(_h["pT_lepton4"], 38, 1, 1);
+      book(_h["absy_4l"], 44, 1, 1);
+      book(_h["deltay_dileptons"], 50, 1, 1);
+      book(_h["deltaphi_dileptons"], 56, 1, 1);
+      book(_h["N_jets"], 62, 1, 1);
+      book(_h["N_central_jets"], 68, 1, 1);
+      book(_h["N_jets60"], 74, 1, 1);
+      book(_h["mass_dijet"], 80, 1, 1);
+      book(_h["deltay_dijet"], 86, 1, 1);
+      book(_h["scalarpTsum_jets"], 92, 1, 1);
+      book(_h["abseta_jet1"], 98, 1, 1);
+      book(_h["abseta_jet2"], 104, 1, 1);
+      book(_h["pT_jet1"], 110, 1, 1);
+      book(_h["pT_jet2"], 116, 1, 1);
     }
 
 
     /// Perform the per-event analysis
     void analyze(Event const & event) {
-      const double weight = event.weight();
-
       const auto& baseline_electrons = apply<DressedLeptons>(event, "electrons").dressedLeptons();
       const auto& baseline_muons = apply<DressedLeptons>(event, "muons").dressedLeptons();
 
@@ -257,33 +255,33 @@ namespace Rivet {
 
       const auto& leadingDilepton = quadruplet.leadingDilepton.momentum();
       const auto& subleadingDilepton = quadruplet.subleadingDilepton.momentum();
-
-      _h["pT_4l"]->fill((leadingDilepton + subleadingDilepton).pt()/GeV, weight);
-      _h["pT_leading_dilepton"]->fill(leadingDilepton.pt()/GeV, weight);
-      _h["pT_subleading_dilepton"]->fill(subleadingDilepton.pt()/GeV, weight);
-      _h["pT_lepton1"]->fill(quadruplet.leptonsSortedByPt.at(0).pt()/GeV, weight);
-      _h["pT_lepton2"]->fill(quadruplet.leptonsSortedByPt.at(1).pt()/GeV, weight);
-      _h["pT_lepton3"]->fill(quadruplet.leptonsSortedByPt.at(2).pt()/GeV, weight);
-      _h["pT_lepton4"]->fill(quadruplet.leptonsSortedByPt.at(3).pt()/GeV, weight);
-      _h["absy_4l"]->fill((leadingDilepton + subleadingDilepton).absrapidity(), weight);
-      _h["deltay_dileptons"]->fill(fabs(leadingDilepton.rapidity() - subleadingDilepton.rapidity()), weight);
-      _h["deltaphi_dileptons"]->fill(deltaPhi(leadingDilepton, subleadingDilepton)/pi, weight);
-      _h["N_jets"]->fill(jets.size(), weight);
-      _h["N_central_jets"]->fill(centralJets.size(), weight);
-      _h["N_jets60"]->fill(pt60Jets.size(), weight);
-
+      
+      _h["pT_4l"]->fill((leadingDilepton + subleadingDilepton).pt()/GeV);
+      _h["pT_leading_dilepton"]->fill(leadingDilepton.pt()/GeV);
+      _h["pT_subleading_dilepton"]->fill(subleadingDilepton.pt()/GeV);
+      _h["pT_lepton1"]->fill(quadruplet.leptonsSortedByPt.at(0).pt()/GeV);
+      _h["pT_lepton2"]->fill(quadruplet.leptonsSortedByPt.at(1).pt()/GeV);
+      _h["pT_lepton3"]->fill(quadruplet.leptonsSortedByPt.at(2).pt()/GeV);
+      _h["pT_lepton4"]->fill(quadruplet.leptonsSortedByPt.at(3).pt()/GeV);
+      _h["absy_4l"]->fill((leadingDilepton + subleadingDilepton).absrapidity());
+      _h["deltay_dileptons"]->fill(fabs(leadingDilepton.rapidity() - subleadingDilepton.rapidity()));
+      _h["deltaphi_dileptons"]->fill(deltaPhi(leadingDilepton, subleadingDilepton)/pi);
+      _h["N_jets"]->fill(jets.size());
+      _h["N_central_jets"]->fill(centralJets.size());
+      _h["N_jets60"]->fill(pt60Jets.size());
+      
       // If at least one jet present
       if (jets.empty())  vetoEvent;
-      _h["scalarpTsum_jets"]->fill(sum(jets, pT, 0.)/GeV, weight);
-      _h["abseta_jet1"]->fill(jets.front().abseta(), weight);
-      _h["pT_jet1"]->fill(jets.front().pt()/GeV, weight);
-
+      _h["scalarpTsum_jets"]->fill(sum(jets, pT, 0.)/GeV);
+      _h["abseta_jet1"]->fill(jets.front().abseta());
+      _h["pT_jet1"]->fill(jets.front().pt()/GeV);
+      
       // If at least two jets present
-      if (jets.size() < 2)  vetoEvent;
-      _h["mass_dijet"]->fill((jets.at(0).mom() + jets.at(1).mom()).mass()/GeV, weight);
-      _h["deltay_dijet"]->fill(fabs(jets.at(0).rapidity() - jets.at(1).rapidity()), weight);
-      _h["abseta_jet2"]->fill(jets.at(1).abseta(), weight);
-      _h["pT_jet2"]->fill(jets.at(1).pt()/GeV, weight);
+      if (jets.size() < 2)  vetoEvent; 
+      _h["mass_dijet"]->fill((jets.at(0).mom() + jets.at(1).mom()).mass()/GeV);
+      _h["deltay_dijet"]->fill(fabs(jets.at(0).rapidity() - jets.at(1).rapidity()));
+      _h["abseta_jet2"]->fill(jets.at(1).abseta());
+      _h["pT_jet2"]->fill(jets.at(1).pt()/GeV);
     }
 
 

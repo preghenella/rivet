@@ -13,7 +13,6 @@
 # PARTICULAR PURPOSE.
 
 @SET_MAKE@
-
 VPATH = @srcdir@
 am__is_gnu_make = { \
   if test -z '$(MAKELEVEL)'; then \
@@ -88,22 +87,23 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-@ENABLE_PYEXT_TRUE@am__append_1 = analyses.html analyses.json \
-@ENABLE_PYEXT_TRUE@	rivet-coverage.html \
-@ENABLE_PYEXT_TRUE@	rivet-coverage-heavyiononly.html \
-@ENABLE_PYEXT_TRUE@	rivet-coverage-noheavyion.html \
-@ENABLE_PYEXT_TRUE@	rivet-coverage-searchesonly.html \
-@ENABLE_PYEXT_TRUE@	rivet-coverage-nosearches.html \
-@ENABLE_PYEXT_TRUE@	rivet-coverage-nosearches-noheavyion.html
-@ENABLE_PYEXT_TRUE@am__append_2 = analyses
-@WITH_ASCIIDOC_TRUE@am__append_3 = compare-histos.html make-plots.html
-@WITH_ASCIIDOC_TRUE@am__append_4 = compare-histos.html make-plots.html
-@WITH_PDFLATEX_TRUE@am__append_5 = rivet-manual.pdf
+@ENABLE_PYEXT_TRUE@am__append_1 = analists/analyses.html \
+@ENABLE_PYEXT_TRUE@	analists/analyses.json \
+@ENABLE_PYEXT_TRUE@	analists/analyses.dat \
+@ENABLE_PYEXT_TRUE@	coverage/rivet-coverage.html \
+@ENABLE_PYEXT_TRUE@	coverage/rivet-coverage-heavyiononly.html \
+@ENABLE_PYEXT_TRUE@	coverage/rivet-coverage-noheavyion.html \
+@ENABLE_PYEXT_TRUE@	coverage/rivet-coverage-searchesonly.html \
+@ENABLE_PYEXT_TRUE@	coverage/rivet-coverage-nosearches.html \
+@ENABLE_PYEXT_TRUE@	coverage/rivet-coverage-nosearches-noheavyion.html
+@ENABLE_PYEXT_TRUE@am__append_2 = analists/analyses
+@WITH_DOXYGEN_TRUE@am__append_3 = doxygen/html
+@WITH_DOXYGEN_TRUE@am__append_4 = doxygen
 subdir = doc
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_zlib.m4 \
 	$(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
-	$(top_srcdir)/m4/ax_openmp.m4 \
+	$(top_srcdir)/m4/ax_execinfo.m4 $(top_srcdir)/m4/ax_openmp.m4 \
 	$(top_srcdir)/m4/ax_python_devel.m4 $(top_srcdir)/m4/cxx.m4 \
 	$(top_srcdir)/m4/cython.m4 $(top_srcdir)/m4/lcg.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
@@ -112,15 +112,12 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_zlib.m4 \
 	$(top_srcdir)/m4/pkgchecks.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
-DIST_COMMON = $(srcdir)/Makefile.am $(dist_noinst_SCRIPTS) \
-	$(am__DIST_COMMON)
+DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/include/Rivet/Config/DummyConfig.hh \
-	$(top_builddir)/include/Rivet/Config/RivetConfig.hh \
-	$(top_builddir)/include/Rivet/Config/BuildOptions.hh
-CONFIG_CLEAN_FILES = rivetversion.sty
+	$(top_builddir)/include/Rivet/Config/RivetConfig.hh
+CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-SCRIPTS = $(dist_noinst_SCRIPTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -141,7 +138,7 @@ am__can_run_installinfo = \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
-am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/rivetversion.sty.in
+am__DIST_COMMON = $(srcdir)/Makefile.in
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
@@ -176,20 +173,32 @@ ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EMPTY = @EMPTY@
 EXEEXT = @EXEEXT@
-FASTJETCONFIGLIBADD = @FASTJETCONFIGLIBADD@
 FASTJETCPPFLAGS = @FASTJETCPPFLAGS@
 FASTJETINCNAME = @FASTJETINCNAME@
 FASTJETINCPATH = @FASTJETINCPATH@
 FASTJETLDFLAGS = @FASTJETLDFLAGS@
 FASTJETLDLIBS = @FASTJETLDLIBS@
 FASTJETLIB = @FASTJETLIB@
+FASTJETLIBADD = @FASTJETLIBADD@
 FASTJETLIBNAME = @FASTJETLIBNAME@
 FASTJETLIBPATH = @FASTJETLIBPATH@
 FASTJETPATH = @FASTJETPATH@
 FGREP = @FGREP@
 FJCONFIG = @FJCONFIG@
+FJCONTRIBCPPFLAGS = @FJCONTRIBCPPFLAGS@
+FJCONTRIBINCPATH = @FJCONTRIBINCPATH@
+FJCONTRIBLIBPATH = @FJCONTRIBLIBPATH@
 GREP = @GREP@
-HAVE_CXX11 = @HAVE_CXX11@
+HAVE_CXX14 = @HAVE_CXX14@
+HEPMC3CPPFLAGS = @HEPMC3CPPFLAGS@
+HEPMC3INCNAME = @HEPMC3INCNAME@
+HEPMC3INCPATH = @HEPMC3INCPATH@
+HEPMC3LDFLAGS = @HEPMC3LDFLAGS@
+HEPMC3LDLIBS = @HEPMC3LDLIBS@
+HEPMC3LIB = @HEPMC3LIB@
+HEPMC3LIBNAME = @HEPMC3LIBNAME@
+HEPMC3LIBPATH = @HEPMC3LIBPATH@
+HEPMC3PATH = @HEPMC3PATH@
 HEPMCCPPFLAGS = @HEPMCCPPFLAGS@
 HEPMCINCNAME = @HEPMCINCNAME@
 HEPMCINCPATH = @HEPMCINCPATH@
@@ -234,7 +243,6 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
-PDFLATEX = @PDFLATEX@
 PYEXT_CXXFLAGS = @PYEXT_CXXFLAGS@
 PYTHON = @PYTHON@
 PYTHON_CPPFLAGS = @PYTHON_CPPFLAGS@
@@ -328,32 +336,18 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-dist_noinst_SCRIPTS = \
-  mk-analysis-html mk-analysis-latex mk-analysis-json \
-  mk-coverage-html mk-coverage-htmls
-
-LATEXSUBSOURCES = \
-  preamble.tex intro.tex gettingstarted.tex writinganalyses.tex \
-  agilerunmc.tex acknowledgements.tex
-
-DOCSOURCES = $(LATEXSUBSOURCES) \
-  compare-histos.txt slip.eps thinker.eps cone.eps bend.eps \
-  h-physrev3.bst hepnames.sty JHEP3.cls JHEP.bst make-plots.txt rivet-manual.tex \
-  heppennames.sty hepnicenames.sty hepparticles.sty maybemath.sty \
-  hepunits.sty underscore.sty microtype.sty
-
-EXTRA_DIST = $(DOCSOURCES) refs.bib $(am__append_4)
-DOCS = $(am__append_1) $(am__append_3) $(am__append_5)
+EXTRA_DIST = analists/mk-analysis-html analists/mk-analysis-json \
+	analists/mk-analysis-txt $(am__append_4) tutorials
+DOCS = $(am__append_1) $(am__append_3) anadiff/anadiffs.txt
 DOCDIRS = $(am__append_2)
-@WITH_PDFLATEX_TRUE@LATEX = pdflatex --interaction=batchmode
-@WITH_PDFLATEX_TRUE@RERUN = "(There were undefined references|Rerun to get (cross-references|the bars) right)"
-@WITH_PDFLATEX_TRUE@RERUNBIB = "No file.*\.bbl|Citation.*undefined"
-@WITH_PDFLATEX_TRUE@MAKEIDX = "^[^%]*\\makeindex"
+#if WITH_PANDOC
+#for i in *.md; do j=${i/.md/.html}; echo "Making tutorial $j"; pandoc -f markdown -t html $i > $j; done
+#endif
 
 ################
 RSH = rsync
 DEST = login.hepforge.org:rivet/public_html/
-.PHONY = doc upload arxivtar
+.PHONY = doc dox json anadiff coverage upload
 all: all-am
 
 .SUFFIXES:
@@ -366,9 +360,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu doc/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign doc/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu doc/Makefile
+	  $(AUTOMAKE) --foreign doc/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \
@@ -386,8 +380,6 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
-rivetversion.sty: $(top_builddir)/config.status $(srcdir)/rivetversion.sty.in
-	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -433,7 +425,7 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(SCRIPTS) all-local
+all-am: Makefile all-local
 installdirs:
 install: install-am
 install-exec: install-exec-am
@@ -479,7 +471,7 @@ dvi-am:
 
 html: html-am
 
-html-am:
+html-am: html-local
 
 info: info-am
 
@@ -519,8 +511,7 @@ maintainer-clean-am: distclean-am maintainer-clean-generic
 
 mostlyclean: mostlyclean-am
 
-mostlyclean-am: mostlyclean-generic mostlyclean-libtool \
-	mostlyclean-local
+mostlyclean-am: mostlyclean-generic mostlyclean-libtool
 
 pdf: pdf-am
 
@@ -530,87 +521,83 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am:
+uninstall-am: uninstall-local
 
 .MAKE: install-am install-strip
 
 .PHONY: all all-am all-local check check-am clean clean-generic \
 	clean-libtool clean-local cscopelist-am ctags-am distclean \
 	distclean-generic distclean-libtool distdir dvi dvi-am html \
-	html-am info info-am install install-am install-data \
-	install-data-am install-data-local install-dvi install-dvi-am \
-	install-exec install-exec-am install-html install-html-am \
-	install-info install-info-am install-man install-pdf \
-	install-pdf-am install-ps install-ps-am install-strip \
-	installcheck installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-generic \
-	mostlyclean-libtool mostlyclean-local pdf pdf-am ps ps-am \
-	tags-am uninstall uninstall-am
+	html-am html-local info info-am install install-am \
+	install-data install-data-am install-data-local install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-info install-info-am install-man \
+	install-pdf install-pdf-am install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
+	tags-am uninstall uninstall-am uninstall-local
 
 .PRECIOUS: Makefile
 
-@ENABLE_PYEXT_TRUE@analyses.html: $(top_srcdir)/analyses $(srcdir)/mk-analysis-html
-@ENABLE_PYEXT_TRUE@	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
-@ENABLE_PYEXT_TRUE@    DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
+@ENABLE_PYEXT_TRUE@analists/analyses.html: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-html
+@ENABLE_PYEXT_TRUE@	cd analists && \
+@ENABLE_PYEXT_TRUE@	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
+@ENABLE_PYEXT_TRUE@    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
 @ENABLE_PYEXT_TRUE@    PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
-@ENABLE_PYEXT_TRUE@    RIVET_ANALYSIS_PATH=$(top_builddir)/analyses:: \
-@ENABLE_PYEXT_TRUE@    $(PYTHON) $(srcdir)/mk-analysis-html || true
-@ENABLE_PYEXT_TRUE@analyses.json: $(top_srcdir)/analyses $(srcdir)/mk-analysis-json
-@ENABLE_PYEXT_TRUE@	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
-@ENABLE_PYEXT_TRUE@    DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
+@ENABLE_PYEXT_TRUE@    RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
+@ENABLE_PYEXT_TRUE@    $(PYTHON) $(abs_srcdir)/analists/mk-analysis-html || true
+@ENABLE_PYEXT_TRUE@analists/analyses.json: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-json
+@ENABLE_PYEXT_TRUE@	cd analists && \
+@ENABLE_PYEXT_TRUE@	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
+@ENABLE_PYEXT_TRUE@    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
 @ENABLE_PYEXT_TRUE@    PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
-@ENABLE_PYEXT_TRUE@    RIVET_ANALYSIS_PATH=$(top_builddir)/analyses:: \
-@ENABLE_PYEXT_TRUE@    $(PYTHON) $(srcdir)/mk-analysis-json || true
-@ENABLE_PYEXT_TRUE@rivet-coverage.html: $(wildcard $(srcdir)/inspire*.json) $(wildcard $(srcdir)/*.rank) $(top_srcdir)/analyses $(srcdir)/mk-coverage-html
-@ENABLE_PYEXT_TRUE@	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
-@ENABLE_PYEXT_TRUE@    DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
+@ENABLE_PYEXT_TRUE@    RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
+@ENABLE_PYEXT_TRUE@    $(PYTHON) $(abs_srcdir)/analists/mk-analysis-json || true
+@ENABLE_PYEXT_TRUE@analists/analyses.dat: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-txt
+@ENABLE_PYEXT_TRUE@	cd analists && \
+@ENABLE_PYEXT_TRUE@	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
+@ENABLE_PYEXT_TRUE@    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
 @ENABLE_PYEXT_TRUE@    PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
-@ENABLE_PYEXT_TRUE@    RIVET_ANALYSIS_PATH=$(top_builddir)/analyses:: \
-@ENABLE_PYEXT_TRUE@    $(srcdir)/mk-coverage-htmls || true
-
-@WITH_ASCIIDOC_TRUE@compare-histos.html: compare-histos.txt
-@WITH_ASCIIDOC_TRUE@	asciidoc -a toc compare-histos.txt || true
-
-@WITH_ASCIIDOC_TRUE@make-plots.html: make-plots.txt
-@WITH_ASCIIDOC_TRUE@	asciidoc -a toc make-plots.txt || true
-
-@ENABLE_PYEXT_TRUE@@WITH_PDFLATEX_TRUE@analyses.bib analyses.tex: $(top_srcdir)/analyses $(srcdir)/mk-analysis-latex
-@ENABLE_PYEXT_TRUE@@WITH_PDFLATEX_TRUE@	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(LD_LIBRARY_PATH) \
-@ENABLE_PYEXT_TRUE@@WITH_PDFLATEX_TRUE@    DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(DYLD_LIBRARY_PATH) \
-@ENABLE_PYEXT_TRUE@@WITH_PDFLATEX_TRUE@    PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
-@ENABLE_PYEXT_TRUE@@WITH_PDFLATEX_TRUE@    RIVET_ANALYSIS_PATH=$(top_builddir)/analyses:: \
-@ENABLE_PYEXT_TRUE@@WITH_PDFLATEX_TRUE@    $(PYTHON) $(srcdir)/mk-analysis-latex || true
-@ENABLE_PYEXT_FALSE@@WITH_PDFLATEX_TRUE@analyses.bib analyses.tex:
-@ENABLE_PYEXT_FALSE@@WITH_PDFLATEX_TRUE@	> analyses.tex
-@ENABLE_PYEXT_FALSE@@WITH_PDFLATEX_TRUE@	> analyses.bib
-
-@WITH_PDFLATEX_TRUE@rivet-manual.pdf : rivet-manual.tex $(LATEXSUBSOURCES) analyses.tex refs.bib analyses.bib
-@WITH_PDFLATEX_TRUE@	$(LATEX) $<; true
-@WITH_PDFLATEX_TRUE@	egrep -c $(RERUNBIB) rivet-manual.log && (bibtex rivet-manual && cp rivet-manual.toc rivet-manual.toc.bak && $(LATEX) $<); true
-@WITH_PDFLATEX_TRUE@	for i in `seq 5`; do if egrep $(RERUN) rivet-manual.log; then echo "LaTeX re-run $i"; cp rivet-manual.toc rivet-manual.toc.bak; $(LATEX) $<; else break; fi; done; true
-@WITH_PDFLATEX_TRUE@	if cmp -s rivet-manual.toc rivet-manual.toc.bak; then true; else $(LATEX) $<; true; fi
-@WITH_PDFLATEX_TRUE@	rm -f rivet-manual.toc.bak; true
-
-@WITH_PDFLATEX_TRUE@paper.pdf : paper.tex $(LATEXSUBSOURCES) analyses.tex refs.bib analyses.bib
-@WITH_PDFLATEX_TRUE@	$(LATEX) $<; true
-@WITH_PDFLATEX_TRUE@	egrep -c $(RERUNBIB) paper.log && (bibtex paper && cp paper.toc paper.toc.bak && $(LATEX) $<); true
-@WITH_PDFLATEX_TRUE@	for i in `seq 5`; do if egrep $(RERUN) paper.log; then echo "LaTeX re-run $i"; cp paper.toc paper.toc.bak; $(LATEX) $<; else break; fi; done; true
-@WITH_PDFLATEX_TRUE@	if cmp -s paper.toc paper.toc.bak; then true; else $(LATEX) $<; true; fi
-@WITH_PDFLATEX_TRUE@	rm -f paper.toc.bak; true
+@ENABLE_PYEXT_TRUE@    RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
+@ENABLE_PYEXT_TRUE@    $(PYTHON) $(abs_srcdir)/analists/mk-analysis-txt || true
+@ENABLE_PYEXT_TRUE@coverage/rivet-coverage.html: $(wildcard $(srcdir)/coverage/inspire*.json) $(wildcard $(srcdir)/coverage/*.rank) $(top_srcdir)/analyses $(srcdir)/coverage/mk-coverage-html
+@ENABLE_PYEXT_TRUE@	cd coverage && \
+@ENABLE_PYEXT_TRUE@    LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
+@ENABLE_PYEXT_TRUE@    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
+@ENABLE_PYEXT_TRUE@    PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
+@ENABLE_PYEXT_TRUE@    RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
+@ENABLE_PYEXT_TRUE@    $(abs_srcdir)/coverage/mk-coverage-htmls || true
+@WITH_DOXYGEN_TRUE@dox: doxygen/html
+@WITH_DOXYGEN_TRUE@	@true
+@WITH_DOXYGEN_TRUE@doxygen/html: doxygen/Doxyfile doxygen/index.dox $(top_srcdir)/analyses $(top_srcdir)/include/Rivet $(top_srcdir)/src
+@WITH_DOXYGEN_TRUE@	@cd  $(builddir)/doxygen/ && $(DOXYGEN) Doxyfile || true
+@WITH_DOXYGEN_TRUE@	@cp doxygen/dynsections.js doxygen/html/
+@WITH_DOXYGEN_TRUE@install-dox:
+@WITH_DOXYGEN_TRUE@	$(install_sh_DATA) doxygen/html/* $(DESTDIR)$(pkgdatadir)/doc/doxygen/
+anadiff/anadiffs.txt: $(top_srcdir)/analyses $(srcdir)/anadiff/diffanas
+	cd anadiff && ./diffanas > anadiffs.txt
 
 doc: $(DOCS)
 	@true
 
+html-local: analists/analyses.html
+	@true
+
+json: analists/analyses.json
+	@true
+
+dat: analists/analyses.dat
+	@true
+
+anadiff: anadiff/anadiffs.txt
+	@true
+
+coverage: coverage/rivet-coverage.html
+	@true
+
 upload: $(DOCS) $(DOCDIRS)
 	$(RSH) -r $? $(DEST)
-
-arxivtar: $(DOCSOURCES) rivet-manual.bbl
-	for i in *.png; do convert $$i $${i/.png/.eps}; done
-	tar czf rivet-manual.tar.gz \
-rivet-manual.tex $(LATEXSUBSOURCES) analyses.tex refs.bib analyses.bib rivetversion.sty rivet-manual.bbl \
-hepnames.sty hepnicenames.sty hepparticles.sty heppennames.sty hepunits.sty maybemath.sty microtype.sty underscore.sty \
-bend.eps cone.eps thinker.eps slip.eps \
-h-physrev3.bst JHEP3.cls JHEP.bst
 
 all-local:
 	@echo "No default target in doc: run 'make doc' to build documentation"
@@ -620,11 +607,13 @@ install-data-local:
 	@echo "No local docs installation: copy the documentation to wherever you require"
 	@true
 
-mostlyclean-local:
-	rm -rf *.aux *.log *.toc
-
 clean-local:
-	rm -rf rivet-coverage-*.html $(DOCS) $(DOCDIRS)
+	rm -rf coverage/rivet-coverage-*.html $(DOCS) $(DOCDIRS)
+	rm -rf $(builddir)/doxy
+
+uninstall-local:
+	@rm -rf $(DESTDIR)$(pkgdatadir)/doc; \
+	test ! -d $(DESTDIR)$(pkgdatadir) || rmdir $(DESTDIR)$(pkgdatadir) || true
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

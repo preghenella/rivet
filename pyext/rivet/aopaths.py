@@ -1,15 +1,34 @@
 def isRefPath(path):
     return path.startswith("/REF")
 
+def isTheoryPath(path):
+    return path.startswith("/THY")
+
 def isRawPath(path):
     return path.startswith("/RAW")
 
 def isRawAO(ao):
-    return isRawPath(ao.path)
+    return isRawPath(ao.path())
+
+def isTheoryAO(ao):
+    return isTheoryPath(ao.path())
 
 def stripOptions(path):
     import re
     return re.sub(r':\w+=[^:/]+', "", path)
+
+def stripWeightName(path):
+    import re
+    return re.sub(r'\[.*\]', "", path)
+
+def extractWeightName(path):
+    import re
+    re_weight = re.compile(r".*\[(.*?)\].*")
+    m = re_weight.match(path)
+    if not m:
+        return ""
+    else:
+        return m.group(1)
 
 def extractOptionString(path):
     import re
@@ -19,17 +38,17 @@ def extractOptionString(path):
         return ""
     opts = list(m.groups())
     for i in range(len(opts)):
-        opts[i] = opts[i].strip(':') 
+        opts[i] = opts[i].strip(':')
     return " [" + ",".join(opts) + "]"
-   
+
 def isRefAO(ao):
-    return int(ao.annotation("IsRef")) == 1 or isRefPath(ao.path)
+    return int(ao.annotation("IsRef")) == 1 or isRefPath(ao.path())
 
 def isTmpPath(path):
     return "/_" in path #< match *any* underscore-prefixed path component
 
 def isTmpAO(ao):
-    return isTmpPath(ao.path)
+    return isTmpPath(ao.path())
 
 
 class AOPath(object):
@@ -39,7 +58,7 @@ class AOPath(object):
     TODO: move to YODA?
     """
     import re
-    re_aopath = re.compile(r"^(/[^\[\]\@\#]+)(\[[A-Za-z\d\._]+\])?(#\d+|@[\d\.]+)?$")
+    re_aopath = re.compile(r"^(/[^\[\]\@\#]+)(\[[A-Za-z\d\._=]+\])?(#\d+|@[\d\.]+)?$")
 
     def __init__(self, path):
         import os

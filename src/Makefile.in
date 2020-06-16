@@ -88,11 +88,15 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
+@ENABLE_HEPMC_3_TRUE@am__append_1 = -lHepMC3 -lHepMC3search
+@ENABLE_HEPMC_3_TRUE@am__append_2 = -L$(HEPMC3LIBPATH)
+@ENABLE_HEPMC_3_FALSE@am__append_3 = -lHepMC
+@ENABLE_HEPMC_3_FALSE@am__append_4 = -L$(HEPMCLIBPATH)
 subdir = src
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_zlib.m4 \
 	$(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
-	$(top_srcdir)/m4/ax_openmp.m4 \
+	$(top_srcdir)/m4/ax_execinfo.m4 $(top_srcdir)/m4/ax_openmp.m4 \
 	$(top_srcdir)/m4/ax_python_devel.m4 $(top_srcdir)/m4/cxx.m4 \
 	$(top_srcdir)/m4/cython.m4 $(top_srcdir)/m4/lcg.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
@@ -104,8 +108,7 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/include/Rivet/Config/DummyConfig.hh \
-	$(top_builddir)/include/Rivet/Config/RivetConfig.hh \
-	$(top_builddir)/include/Rivet/Config/BuildOptions.hh
+	$(top_builddir)/include/Rivet/Config/RivetConfig.hh
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
@@ -140,7 +143,8 @@ LTLIBRARIES = $(lib_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 libRivet_la_DEPENDENCIES = Core/libRivetCore.la \
 	Projections/libRivetProjections.la Tools/libRivetTools.la \
-	AnalysisTools/libRivetAnalysisTools.la $(am__DEPENDENCIES_1)
+	AnalysisTools/libRivetAnalysisTools.la $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_libRivet_la_OBJECTS =
 libRivet_la_OBJECTS = $(am_libRivet_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -284,20 +288,32 @@ ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EMPTY = @EMPTY@
 EXEEXT = @EXEEXT@
-FASTJETCONFIGLIBADD = @FASTJETCONFIGLIBADD@
 FASTJETCPPFLAGS = @FASTJETCPPFLAGS@
 FASTJETINCNAME = @FASTJETINCNAME@
 FASTJETINCPATH = @FASTJETINCPATH@
 FASTJETLDFLAGS = @FASTJETLDFLAGS@
 FASTJETLDLIBS = @FASTJETLDLIBS@
 FASTJETLIB = @FASTJETLIB@
+FASTJETLIBADD = @FASTJETLIBADD@
 FASTJETLIBNAME = @FASTJETLIBNAME@
 FASTJETLIBPATH = @FASTJETLIBPATH@
 FASTJETPATH = @FASTJETPATH@
 FGREP = @FGREP@
 FJCONFIG = @FJCONFIG@
+FJCONTRIBCPPFLAGS = @FJCONTRIBCPPFLAGS@
+FJCONTRIBINCPATH = @FJCONTRIBINCPATH@
+FJCONTRIBLIBPATH = @FJCONTRIBLIBPATH@
 GREP = @GREP@
-HAVE_CXX11 = @HAVE_CXX11@
+HAVE_CXX14 = @HAVE_CXX14@
+HEPMC3CPPFLAGS = @HEPMC3CPPFLAGS@
+HEPMC3INCNAME = @HEPMC3INCNAME@
+HEPMC3INCPATH = @HEPMC3INCPATH@
+HEPMC3LDFLAGS = @HEPMC3LDFLAGS@
+HEPMC3LDLIBS = @HEPMC3LDLIBS@
+HEPMC3LIB = @HEPMC3LIB@
+HEPMC3LIBNAME = @HEPMC3LIBNAME@
+HEPMC3LIBPATH = @HEPMC3LIBPATH@
+HEPMC3PATH = @HEPMC3PATH@
 HEPMCCPPFLAGS = @HEPMCCPPFLAGS@
 HEPMCINCNAME = @HEPMCINCNAME@
 HEPMCINCPATH = @HEPMCINCPATH@
@@ -342,7 +358,6 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
-PDFLATEX = @PDFLATEX@
 PYEXT_CXXFLAGS = @PYEXT_CXXFLAGS@
 PYTHON = @PYTHON@
 PYTHON_CPPFLAGS = @PYTHON_CPPFLAGS@
@@ -439,16 +454,12 @@ top_srcdir = @top_srcdir@
 SUBDIRS = Core Tools Projections AnalysisTools
 lib_LTLIBRARIES = libRivet.la
 libRivet_la_SOURCES = 
-libRivet_la_LDFLAGS = -export-dynamic -avoid-version -L$(YODALIBPATH) -L$(HEPMCLIBPATH)
-libRivet_la_LIBADD = \
-Core/libRivetCore.la \
-Projections/libRivetProjections.la \
-Tools/libRivetTools.la \
-AnalysisTools/libRivetAnalysisTools.la \
--lYODA -lHepMC -ldl -lm  \
-$(FASTJETCONFIGLIBADD) \
-$(GSL_LDFLAGS)
-
+libRivet_la_LDFLAGS = -export-dynamic -avoid-version -L$(YODALIBPATH) \
+	$(am__append_2) $(am__append_4)
+libRivet_la_LIBADD = Core/libRivetCore.la \
+	Projections/libRivetProjections.la Tools/libRivetTools.la \
+	AnalysisTools/libRivetAnalysisTools.la -lYODA -ldl -lm \
+	$(FASTJETLIBADD) $(am__append_1) $(am__append_3)
 all: all-recursive
 
 .SUFFIXES:
@@ -461,9 +472,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu src/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign src/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu src/Makefile
+	  $(AUTOMAKE) --foreign src/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \

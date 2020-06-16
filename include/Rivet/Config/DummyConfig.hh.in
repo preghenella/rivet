@@ -1,7 +1,10 @@
 /* include/Rivet/Config/DummyConfig.hh.in.  Generated from configure.ac by autoheader.  */
 
-/* define if the compiler supports basic C++11 syntax */
-#undef HAVE_CXX11
+/* Defined if backtrace() could be fully identified. */
+#undef HAVE_BACKTRACE
+
+/* define if the compiler supports basic C++14 syntax */
+#undef HAVE_CXX14
 
 /* Define to 1 if you have the declaration of `strerror_r', and to 0 if you
    don't. */
@@ -9,6 +12,9 @@
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
+
+/* Define to 1 if you have the <execinfo.h> header file. */
+#undef HAVE_EXECINFO_H
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
@@ -73,6 +79,12 @@
 /* "Rivet contact email address" */
 #undef RIVET_BUGREPORT
 
+/* Defined if version 2.06.10 of HepMC is used. */
+#undef RIVET_ENABLE_HEPMC_20610
+
+/* Defined if version 3 of HepMC is used. */
+#undef RIVET_ENABLE_HEPMC_3
+
 /* "Rivet name string" */
 #undef RIVET_NAME
 
@@ -85,6 +97,9 @@
 /* "Rivet version string" */
 #undef RIVET_VERSION
 
+/* "Rivet version int" */
+#undef RIVET_VERSION_CODE
+
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS
 
@@ -93,3 +108,6 @@
 
 /* Version number of package */
 #undef VERSION
+
+/* Defined to return type of backtrace(). */
+#undef backtrace_size_t

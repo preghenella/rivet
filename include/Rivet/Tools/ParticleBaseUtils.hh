@@ -6,12 +6,14 @@
 namespace Rivet {
 
 
+  /// @defgroup particlebaseutils Functions for Particles and Jets
+  /// @{
 
-  /// @name ParticleBase classifier -> bool functors
+  /// @defgroup particlebasetutils_pb2bool ParticleBase classifier -> bool functors
   /// @todo Move to FourMomentum functions
   ///
   /// To be passed to any() or all() e.g. any(jets, DeltaRLess(electron, 0.4))
-  //@{
+  /// @{
 
   /// std::function instantiation for functors taking a ParticleBase and returning a bool
   using ParticleBaseSelector = function<bool(const ParticleBase&)>;
@@ -385,14 +387,14 @@ namespace Rivet {
   };
   using deltaRapInRange = DeltaRapInRange;
 
-  //@}
+  /// @}
 
 
-  /// @name ParticleBase comparison -> double functors
+  /// @defgroup particlebaseutils_pb2dbl ParticleBase comparison -> double functors
   /// @todo Move to FourMomentum functions
   ///
   /// To be passed to transform()any(jets, DeltaRLess(electron, 0.4))
-  //@{
+  /// @{
 
   /// Base type for Particle -> double functors
   struct DoubleParticleBaseFunctor {
@@ -469,11 +471,11 @@ namespace Rivet {
   };
   using absDeltaRapWRT = AbsDeltaRapWRT;
 
-  //@}
+  /// @}
 
 
-  /// @name Next-level filtering
-  //@{
+  /// @defgroup particlebaseutils_uberfilt Next-level filtering
+  /// @{
 
   template<typename PBCONTAINER1, typename PBCONTAINER2>
   void idiscardIfAny(PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare,
@@ -490,11 +492,26 @@ namespace Rivet {
     return tmp;
   }
 
+  template<typename PBCONTAINER1, typename PBCONTAINER2>
+  void iselectIfAny(PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare,
+                    typename std::function<bool(const typename PBCONTAINER1::value_type&, const typename PBCONTAINER2::value_type&)> fn) {
+    for (const auto& pbcmp : tocompare)
+      ifilter_select(tofilter, [&](const typename PBCONTAINER1::value_type& pbfilt){ return fn(pbfilt, pbcmp); });
+  }
+
+  template<typename PBCONTAINER1, typename PBCONTAINER2>
+  PBCONTAINER1 selectIfAny(const PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare,
+                           typename std::function<bool(const typename PBCONTAINER1::value_type&, const typename PBCONTAINER2::value_type&)> fn) {
+    PBCONTAINER1 tmp{tofilter};
+    iselectIfAny(tmp, tocompare, fn);
+    return tmp;
+  }
+
   //@}
 
 
-  /// @name Isolation helper routines
-  //@{
+  /// @defgroup particlebaseutils_iso Isolation helpers
+  /// @{
 
   template<typename PBCONTAINER1, typename PBCONTAINER2>
   void idiscardIfAnyDeltaRLess(PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dR) {
@@ -522,13 +539,40 @@ namespace Rivet {
     return tmp;
   }
 
-  //@}
+  template<typename PBCONTAINER1, typename PBCONTAINER2>
+  void iselectIfAnyDeltaRLess(PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dR) {
+    for (const ParticleBase& pb : tocompare)
+      ifilter_select(tofilter, deltaRLess(pb, dR));
+  }
+
+  template<typename PBCONTAINER1, typename PBCONTAINER2>
+  PBCONTAINER1 selectIfAnyDeltaRLess(const PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dR) {
+    PBCONTAINER1 tmp{tofilter};
+    iselectIfAnyDeltaRLess(tmp, tocompare, dR);
+    return tmp;
+  }
+
+  template<typename PBCONTAINER1, typename PBCONTAINER2>
+  void iselectIfAnyDeltaPhiLess(PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dphi) {
+    for (const ParticleBase& pb : tocompare)
+      ifilter_select(tofilter, deltaPhiLess(pb, dphi));
+  }
+
+  template<typename PBCONTAINER1, typename PBCONTAINER2>
+  PBCONTAINER1 selectIfAnyDeltaPhiLess(const PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dphi) {
+    PBCONTAINER1 tmp{tofilter};
+    iselectIfAnyDeltaPhiLess(tmp, tocompare, dphi);
+    return tmp;
+  }
+
+  /// @}
 
 
-  /// @name Non-PID particle properties, via unbound functions
+  /// @defgroup particlebaseutils_kin Unbound functions for kinematic properties
+  ///
   /// @todo Mostly move to functions on FourMomentum
   /// @note In a sub-namespace (imported by default) for protection
-  //@{
+  ///@{
   namespace Kin {
 
     /// Unbound function access to momentum
@@ -574,12 +618,14 @@ namespace Rivet {
     inline double pairMass(const ParticleBase& p1, const ParticleBase& p2) { return (p1.mom() + p2.mom()).mass(); }
 
   }
-  //@}
-
 
   // Import Kin namespace into Rivet
   using namespace Kin;
 
+  /// @}
+
+
+  /// @}
 
 }
 

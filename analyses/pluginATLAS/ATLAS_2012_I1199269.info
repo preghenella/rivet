@@ -33,6 +33,7 @@ Description:
   results are compared to the prediction of leading-order parton-shower
   and next-to-leading-order and next-to-next-to-leading-order
   parton-level generators.'
+BibKey: Aad:2012tba
 BibTeX:
   '@article{Aad:2012tba,
         author         = "Aad, Georges and others",
@@ -50,3 +51,8 @@ BibTeX:
         reportNumber   = "CERN-PH-EP-2012-300",
         SLACcitation   = "%%CITATION = ARXIV:1211.1913;%%",
   }'
+
+ReleaseTests:
+ - $A LHC-7-DiPhoton-GammaGamma
+ - $A-2 LHC-7-DiPhoton-GammaJet
+

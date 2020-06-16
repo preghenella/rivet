@@ -26,7 +26,7 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
       declare(UnstableParticles(), "UFS");
-      _histXeK0   = bookHisto1D( 3, 1, 1);
+      book(_histXeK0   , 3, 1, 1);
     }
 
 
@@ -42,9 +42,6 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed leptonic event cut");
 
-      // Get event weight for histo filling
-      const double weight = e.weight();
-
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(e, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
@@ -54,11 +51,11 @@ namespace Rivet {
       // Final state of unstable particles to get particle spectra
       const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
 
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         const int id = p.abspid();
         if (id == PID::K0S || id == PID::K0L) {
           double xE = p.E()/meanBeamMom;
-          _histXeK0->fill(xE, weight);
+          _histXeK0->fill(xE);
         }
       }
     }

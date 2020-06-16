@@ -4,27 +4,68 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/ParticleName.hh"
 #include "Rivet/Tools/BeamConstraint.hh"
+#include "Rivet/Tools/RivetPaths.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "YODA/IO.h"
+#include <iostream>
+#include <regex>
+
+using std::cout;
+using std::cerr;
 
 namespace Rivet {
 
 
   AnalysisHandler::AnalysisHandler(const string& runname)
-    : _runname(runname),
-      _eventcounter("/_EVTCOUNT"),
-      _xs(NAN), _xserr(NAN),
-      _initialised(false), _ignoreBeams(false), _dumpPeriod(0), _dumping(0)
+    : _runname(runname), _userxs{NAN, NAN},
+      _initialised(false), _ignoreBeams(false),
+      _skipWeights(false), _matchWeightNames(""),
+      _unmatchWeightNames(""), _weightCap(0.),
+      _NLOSmearing(0.), _defaultWeightIdx(0), 
+      _rivetDefaultWeightIdx(0), _dumpPeriod(0), _dumping(false)
   {  }
 
 
-  AnalysisHandler::~AnalysisHandler()
-  {  }
+  AnalysisHandler::~AnalysisHandler() {
+      static bool printed = false;
+    // Print out MCnet boilerplate
+    if (!printed && getLog().getLevel() <= 20) {
+      cout << endl
+           << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << endl
+           << "Please acknowledge Rivet in results made using it, and cite https://arxiv.org/abs/1912.05451" << endl;
+           // << "https://arxiv.org/abs/1003.0694" << endl;
+      printed = true;
+    }
+  }
 
 
   Log& AnalysisHandler::getLog() const {
-    return Log::getLog("Rivet.Analysis.Handler");
+    return Log::getLog("Rivet.AnalysisHandler");
+  }
+
+
+  /// http://stackoverflow.com/questions/4654636/how-to-determine-if-a-string-is-a-number-with-c
+  namespace {
+    bool is_number(const std::string& s) {
+      std::string::const_iterator it = s.begin();
+      while (it != s.end() && std::isdigit(*it)) ++it;
+      return !s.empty() && it == s.end();
+    }
+  }
+
+
+  /// Check if any of the weightnames is not a number
+  bool AnalysisHandler::haveNamedWeights() const {
+    bool dec=false;
+    for (unsigned int i=0;i<_weightNames.size();++i) {
+      string s = _weightNames[i];
+      if (!is_number(s)) {
+        dec=true;
+        break;
+      }
+    }
+    return dec;
   }
 
 
@@ -32,9 +73,26 @@ namespace Rivet {
     if (_initialised)
       throw UserError("AnalysisHandler::init has already been called: cannot re-initialize!");
 
+    /// @todo Should the Rivet analysis objects know about weight names?
+
     setRunBeams(Rivet::beams(ge));
     MSG_DEBUG("Initialising the analysis handler");
-    _eventcounter.reset();
+    _eventNumber = ge.event_number();
+
+    setWeightNames(ge);
+    if (_skipWeights)
+        MSG_INFO("Only using nominal weight. Variation weights will be ignored.");
+    else if (haveNamedWeights())
+        MSG_INFO("Using named weights");
+    else
+        MSG_INFO("NOT using named weights. Using first weight as nominal weight");
+
+    _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
+
+    // Set the cross section based on what is reported by this event.
+    if ( ge.cross_section() ) {
+      setCrossSection(HepMCUtils::crossSection(ge));
+    }
 
     // Check that analyses are beam-compatible, and remove those that aren't
     const size_t num_anas_requested = analysisNames().size();
@@ -57,16 +115,17 @@ namespace Rivet {
 
     // Warn if any analysis' status is not unblemished
     for (const AnaHandle a : analyses()) {
-      if (toUpper(a->status()) == "PRELIMINARY") {
+      if ( a->info().preliminary() ) {
         MSG_WARNING("Analysis '" << a->name() << "' is preliminary: be careful, it may change and/or be renamed!");
-      } else if (toUpper(a->status()) == "OBSOLETE") {
+      } else if ( a->info().obsolete() ) {
         MSG_WARNING("Analysis '" << a->name() << "' is obsolete: please update!");
-      } else if (toUpper(a->status()).find("UNVALIDATED") != string::npos) {
+      } else if (( a->info().unvalidated() ) ) {
         MSG_WARNING("Analysis '" << a->name() << "' is unvalidated: be careful, it may be broken!");
       }
     }
 
     // Initialize the remaining analyses
+    _stage = Stage::INIT;
     for (AnaHandle a : analyses()) {
       MSG_DEBUG("Initialising analysis: " << a->name());
       try {
@@ -81,8 +140,125 @@ namespace Rivet {
       }
       MSG_DEBUG("Done initialising analysis: " << a->name());
     }
+    _stage = Stage::OTHER;
     _initialised = true;
     MSG_DEBUG("Analysis handler initialised");
+  }
+
+
+  void AnalysisHandler::setWeightNames(const GenEvent& ge) {
+    _weightNames = HepMCUtils::weightNames(ge);
+    if (_weightNames.empty()) {
+      _weightNames.push_back("");
+      _rivetDefaultWeightIdx = _defaultWeightIdx = 0;
+      _weightIndices = { 0 };
+      return;
+    } 
+
+    // Find default weights, starting with the preferred empty "" name
+    size_t nDefaults = 0;
+    _weightIndices.clear();
+    for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
+      _weightIndices.push_back(i);
+      if (_weightNames[i] == "") {
+        if (nDefaults == 0)  _rivetDefaultWeightIdx = _defaultWeightIdx = i;
+        ++nDefaults;
+      }
+    }
+    // If no weights with the preferred name, look for acceptable alternatives
+    if (nDefaults == 0) {
+      for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
+        const string W = toUpper(_weightNames[i]);
+        if (W == "WEIGHT" || W == "0" || W == "DEFAULT" || W == "NOMINAL") {
+          if (nDefaults == 0) {
+            _weightNames[i] = "";
+            _rivetDefaultWeightIdx = _defaultWeightIdx = i;
+          }
+          ++nDefaults;
+        }
+      }
+    }
+    // Warn user that no nominal weight could be identified
+    if (nDefaults == 0) {
+      MSG_WARNING("Could not identify nominal weight. Will continue assuming variations-only run.");
+    }
+    // Warn if multiple weight names were acceptable alternatives
+    if (nDefaults > 1) {
+      MSG_WARNING("Found more than " << nDefaults << " default weight candidates. Will use: " << _weightNames[_defaultWeightIdx]);
+    }
+    if (_skipWeights)  {
+      // If running in single-weight mode, remove all bar the nominal weight 
+      _weightIndices = { _defaultWeightIdx };
+      _weightNames = { _weightNames[_defaultWeightIdx] };
+      _rivetDefaultWeightIdx = 0;
+    }
+    else {
+      // check if weight name matches a supplied string/regex
+      // and then (de-)select accordingly
+      // deseleection takes precedence over selection
+      if (_matchWeightNames != "") {
+        MSG_DEBUG("Select weight names that match pattern \"" << _matchWeightNames << "\"");
+        // compile regex from each string in the comma-separated list
+        vector<std::regex> patterns;
+        for (const string& pattern : split(_matchWeightNames, ",")) { 
+          patterns.push_back( std::regex(pattern) );
+        }
+        // check which weights match supplied weight-name pattern
+        vector<string> selected_subset; _weightIndices.clear();
+        for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
+          if (i == _defaultWeightIdx) {
+            // default weight cannot be "unselected"
+            _rivetDefaultWeightIdx = _weightIndices.size();
+            _weightIndices.push_back(i);
+            selected_subset.push_back(_weightNames[i]);
+            MSG_DEBUG("Selected nominal weight: " << _weightNames[i]);
+            continue;
+          }
+          for (const std::regex& re : patterns) {
+            if ( std::regex_match(_weightNames[i], re) ) {
+              _weightIndices.push_back(i);
+              selected_subset.push_back(_weightNames[i]);
+              MSG_DEBUG("Selected variation weight: " << _weightNames[i]);
+              break;
+            }
+          }
+        }
+        _weightNames = selected_subset;
+      }
+     if (_unmatchWeightNames != "") {
+        MSG_DEBUG("Deselect weight names that match pattern \"" << _unmatchWeightNames << "\"");
+        // compile regex from each string in the comma-separated list
+        vector<std::regex> patterns;
+        for (const string& pattern : split(_unmatchWeightNames, ",")) {
+          patterns.push_back( std::regex(pattern) ); 
+        }
+        // check which weights match supplied weight-name pattern
+        vector<string> selected_subset; _weightIndices.clear();
+        for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
+          if (i == _defaultWeightIdx) {
+            // default weight cannot be vetoed
+            _rivetDefaultWeightIdx = _weightIndices.size();
+            _weightIndices.push_back(i);
+            selected_subset.push_back(_weightNames[i]);
+            MSG_DEBUG("Selected nominal weight: " << _weightNames[i]);
+            continue;
+          }
+          bool skip = false;
+          for (const std::regex& re : patterns) {
+            if ( std::regex_match(_weightNames[i], re) ) { skip = true; break; }
+          }
+          if (skip) continue;
+          _weightIndices.push_back(i);
+          selected_subset.push_back(_weightNames[i]);
+          MSG_DEBUG("Selected variation weight: " << _weightNames[i]);
+        }
+        _weightNames = selected_subset;
+      }
+    }
+    // done (de-)selecting weights, add useful debug messages:
+    MSG_DEBUG("Default weight name: \"" <<  _weightNames[_rivetDefaultWeightIdx] << "\"");
+    MSG_DEBUG("Default weight index (Rivet): " << _rivetDefaultWeightIdx);
+    MSG_DEBUG("Default weight index (overall): " << _defaultWeightIdx);
   }
 
 
@@ -103,24 +279,47 @@ namespace Rivet {
       }
     }
 
-
     // Create the Rivet event wrapper
     /// @todo Filter/normalize the event here
-    Event event(ge);
+    bool strip = ( getEnvParam("RIVET_STRIP_HEPMC", string("NOOOO") ) != "NOOOO" );
+    Event event(ge, strip);
 
-    // Weights
-    /// @todo Drop this / just report first weight when we support multiweight events
-    _eventcounter.fill(event.weight());
-    MSG_DEBUG("Event #" << _eventcounter.numEntries() << " weight = " << event.weight());
+    // set the cross section based on what is reported by this event.
+    // if no cross section
+    if ( ge.cross_section() ) setCrossSection(HepMCUtils::crossSection(ge));
 
-    // Cross-section
-    #ifdef HEPMC_HAS_CROSS_SECTION
-    if (ge.cross_section()) {
-      _xs = ge.cross_section()->cross_section();
-      _xserr = ge.cross_section()->cross_section_error();
+    // Won't happen for first event because _eventNumber is set in init()
+    if (_eventNumber != ge.event_number()) {
+
+      pushToPersistent();
+
+      _eventNumber = ge.event_number();
+
     }
-    #endif
 
+
+    MSG_TRACE("starting new sub event");
+    _eventCounter.get()->newSubEvent();
+
+    for (const AnaHandle& a : analyses()) {
+        for (auto ao : a->analysisObjects()) {
+            ao.get()->newSubEvent();
+        }
+    }
+
+    _subEventWeights.push_back(pruneWeights(event.weights()));
+    if (_weightCap != 0.) {
+      MSG_DEBUG("Implementing weight cap using a maximum |weight| = " << _weightCap << " for latest subevent.");
+      size_t lastSub = _subEventWeights.size() - 1;
+      for (size_t i = 0; i < _subEventWeights[lastSub].size(); ++i) {
+        if (abs(_subEventWeights[lastSub][i]) > _weightCap) {
+          _subEventWeights[lastSub][i] = sign(_subEventWeights[lastSub][i]) * _weightCap;
+        }
+      }
+    }
+    MSG_DEBUG("Analyzing subevent #" << _subEventWeights.size() - 1 << ".");
+
+    _eventCounter->fill();
     // Run the analyses
     for (AnaHandle a : analyses()) {
       MSG_TRACE("About to run analysis " << a->name());
@@ -133,8 +332,8 @@ namespace Rivet {
       MSG_TRACE("Finished running analysis " << a->name());
     }
 
-    if ( _dumpPeriod > 0 && numEvents()%_dumpPeriod == 0 ) {
-      MSG_INFO("Dumping intermediate results to " << _dumpFile << ".");
+    if ( _dumpPeriod > 0 && numEvents() > 0 && numEvents()%_dumpPeriod == 0 ) {
+      MSG_DEBUG("Dumping intermediate results to " << _dumpFile << ".");
       _dumping = numEvents()/_dumpPeriod;
       finalize();
       writeData(_dumpFile);
@@ -153,57 +352,69 @@ namespace Rivet {
   }
 
 
+  void AnalysisHandler::pushToPersistent() {
+    if ( _subEventWeights.empty() ) return;
+    MSG_TRACE("AnalysisHandler::analyze(): Pushing _eventCounter to persistent.");
+    _eventCounter.get()->pushToPersistent(_subEventWeights);
+    for (const AnaHandle& a : analyses()) {
+      for (auto ao : a->analysisObjects()) {
+        MSG_TRACE("AnalysisHandler::analyze(): Pushing " << a->name()
+                  << "'s " << ao->name() << " to persistent.");
+        ao.get()->pushToPersistent(_subEventWeights, _NLOSmearing);
+      }
+      MSG_TRACE("AnalysisHandler::analyze(): finished pushing "
+                << a->name() << "'s objects to persistent.");
+    }
+    _subEventWeights.clear();
+  }
+
+
   void AnalysisHandler::finalize() {
     if (!_initialised) return;
+    MSG_DEBUG("Finalising analyses");
 
-    // First we make copies of all analysis objects.
-    map<string,AnalysisObjectPtr> backupAOs;
-    for (auto ao : getData(false, true, false) )
-      backupAOs[ao->path()] = AnalysisObjectPtr(ao->newclone());
+    _stage = Stage::FINALIZE;
 
-    // Now we run the (re-entrant) finalize() functions for all analyses.
-    MSG_INFO("Finalising analyses");
+    // First push all analyses' objects to persistent and final
+    MSG_TRACE("AnalysisHandler::finalize(): Pushing analysis objects to persistent.");
+    pushToPersistent();
+
+    // Copy all histos to finalize versions.
+    _eventCounter.get()->pushToFinal();
+    _xs.get()->pushToFinal();
+    for (const AnaHandle& a : analyses())
+      for (auto ao : a->analysisObjects())
+        ao.get()->pushToFinal();
+
     for (AnaHandle a : analyses()) {
-      a->setCrossSection(_xs);
-      try {
-        if ( !_dumping || a->info().reentrant() )  a->finalize();
-        else if ( _dumping == 1 )
-          MSG_INFO("Skipping finalize in periodic dump of " << a->name()
-                   << " as it is not declared reentrant.");
-      } catch (const Error& err) {
-        cerr << "Error in " << a->name() << "::finalize method: " << err.what() << endl;
-        exit(1);
+      if ( _dumping && !a->info().reentrant() )  {
+        if ( _dumping == 1 )
+          MSG_DEBUG("Skipping finalize in periodic dump of " << a->name() << " as it is not declared re-entrant.");
+        continue;
+      }
+      for (size_t iW = 0; iW < numWeights(); iW++) {
+        _eventCounter.get()->setActiveFinalWeightIdx(iW);
+        _xs.get()->setActiveFinalWeightIdx(iW);
+        for (auto ao : a->analysisObjects())
+          ao.get()->setActiveFinalWeightIdx(iW);
+        try {
+          MSG_TRACE("running " << a->name() << "::finalize() for weight " << iW << ".");
+          a->finalize();
+        } catch (const Error& err) {
+          cerr << "Error in " << a->name() << "::finalize method: " << err.what() << '\n';
+          exit(1);
+        }
       }
     }
 
-    // Now we copy all analysis objects to the list of finalized
-    // ones, and restore the value to their original ones.
-    _finalizedAOs.clear();
-    for ( auto ao : getData(false, false, false) )
-      _finalizedAOs.push_back(AnalysisObjectPtr(ao->newclone()));
-    for ( auto ao : getData(false, true, false) ) {
-      // TODO: This should be possible to do in a nicer way, with a flag etc.
-      if (ao->path().find("/FINAL") != std::string::npos) continue;
-      auto aoit = backupAOs.find(ao->path());
-      if ( aoit == backupAOs.end() ) {
-        AnaHandle ana = analysis(split(ao->path(), "/")[0]);
-        if ( ana ) ana->removeAnalysisObject(ao->path());
-      } else
-        copyao(aoit->second, ao);
+    // Print out number of events processed
+    if (!_dumping) {
+      const int nevts = numEvents();
+      MSG_DEBUG("Processed " << nevts << " event" << (nevts != 1 ? "s" : ""));
     }
 
-    // Print out number of events processed
-    const int nevts = _eventcounter.numEntries();
-    MSG_INFO("Processed " << nevts << " event" << (nevts != 1 ? "s" : ""));
+    _stage = Stage::OTHER;
 
-    // // Delete analyses
-    // MSG_DEBUG("Deleting analyses");
-    // _analyses.clear();
-
-    // Print out MCnet boilerplate
-    cout << endl;
-    cout << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << endl;
-    cout << "Please acknowledge plots made with Rivet analyses, and cite arXiv:1003.0694 (http://arxiv.org/abs/1003.0694)" << endl;
   }
 
 
@@ -235,11 +446,11 @@ namespace Rivet {
           MSG_WARNING("Error in option specification. Skipping analysis " << analysisname);
           return *this;
         }
-        if ( !analysis->info().validOption(opt[0], opt[1]) ) {
-          MSG_WARNING("Cannot set option '" << opt[0] << "' to '" << opt[1]
-                      << "'. Skipping analysis " << analysisname);
-          return *this;
-        }
+        if ( !analysis->info().validOption(opt[0], opt[1]) )
+          MSG_WARNING("Setting the option '" << opt[0] << "' to '"
+                      << opt[1] << "' for " << analysisname
+                      << " has not been declared in the info file "
+                      << " and may be ignored in the analysis.");
         opts[opt[0]] = opt[1];
       }
       for ( auto opt: opts) {
@@ -264,14 +475,6 @@ namespace Rivet {
 
 
   AnalysisHandler& AnalysisHandler::removeAnalysis(const string& analysisname) {
-    // std::shared_ptr<Analysis> toremove;
-    // for (const AnaHandle a : _analyses) {
-    //   if (a->name() == analysisname) {
-    //     toremove = a;
-    //     break;
-    //   }
-    // }
-    // if (toremove.get() != 0) {
     MSG_DEBUG("Removing analysis '" << analysisname << "'");
     if (_analyses.find(analysisname) != _analyses.end()) _analyses.erase(analysisname);
     // }
@@ -279,34 +482,7 @@ namespace Rivet {
   }
 
 
-  /////////////////////////////
-
-
-  void AnalysisHandler::addData(const std::vector<AnalysisObjectPtr>& aos) {
-    for (const AnalysisObjectPtr ao : aos) {
-      string path = ao->path();
-      if ( path.substr(0, 5) != "/RAW/" ) {
-        _orphanedPreloads.push_back(ao);
-        continue;
-      }
-
-      path = path.substr(4);
-      ao->setPath(path);
-      if (path.size() > 1) { // path > "/"
-        try {
-          const string ananame =  split(path, "/")[0];
-          AnaHandle a = analysis(ananame);
-          a->addAnalysisObject(ao); /// @todo Need to statistically merge...
-        } catch (const Error& e) {
-          MSG_TRACE("Adding analysis object " << path <<
-                    " to the list of orphans.");
-          _orphanedPreloads.push_back(ao);
-        }
-      }
-    }
-  }
-
-  void AnalysisHandler::stripOptions(AnalysisObjectPtr ao,
+  void AnalysisHandler::stripOptions(YODA::AnalysisObjectPtr ao,
                                      const vector<string> & delopts) const {
     string path = ao->path();
     string ananame = split(path, "/")[0];
@@ -319,117 +495,177 @@ namespace Rivet {
   }
 
 
+  void AnalysisHandler::mergeYodas(const vector<string> & aofiles,
+                                   const vector<string> & delopts, 
+                                   const vector<string> & addopts,
+                                   bool equiv) {
 
+    // Convenience typedef
+    typedef multimap<string, YODA::AnalysisObjectPtr> AOMap;
 
-  void AnalysisHandler::
-  mergeYodas(const vector<string> & aofiles, const vector<string> & delopts, bool equiv) {
-    vector< vector<AnalysisObjectPtr> > aosv;
-    vector<double> xsecs;
-    vector<double> xsecerrs;
-    vector<CounterPtr> sows;
-    set<string> ananames;
-     _eventcounter.reset();
+    // Store all found weights here
+    set<string> foundWeightNames;
 
-    // First scan all files and extract analysis objects and add the
-    // corresponding anayses..
+    // Store all found analyses
+    set<string> foundAnalyses;
+
+    // Store all analysis objects here
+    vector<AOMap> allaos;
+
+    // Parse option adding.
+    vector<string> optAnas;
+    vector<string> optKeys;
+    vector<string> optVals;
+    for (string addopt : addopts) {
+      size_t pos1 = addopt.find(":");
+      size_t pos2 = addopt.find("=");
+      if (pos1 == string::npos || pos2 == string::npos || pos2 < pos1) {
+        MSG_WARNING("Malformed analysis option: "+addopt+". Format as ANA:OPT=VAL");
+        continue;
+      }
+      optAnas.push_back(addopt.substr(0, pos1));
+      optKeys.push_back(addopt.substr(pos1 +1, pos2 - pos1 - 1));
+      optVals.push_back(addopt.substr(pos2 +1 , addopt.size() - pos2 - 1));
+    }
+
+    // Go through all files and collect information
     for ( auto file : aofiles ) {
-      Scatter1DPtr xsec;
-      CounterPtr sow;
-
-      // For each file make sure that cross section and sum-of-weights
-      // objects are present and stor all RAW ones in a vector;
-      vector<AnalysisObjectPtr> aos;
+      allaos.push_back(AOMap());
+      AOMap & aomap = allaos.back();
+      vector<YODA::AnalysisObject*> aos_raw;
       try {
-        /// @todo Use new YODA SFINAE to fill the smart ptr vector directly
-        vector<YODA::AnalysisObject*> aos_raw;
         YODA::read(file, aos_raw);
-        for (AnalysisObject* aor : aos_raw) {
-          AnalysisObjectPtr ao = AnalysisObjectPtr(aor);
-          if ( ao->path().substr(0, 5) != "/RAW/" ) continue;
-          ao->setPath(ao->path().substr(4));
-          if ( ao->path() == "/_XSEC" )
-            xsec = dynamic_pointer_cast<Scatter1D>(ao);
-          else if ( ao->path() == "/_EVTCOUNT" )
-            sow = dynamic_pointer_cast<Counter>(ao);
-          else {
-            stripOptions(ao, delopts);
-            string ananame = split(ao->path(), "/")[0];
-            if ( ananames.insert(ananame).second ) addAnalysis(ananame);
-            aos.push_back(ao);
+      }
+      catch (...) { //< YODA::ReadError&
+        throw UserError("Unexpected error in reading file: " + file);
+      }
+      for (YODA::AnalysisObject* aor : aos_raw) {
+        YODA::AnalysisObjectPtr ao(aor);
+        AOPath path(ao->path());
+        if ( !path )
+          throw UserError("Invalid path name in file: " + file);
+        if ( !path.isRaw() ) continue;
+
+        foundWeightNames.insert(path.weight());
+        // Now check if any options should be removed
+        for ( string delopt : delopts )
+          if ( path.hasOption(delopt) ) path.removeOption(delopt);
+        // ...or added
+        for (size_t i = 0; i < optAnas.size(); ++i) {
+          if (path.path().find(optAnas[i]) != string::npos ) {
+            path.setOption(optKeys[i], optVals[i]);
+            path.fixOptionString();   
           }
         }
-        if ( !xsec || !sow ) {
-          MSG_ERROR( "Error in AnalysisHandler::mergeYodas: The file " << file
-                     << " did not contain weights and cross section info.");
-          exit(1);
-        }
-        xsecs.push_back(xsec->point(0).x());
-	xsecerrs.push_back(sqr(xsec->point(0).xErrAvg()));
-        _eventcounter += *sow;
-        sows.push_back(sow);
-        aosv.push_back(aos);
-      } catch (...) { //< YODA::ReadError&
-        throw UserError("Unexpected error in reading file: " + file);
+        path.setPath();
+        if ( path.analysisWithOptions() != "" )
+          foundAnalyses.insert(path.analysisWithOptions());
+        aomap.insert(make_pair(path.path(), ao));
       }
     }
 
-    // Now calculate the scale to be applied for all bins in a file
-    // and get the common cross section and sum of weights.
-    _xs = _xserr = 0.0;
-    for ( int i = 0, N = sows.size(); i < N; ++i ) {
-      double effnent = sows[i]->effNumEntries();
-      _xs += (equiv? effnent: 1.0)*xsecs[i];
-      _xserr += (equiv? sqr(effnent): 1.0)*xsecerrs[i];
-    }
+    // Now make analysis handler aware of the weight names present
+    _weightNames.clear();
+    _rivetDefaultWeightIdx = _defaultWeightIdx = 0;
+    for ( string name : foundWeightNames ) _weightNames.push_back(name);
 
-    vector<double> scales(sows.size(), 1.0);
-    if ( equiv ) {
-      _xs /= _eventcounter.effNumEntries();
-      _xserr = sqrt(_xserr)/_eventcounter.effNumEntries();
-    } else {
-      _xserr = sqrt(_xserr);
-      for ( int i = 0, N = sows.size(); i < N; ++i )
-        scales[i] = (_eventcounter.sumW()/sows[i]->sumW())*(xsecs[i]/_xs);
-    }
-
-    // Initialize the analyses allowing them to book analysis objects.
-    for (AnaHandle a : analyses()) {
-      MSG_DEBUG("Initialising analysis: " << a->name());
+    // Then we create and initialize all analyses
+    for ( string ananame : foundAnalyses ) addAnalysis(ananame);
+    _stage = Stage::INIT;
+    for (AnaHandle a : analyses() ) {
+      MSG_TRACE("Initialising analysis: " << a->name());
       if ( !a->info().reentrant() )
         MSG_WARNING("Analysis " << a->name() << " has not been validated to have "
-                    << "a reentrant finalize method. The result is unpredictable.");
+                    << "a reentrant finalize method. The merged result is unpredictable.");
       try {
         // Allow projection registration in the init phase onwards
         a->_allowProjReg = true;
-        cerr << "sqrtS " << sqrtS() << endl;
         a->init();
-        //MSG_DEBUG("Checking consistency of analysis: " << a->name());
-        //a->checkConsistency();
       } catch (const Error& err) {
         cerr << "Error in " << a->name() << "::init method: " << err.what() << endl;
         exit(1);
       }
-      MSG_DEBUG("Done initialising analysis: " << a->name());
+      MSG_TRACE("Done initialising analysis: " << a->name());
     }
+    _stage = Stage::OTHER;
     _initialised = true;
-    // Get a list of all anaysis objects to handle.
-    map<string,AnalysisObjectPtr> current;
-    for ( auto ao : getData(false, true, false) ) current[ao->path()] = ao;
-    // Go through all objects to be merged and add them to current
-    // after appropriate scaling.
-    for ( int i = 0, N = aosv.size(); i < N; ++i)
-      for ( auto ao : aosv[i] ) {
-        if ( ao->path() == "/_XSEC" || ao->path() == "_EVTCOUNT" ) continue;
-	auto aoit = current.find(ao->path());
-        if ( aoit == current.end() ) {
-          MSG_WARNING("" << ao->path() << " was not properly booked.");
-          continue;
-        }
-        if ( !addaos(aoit->second, ao, scales[i]) )
-          MSG_WARNING("Cannot merge objects with path " << ao->path()
-                      <<" of type " << ao->annotation("Type") );
+
+    // Now get all booked analysis objects
+    vector<MultiweightAOPtr> raos;
+    for (AnaHandle a : analyses()) {
+      for (const auto & ao : a->analysisObjects()) {
+        raos.push_back(ao);
       }
-    // Now we can simply finalize() the analysis, leaving the
+    }
+
+    // Collect global weights and cross sections and fix scaling for all files
+    _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
+    _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
+    for (size_t iW = 0; iW < numWeights(); iW++) {
+      _eventCounter.get()->setActiveWeightIdx(iW);
+      _xs.get()->setActiveWeightIdx(iW);
+      YODA::Counter & sumw = *_eventCounter;
+      YODA::Scatter1D & xsec = *_xs;
+      vector<YODA::Scatter1DPtr> xsecs;
+      vector<YODA::CounterPtr> sows;
+      for ( auto & aomap : allaos ) {
+        auto xit = aomap.find(xsec.path());
+        if ( xit != aomap.end() )
+          xsecs.push_back(dynamic_pointer_cast<YODA::Scatter1D>(xit->second));
+        else
+          xsecs.push_back(YODA::Scatter1DPtr());
+        xit = aomap.find(sumw.path());
+        if ( xit != aomap.end() )
+          sows.push_back(dynamic_pointer_cast<YODA::Counter>(xit->second));
+        else
+          sows.push_back(YODA::CounterPtr());
+      }
+      double xs = 0.0, xserr = 0.0;
+      for ( int i = 0, N = sows.size(); i < N; ++i ) {
+        if ( !sows[i] || !xsecs[i] ) continue;
+        double xseci = xsecs[i]->point(0).x();
+        double xsecerri = sqr(xsecs[i]->point(0).xErrAvg());
+        sumw += *sows[i];
+        double effnent = sows[i]->effNumEntries();
+        xs += (equiv? effnent: 1.0)*xseci;
+        xserr += (equiv? sqr(effnent): 1.0)*xsecerri;
+      }
+      vector<double> scales(sows.size(), 1.0);
+      if ( equiv ) {
+        xs /= sumw.effNumEntries();
+        xserr = sqrt(xserr)/sumw.effNumEntries();
+      } else {
+        xserr = sqrt(xserr);
+        for ( int i = 0, N = sows.size(); i < N; ++i )
+          scales[i] = (sumw.sumW()/sows[i]->sumW())*
+           (xsecs[i]->point(0).x()/xs);
+      }
+      xsec.reset();
+      xsec.addPoint(Point1D(xs, xserr));
+
+      // Go through alla analyses and add stuff to their analysis objects;
+      for (AnaHandle a : analyses()) {
+        for (const auto & ao : a->analysisObjects()) {
+          ao.get()->setActiveWeightIdx(iW);
+          YODA::AnalysisObjectPtr yao = ao.get()->activeYODAPtr();
+          for ( int i = 0, N = sows.size(); i < N; ++i ) {
+            if ( !sows[i] || !xsecs[i] ) continue;
+            auto range = allaos[i].equal_range(yao->path());
+            for ( auto aoit = range.first; aoit != range.second; ++aoit ) {
+              if ( !addaos(yao, aoit->second, scales[i]) )
+                MSG_WARNING("Cannot merge objects with path " << yao->path()
+                            <<" of type " << yao->annotation("Type") );
+            }
+          }
+	  a->rawHookIn(yao);
+          ao.get()->unsetActiveWeight();
+        }
+      }
+      _eventCounter.get()->unsetActiveWeight();
+      _xs.get()->unsetActiveWeight();
+    }
+
+    // Finally we just have to finalize all analyses, leaving to the
     // controlling program to write it out some yoda-file.
     finalize();
 
@@ -437,78 +673,92 @@ namespace Rivet {
 
 
   void AnalysisHandler::readData(const string& filename) {
-    vector<AnalysisObjectPtr> aos;
     try {
       /// @todo Use new YODA SFINAE to fill the smart ptr vector directly
       vector<YODA::AnalysisObject*> aos_raw;
       YODA::read(filename, aos_raw);
-      for (AnalysisObject* aor : aos_raw) aos.push_back(AnalysisObjectPtr(aor));
+      for (YODA::AnalysisObject* aor : aos_raw)
+        _preloads[aor->path()] = YODA::AnalysisObjectPtr(aor);
     } catch (...) { //< YODA::ReadError&
       throw UserError("Unexpected error in reading file: " + filename);
     }
-    if (!aos.empty()) addData(aos);
   }
 
 
-  vector<AnalysisObjectPtr> AnalysisHandler::
-  getData(bool includeorphans, bool includetmps, bool usefinalized) const {
-    vector<AnalysisObjectPtr> rtn;
-    // Event counter
-    rtn.push_back( make_shared<Counter>(_eventcounter) );
-    // Cross-section + err as scatter
-    YODA::Scatter1D::Points pts; pts.insert(YODA::Point1D(_xs, _xserr));
-    rtn.push_back( make_shared<Scatter1D>(pts, "/_XSEC") );
-    // Analysis histograms
-    vector<AnalysisObjectPtr> aos;
-    if (usefinalized)
-      aos = _finalizedAOs;
-    else {
-      for (const AnaHandle a : analyses()) {
-        // MSG_WARNING(a->name() << " " << aos.size());
-        for (const AnalysisObjectPtr ao : a->analysisObjects()) {
-          aos.push_back(ao);
+  vector<MultiweightAOPtr> AnalysisHandler::getRivetAOs() const {
+      vector<MultiweightAOPtr> rtn;
+
+      for (AnaHandle a : analyses()) {
+          for (const auto & ao : a->analysisObjects()) {
+              rtn.push_back(ao);
+          }
+      }
+      rtn.push_back(_eventCounter);
+      rtn.push_back(_xs);
+      return rtn;
+  }
+
+
+  vector<YODA::AnalysisObjectPtr> AnalysisHandler::getYodaAOs(bool includeraw) const {
+    vector<YODA::AnalysisObjectPtr> output;
+
+    // First get all multiweight AOs
+    vector<MultiweightAOPtr> raos = getRivetAOs();
+    output.reserve(raos.size() * numWeights() * (includeraw ? 2 : 1));
+
+    // Identify an index ordering so that default weight is written out first
+    vector<size_t> order = { _rivetDefaultWeightIdx };
+    for ( size_t  i = 0; i < numWeights(); ++i ) {
+      if ( i != _rivetDefaultWeightIdx )  order.push_back(i);
+    }
+
+    // Then we go through all finalized AOs one weight at a time
+    for (size_t iW : order ) {
+      for ( auto rao : raos ) {
+        rao.get()->setActiveFinalWeightIdx(iW);
+        if ( rao->path().find("/TMP/") != string::npos ) continue;
+        output.push_back(rao.get()->activeYODAPtr());
+      }
+    }
+
+    // Analyses can make changes neccesary for merging to RAW objects
+    // before writing.
+    for (size_t iW : order)
+      for (auto a : analyses()) a->rawHookOut(raos, iW);
+    
+    // Finally the RAW objects.
+    if (includeraw) {
+      for (size_t iW : order ) {
+        for ( auto rao : raos ) {
+          rao.get()->setActiveWeightIdx(iW);
+          output.push_back(rao.get()->activeYODAPtr());
         }
       }
     }
-    for (const AnalysisObjectPtr ao : aos) {
-      // Exclude paths from final write-out if they contain a "TMP" layer (i.e. matching "/TMP/")
-      /// @todo This needs to be much more nuanced for re-entrant histogramming
-      if ( !includetmps && ao->path().find("/TMP/" ) != string::npos) continue;
-      rtn.push_back(ao);
-    }
-    // Sort histograms alphanumerically by path before write-out
-    sort(rtn.begin(), rtn.end(), [](AnalysisObjectPtr a, AnalysisObjectPtr b) {return a->path() < b->path();});
-    if ( includeorphans )
-      rtn.insert(rtn.end(), _orphanedPreloads.begin(), _orphanedPreloads.end());
-    return rtn;
+
+    return output;
   }
 
 
   void AnalysisHandler::writeData(const string& filename) const {
-    vector<AnalysisObjectPtr> out = _finalizedAOs;
-    set<string> finalana;
-    for ( auto ao : out) finalana.insert(ao->path());
-    out.reserve(2*out.size());
-    vector<AnalysisObjectPtr> aos = getData(false, true, false);
 
-    if ( _dumping ) {
-      for ( auto ao : aos ) {
-        if ( finalana.find(ao->path()) == finalana.end() )
-          out.push_back(AnalysisObjectPtr(ao->newclone()));
-      }
-    }
-
-    for ( auto ao : aos ) {
-      ao = AnalysisObjectPtr(ao->newclone());
-      ao->setPath("/RAW" + ao->path());
-      out.push_back(ao);
-    }
-
+    const vector<YODA::AnalysisObjectPtr> output = getYodaAOs(true);
     try {
-      YODA::write(filename, out.begin(), out.end());
+      YODA::write(filename, output.begin(), output.end());
     } catch (...) { //< YODA::WriteError&
       throw UserError("Unexpected error in writing file: " + filename);
     }
+
+  }
+
+
+  string AnalysisHandler::runName() const {
+    return _runname;
+  }
+
+
+  size_t AnalysisHandler::numEvents() const {
+    return _eventCounter->numEntries();
   }
 
 
@@ -518,6 +768,19 @@ namespace Rivet {
       rtn.push_back(a->name());
     }
     return rtn;
+  }
+
+
+  std::vector<std::string> AnalysisHandler::stdAnalysisNames() const {
+    // std::vector<std::string> rtn;
+    // const string anadatpath = findAnalysisDataFile("analyses.dat");
+    // if (fileexists(anadatpath)) {
+    //   std::ifstream anadat(anadatpath);
+    //   string ananame;
+    //   while (anadat >> ananame) rtn += ananame;
+    // }
+    // return rtn;
+    return AnalysisLoader::stdAnalysisNames();
   }
 
 
@@ -531,32 +794,30 @@ namespace Rivet {
 
 
   AnalysisHandler& AnalysisHandler::removeAnalyses(const std::vector<std::string>& analysisnames) {
-    for (const string& aname : analysisnames) {
-      removeAnalysis(aname);
-    }
+    for (const string& aname : analysisnames) removeAnalysis(aname);
     return *this;
   }
 
 
-  bool AnalysisHandler::needCrossSection() const {
-    bool rtn = false;
-    for (const AnaHandle a : analyses()) {
-      if (!rtn) rtn = a->needsCrossSection();
-      if (rtn) break;
+  void AnalysisHandler::setCrossSection(pair<double,double> xsec, bool isUserSupplied) {
+    // Update the user xsec
+    if (isUserSupplied) _userxs = xsec;
+
+    // If not setting the user xsec, and a user xsec is already set, exit early
+    if (!isUserSupplied && notNaN(_userxs.first)) return;
+
+    // Otherwise, update the xs scatter: xs_var = xs_nom * (sumW_var/sumW_nom)
+    _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
+    _eventCounter.get()->setActiveWeightIdx(_rivetDefaultWeightIdx);
+    const double nomwgt = sumW();
+    for (size_t iW = 0; iW < numWeights(); ++iW) {
+      _eventCounter.get()->setActiveWeightIdx(iW);
+      const double s = sumW() / nomwgt;
+      _xs.get()->setActiveWeightIdx(iW);
+      _xs->addPoint(xsec.first*s, xsec.second*s);
     }
-    return rtn;
-  }
-
-
-  AnalysisHandler& AnalysisHandler::setCrossSection(double xs, double xserr) {
-    _xs = xs;
-    _xserr = xserr;
-    return *this;
-  }
-
-
-  bool AnalysisHandler::hasCrossSection() const {
-    return (!std::isnan(crossSection()));
+    _eventCounter.get()->unsetActiveWeight();
+    _xs.get()->unsetActiveWeight();
   }
 
 
@@ -577,9 +838,32 @@ namespace Rivet {
     return Rivet::sqrtS(beams());
   }
 
+
   void AnalysisHandler::setIgnoreBeams(bool ignore) {
     _ignoreBeams=ignore;
   }
 
+
+  void AnalysisHandler::skipMultiWeights(bool ignore) {
+    _skipWeights = ignore;
+  }
+
+  void AnalysisHandler::selectMultiWeights(std::string patterns) {
+    _matchWeightNames = patterns;
+  }
+
+  void AnalysisHandler::deselectMultiWeights(std::string patterns) {
+    _unmatchWeightNames = patterns;
+  }
+
+
+  std::valarray<double> AnalysisHandler::pruneWeights(const std::valarray<double>& weights) {
+    if (_weightIndices.size() == weights.size())  return weights;
+    std::valarray<double> acceptedWeights(_weightIndices.size());
+    for (size_t i = 0; i < _weightIndices.size(); ++i) {
+      acceptedWeights[i] = weights[_weightIndices[i]];
+    }
+    return acceptedWeights;
+  }
 
 }

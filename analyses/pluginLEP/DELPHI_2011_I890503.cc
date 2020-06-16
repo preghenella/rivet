@@ -26,8 +26,8 @@ namespace Rivet {
       declare(ChargedFinalState(), "FS");
       declare(UnstableParticles(), "UFS");
 
-      _histXbweak     = bookHisto1D(1, 1, 1);
-      _histMeanXbweak = bookProfile1D(2, 1, 1);
+      book(_histXbweak     ,1, 1, 1);
+      book(_histMeanXbweak ,2, 1, 1);
     }
 
 
@@ -39,9 +39,6 @@ namespace Rivet {
         vetoEvent;
       }
       MSG_DEBUG("Passed ncharged cut");
-
-      // Get event weight for histo filling
-      const double weight = e.weight();
 
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(e, "Beams").beams();
@@ -57,8 +54,8 @@ namespace Rivet {
         // Check for weak decay, i.e. no more bottom present in children
         if (bhad.children(lastParticleWith(hasBottom)).empty()) {
           const double xp = bhad.E()/meanBeamMom;
-          _histXbweak->fill(xp, weight);
-          _histMeanXbweak->fill(_histMeanXbweak->bin(0).xMid(), xp, weight);
+          _histXbweak->fill(xp);
+          _histMeanXbweak->fill(_histMeanXbweak->bin(0).xMid(), xp);
         }
       }
     }

@@ -24,12 +24,12 @@ namespace Rivet {
       declare(ufs, "UFS");
 
       // Book histograms
-      _h_dsigma_dR_56GeV = bookHisto1D(1,1,1);
-      _h_dsigma_dR_84GeV = bookHisto1D(2,1,1);
-      _h_dsigma_dR_120GeV = bookHisto1D(3,1,1);
-      _h_dsigma_dPhi_56GeV = bookHisto1D(4,1,1);
-      _h_dsigma_dPhi_84GeV = bookHisto1D(5,1,1);
-      _h_dsigma_dPhi_120GeV = bookHisto1D(6,1,1);
+      book(_h_dsigma_dR_56GeV ,1,1,1);
+      book(_h_dsigma_dR_84GeV ,2,1,1);
+      book(_h_dsigma_dR_120GeV ,3,1,1);
+      book(_h_dsigma_dPhi_56GeV ,4,1,1);
+      book(_h_dsigma_dPhi_84GeV ,5,1,1);
+      book(_h_dsigma_dPhi_120GeV ,6,1,1);
 
       _countMCDR56 = 0;
       _countMCDR84 = 0;
@@ -42,7 +42,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       const Jets& jets = apply<FastJets>(event,"Jets").jetsByPt();
       const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
@@ -61,7 +61,7 @@ namespace Rivet {
         double phiB1 = 7.7, phiB2 = 7.7;
         double pTB1 = 7.7, pTB2 = 7.7;
 
-        foreach (const Particle& p, ufs.particles()) {
+        for (const Particle& p : ufs.particles()) {
           int aid = p.abspid();
           if (aid/100 == 5 || aid/1000==5) {
             nab++;

@@ -91,7 +91,7 @@ subdir = analyses
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_zlib.m4 \
 	$(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
-	$(top_srcdir)/m4/ax_openmp.m4 \
+	$(top_srcdir)/m4/ax_execinfo.m4 $(top_srcdir)/m4/ax_openmp.m4 \
 	$(top_srcdir)/m4/ax_python_devel.m4 $(top_srcdir)/m4/cxx.m4 \
 	$(top_srcdir)/m4/cython.m4 $(top_srcdir)/m4/lcg.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
@@ -103,8 +103,7 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/include/Rivet/Config/DummyConfig.hh \
-	$(top_builddir)/include/Rivet/Config/RivetConfig.hh \
-	$(top_builddir)/include/Rivet/Config/BuildOptions.hh
+	$(top_builddir)/include/Rivet/Config/RivetConfig.hh
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 AM_V_P = $(am__v_P_@AM_V@)
@@ -162,20 +161,32 @@ ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EMPTY = @EMPTY@
 EXEEXT = @EXEEXT@
-FASTJETCONFIGLIBADD = @FASTJETCONFIGLIBADD@
 FASTJETCPPFLAGS = @FASTJETCPPFLAGS@
 FASTJETINCNAME = @FASTJETINCNAME@
 FASTJETINCPATH = @FASTJETINCPATH@
 FASTJETLDFLAGS = @FASTJETLDFLAGS@
 FASTJETLDLIBS = @FASTJETLDLIBS@
 FASTJETLIB = @FASTJETLIB@
+FASTJETLIBADD = @FASTJETLIBADD@
 FASTJETLIBNAME = @FASTJETLIBNAME@
 FASTJETLIBPATH = @FASTJETLIBPATH@
 FASTJETPATH = @FASTJETPATH@
 FGREP = @FGREP@
 FJCONFIG = @FJCONFIG@
+FJCONTRIBCPPFLAGS = @FJCONTRIBCPPFLAGS@
+FJCONTRIBINCPATH = @FJCONTRIBINCPATH@
+FJCONTRIBLIBPATH = @FJCONTRIBLIBPATH@
 GREP = @GREP@
-HAVE_CXX11 = @HAVE_CXX11@
+HAVE_CXX14 = @HAVE_CXX14@
+HEPMC3CPPFLAGS = @HEPMC3CPPFLAGS@
+HEPMC3INCNAME = @HEPMC3INCNAME@
+HEPMC3INCPATH = @HEPMC3INCPATH@
+HEPMC3LDFLAGS = @HEPMC3LDFLAGS@
+HEPMC3LDLIBS = @HEPMC3LDLIBS@
+HEPMC3LIB = @HEPMC3LIB@
+HEPMC3LIBNAME = @HEPMC3LIBNAME@
+HEPMC3LIBPATH = @HEPMC3LIBPATH@
+HEPMC3PATH = @HEPMC3PATH@
 HEPMCCPPFLAGS = @HEPMCCPPFLAGS@
 HEPMCINCNAME = @HEPMCINCNAME@
 HEPMCINCPATH = @HEPMCINCPATH@
@@ -220,7 +231,6 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
-PDFLATEX = @PDFLATEX@
 PYEXT_CXXFLAGS = @PYEXT_CXXFLAGS@
 PYTHON = @PYTHON@
 PYTHON_CPPFLAGS = @PYTHON_CPPFLAGS@
@@ -318,7 +328,10 @@ AUTOMAKE_OPTIONS = -Wno-portability
 @ENABLE_ANALYSES_TRUE@PLUGIN_DIRS = $(shell ls -d $(srcdir)/plugin*)
 @ENABLE_ANALYSES_TRUE@PLUGIN_NAMES = $(notdir $(subst plugin,,$(PLUGIN_DIRS)))
 @ENABLE_ANALYSES_TRUE@PLUGIN_LIBS = $(patsubst %,Rivet%Analyses.so,$(PLUGIN_NAMES))
-@ENABLE_ANALYSES_TRUE@PLUGIN_DATAFILES = $(shell ls $(abs_srcdir)/plugin*/*.{info,plot,yoda})
+@ENABLE_ANALYSES_TRUE@PLUGIN_INFOFILES = $(shell ls $(abs_srcdir)/plugin*/*.info)
+@ENABLE_ANALYSES_TRUE@PLUGIN_PLOTFILES = $(shell ls $(abs_srcdir)/plugin*/*.plot)
+@ENABLE_ANALYSES_TRUE@PLUGIN_YODAFILES = $(shell ls $(abs_srcdir)/plugin*/*.yoda*)
+@ENABLE_ANALYSES_TRUE@PLUGIN_DATAFILES = $(PLUGIN_INFOFILES) $(PLUGIN_PLOTFILES) $(PLUGIN_YODAFILES)
 @ENABLE_ANALYSES_TRUE@CLEANFILES = $(PLUGIN_LIBS)
 @ENABLE_ANALYSES_TRUE@EXTRA_DIST = $(PLUGIN_DIRS)
 all: all-am
@@ -333,9 +346,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu analyses/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign analyses/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu analyses/Makefile
+	  $(AUTOMAKE) --foreign analyses/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \
@@ -432,9 +445,9 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-@ENABLE_ANALYSES_FALSE@uninstall-local:
-@ENABLE_ANALYSES_FALSE@install-data-local:
 @ENABLE_ANALYSES_FALSE@clean-local:
+@ENABLE_ANALYSES_FALSE@install-data-local:
+@ENABLE_ANALYSES_FALSE@uninstall-local:
 @ENABLE_ANALYSES_FALSE@install-exec-local:
 clean: clean-am
 
@@ -521,44 +534,56 @@ uninstall-am: uninstall-local
 
 
 @ENABLE_ANALYSES_TRUE@%.so:
-@ENABLE_ANALYSES_TRUE@	@+echo && RIVET_BUILDPLUGIN_BEFORE_INSTALL=1 bash $(top_builddir)/bin/rivet-buildplugin -j2 $@ $^ -I$(top_builddir)/include
+@ENABLE_ANALYSES_TRUE@	@+echo && RIVET_BUILDPLUGIN_BEFORE_INSTALL=1 bash $(top_builddir)/bin/rivet-build -j2 $@ $^ -I$(top_builddir)/include
 
 @ENABLE_ANALYSES_TRUE@RivetALICEAnalyses.so: $(filter-out $(srcdir)/pluginALICE/tmp*.cc, $(wildcard $(srcdir)/pluginALICE/*.cc))
 @ENABLE_ANALYSES_TRUE@RivetATLASAnalyses.so: $(filter-out $(srcdir)/pluginATLAS/tmp*.cc, $(wildcard $(srcdir)/pluginATLAS/*.cc))
+@ENABLE_ANALYSES_TRUE@RivetBABARAnalyses.so: $(filter-out $(srcdir)/pluginBABAR/tmp*.cc, $(wildcard $(srcdir)/pluginBABAR/*.cc))
+@ENABLE_ANALYSES_TRUE@RivetBELLEAnalyses.so: $(filter-out $(srcdir)/pluginBELLE/tmp*.cc, $(wildcard $(srcdir)/pluginBELLE/*.cc))
+@ENABLE_ANALYSES_TRUE@RivetBESAnalyses.so: $(filter-out $(srcdir)/pluginBES/tmp*.cc, $(wildcard $(srcdir)/pluginBES/*.cc))
 @ENABLE_ANALYSES_TRUE@RivetCDFAnalyses.so: $(filter-out $(srcdir)/pluginCDF/tmp*.cc, $(wildcard $(srcdir)/pluginCDF/*.cc))
+@ENABLE_ANALYSES_TRUE@RivetCESRAnalyses.so: $(filter-out $(srcdir)/pluginCESR/tmp*.cc, $(wildcard $(srcdir)/pluginCESR/*.cc))
 @ENABLE_ANALYSES_TRUE@RivetCMSAnalyses.so: $(filter-out $(srcdir)/pluginCMS/tmp*.cc, $(wildcard $(srcdir)/pluginCMS/*.cc))
 @ENABLE_ANALYSES_TRUE@RivetD0Analyses.so: $(filter-out $(srcdir)/pluginD0/tmp*.cc, $(wildcard $(srcdir)/pluginD0/*.cc))
+@ENABLE_ANALYSES_TRUE@RivetDORISAnalyses.so: $(filter-out $(srcdir)/pluginDORIS/tmp*.cc, $(wildcard $(srcdir)/pluginDORIS/*.cc))
+@ENABLE_ANALYSES_TRUE@RivetFrascatiAnalyses.so: $(filter-out $(srcdir)/pluginFrascati/tmp*.cc, $(wildcard $(srcdir)/pluginFrascati/*.cc))
 @ENABLE_ANALYSES_TRUE@RivetHERAAnalyses.so: $(filter-out $(srcdir)/pluginHERA/tmp*.cc, $(wildcard $(srcdir)/pluginHERA/*.cc))
 @ENABLE_ANALYSES_TRUE@RivetLEPAnalyses.so: $(filter-out $(srcdir)/pluginLEP/tmp*.cc, $(wildcard $(srcdir)/pluginLEP/*.cc))
 @ENABLE_ANALYSES_TRUE@RivetLHCbAnalyses.so: $(filter-out $(srcdir)/pluginLHCb/tmp*.cc, $(wildcard $(srcdir)/pluginLHCb/*.cc))
 @ENABLE_ANALYSES_TRUE@RivetLHCfAnalyses.so: $(filter-out $(srcdir)/pluginLHCf/tmp*.cc, $(wildcard $(srcdir)/pluginLHCf/*.cc))
 @ENABLE_ANALYSES_TRUE@RivetMCAnalyses.so: $(filter-out $(srcdir)/pluginMC/tmp*.cc, $(wildcard $(srcdir)/pluginMC/*.cc))
+@ENABLE_ANALYSES_TRUE@RivetNovosibirskAnalyses.so: $(filter-out $(srcdir)/pluginNovosibirsk/tmp*.cc, $(wildcard $(srcdir)/pluginNovosibirsk/*.cc))
+@ENABLE_ANALYSES_TRUE@RivetOrsayAnalyses.so: $(filter-out $(srcdir)/pluginOrsay/tmp*.cc, $(wildcard $(srcdir)/pluginOrsay/*.cc))
 @ENABLE_ANALYSES_TRUE@RivetMiscAnalyses.so: $(filter-out $(srcdir)/pluginMisc/tmp*.cc, $(wildcard $(srcdir)/pluginMisc/*.cc))
 @ENABLE_ANALYSES_TRUE@RivetPetraAnalyses.so: $(filter-out $(srcdir)/pluginPetra/tmp*.cc, $(wildcard $(srcdir)/pluginPetra/*.cc))
 @ENABLE_ANALYSES_TRUE@RivetRHICAnalyses.so: $(filter-out $(srcdir)/pluginRHIC/tmp*.cc, $(wildcard $(srcdir)/pluginRHIC/*.cc))
+@ENABLE_ANALYSES_TRUE@RivetSLACAnalyses.so: $(filter-out $(srcdir)/pluginSLAC/tmp*.cc, $(wildcard $(srcdir)/pluginSLAC/*.cc))
 @ENABLE_ANALYSES_TRUE@RivetSPSAnalyses.so: $(filter-out $(srcdir)/pluginSPS/tmp*.cc, $(wildcard $(srcdir)/pluginSPS/*.cc))
 @ENABLE_ANALYSES_TRUE@RivetTOTEMAnalyses.so: $(filter-out $(srcdir)/pluginTOTEM/tmp*.cc, $(wildcard $(srcdir)/pluginTOTEM/*.cc))
+@ENABLE_ANALYSES_TRUE@RivetTristanAnalyses.so: $(filter-out $(srcdir)/pluginTristan/tmp*.cc, $(wildcard $(srcdir)/pluginTristan/*.cc))
 
 @ENABLE_ANALYSES_TRUE@all-local: $(PLUGIN_LIBS) $(PLUGIN_DATAFILES)
 @ENABLE_ANALYSES_TRUE@	mkdir -p $(builddir)/data
-@ENABLE_ANALYSES_TRUE@	$(LN_S) -f $(abs_srcdir)/plugin*/*.{info,plot,yoda} $(builddir)/data
+@ENABLE_ANALYSES_TRUE@	for pdir in $(abs_srcdir)/plugin*; do $(LN_S) -f $${pdir}/*.{info,plot,yoda*} $(builddir)/data; done
 
 @ENABLE_ANALYSES_TRUE@clean-local:
 @ENABLE_ANALYSES_TRUE@	rm -rf data
 
 @ENABLE_ANALYSES_TRUE@install-exec-local: $(PLUGIN_LIBS)
-@ENABLE_ANALYSES_TRUE@	$(INSTALL) $^ $(DESTDIR)$(libdir)
+@ENABLE_ANALYSES_TRUE@	$(MKDIR_P) $(DESTDIR)$(libdir)/Rivet
+@ENABLE_ANALYSES_TRUE@	$(INSTALL) $^ $(DESTDIR)$(libdir)/Rivet
 
 @ENABLE_ANALYSES_TRUE@install-data-local: $(PLUGIN_DATAFILES)
 @ENABLE_ANALYSES_TRUE@	@echo "Installing analysis data files..."
 @ENABLE_ANALYSES_TRUE@	$(mkdir_p) $(DESTDIR)$(pkgdatadir)
-@ENABLE_ANALYSES_TRUE@	cp $(abs_srcdir)/plugin*/*.{info,plot,yoda} $(DESTDIR)$(pkgdatadir)/
-#@$(install_sh_DATA) $^ $(DESTDIR)$(pkgdatadir)
+@ENABLE_ANALYSES_TRUE@	for pdir in $(builddir)/plugin*; do rsync -aq $${pdir}/*.{info,plot,yoda*} $(DESTDIR)$(pkgdatadir)/ || cp $${pdir}/*.{info,plot,yoda*} $(DESTDIR)$(pkgdatadir)/; done
 
 @ENABLE_ANALYSES_TRUE@uninstall-local:
 @ENABLE_ANALYSES_TRUE@	cd $(DESTDIR)$(libdir) && rm -f $(PLUGIN_LIBS)
 @ENABLE_ANALYSES_TRUE@	@echo "Uninstalling analysis data files..."
-@ENABLE_ANALYSES_TRUE@	rm -f $(DESTDIR)$(pkgdatadir)/*.{info,plot,yoda}
+@ENABLE_ANALYSES_TRUE@	rm -f $(DESTDIR)$(pkgdatadir)/*.info
+@ENABLE_ANALYSES_TRUE@	rm -f $(DESTDIR)$(pkgdatadir)/*.plot
+@ENABLE_ANALYSES_TRUE@	rm -f $(DESTDIR)$(pkgdatadir)/*.yoda*
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

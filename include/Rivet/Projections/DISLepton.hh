@@ -37,7 +37,7 @@ namespace Rivet {
               std::map<std::string,std::string>())
       : _isolDR(0.0), _sort(ENERGY) {
       setName("DISLepton");
-      addProjection(HadronicFinalState(), "IFS");
+      declare(HadronicFinalState(), "IFS");
 
       auto sorting = opts.find("LSort");
       if ( sorting != opts.end() && sorting->second == "ETA" )
@@ -50,9 +50,9 @@ namespace Rivet {
       if ( undress != opts.end() )
         undresstheta = std::stod(undress->second);
       if ( undresstheta > 0.0 )
-        addProjection(UndressBeamLeptons(undresstheta), "Beam");
+        declare(UndressBeamLeptons(undresstheta), "Beam");
       else
-        addProjection(Beam(), "Beam");
+        declare(Beam(), "Beam");
 
       auto isol = opts.find("IsolDR");
       if ( isol != opts.end() ) _isolDR = std::stod(isol->second);
@@ -64,31 +64,13 @@ namespace Rivet {
 
       auto lmode = opts.find("LMode");
       if ( lmode != opts.end() && lmode->second == "any" )
-        addProjection(FinalState(), "LFS");
+        declare(FinalState(), "LFS");
       else if ( lmode != opts.end() && lmode->second == "dressed" )
-        addProjection(DressedLeptons(dressdr), "LFS");
+        declare(DressedLeptons(dressdr), "LFS");
       else
-        addProjection(PromptFinalState(), "LFS");
+        declare(PromptFinalState(), "LFS");
     }
 
-    /// Constructor taking the following arguments: a final state
-    /// projection defining which lepton candidates to consider; a
-    /// beam projection detining the momenta of the incoming lepton
-    /// beam, and a final state projection defining the particles not
-    /// allowed witin a delta-R of @a isolationcut of a lepton
-    /// candidate.
-    DISLepton(const FinalState & leptoncandidates,
-              const Beam &  beamproj = Beam(),
-              const FinalState & isolationfs = FinalState(),
-              double isolationcut = 0.0, SortOrder sorting = ENERGY)
-      : _isolDR(isolationcut), _sort(sorting) {
-      addProjection(leptoncandidates, "LFS");
-      addProjection(isolationfs, "IFS");
-      addProjection(beamproj, "Beam");
-    }
-
-
-    
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(DISLepton);
 
@@ -101,7 +83,7 @@ namespace Rivet {
     virtual void project(const Event& e);
 
     /// Compare with other projections.
-    virtual int compare(const Projection& p) const;
+    virtual CmpState compare(const Projection& p) const;
 
 
   public:

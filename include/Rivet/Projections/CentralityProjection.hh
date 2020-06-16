@@ -8,39 +8,34 @@
 
 namespace Rivet {
 
-/**
-   @brief CentralityProjection is used together with the
-   percentile-based analysis objects Percentile and PercentileXaxsis.
-
-   The interior actually defines several different centrality
-   estimates: the centrality observable used in the experiment with a
-   reference calibration ("REF"); the same but using a user-defined
-   calibration done with the corresponding minimum bias analysis
-   ("GEN"); a centrality based on the impact parameter reported in
-   HepMC::HeavyIon::impact_parameter, using a calibration histogram
-   generated with the same minimum bias analysis ("IMP"). For HepMC3
-   it may optionally also include a direct report from the generator
-   about the centrality, if available in HepMC::HeavyIon::centrality
-   ("RAW"), and a user-defined generated centrality estimate
-   communicated via the HepMC::HeavyIon::user_cent_estimate ("USR").
-
-   @author Leif Lönnblad
-
-*/
-
+/// @brief Used together with the percentile-based analysis objects Percentile and PercentileXaxis
+///
+/// The interior actually defines several different centrality
+/// estimates: the centrality observable used in the experiment with a
+/// reference calibration ("REF"); the same but using a user-defined
+/// calibration done with the corresponding minimum bias analysis
+/// ("GEN"); a centrality based on the impact parameter reported in
+/// HepMC::HeavyIon::impact_parameter, using a calibration histogram
+/// generated with the same minimum bias analysis ("IMP"). For HepMC3
+/// it may optionally also include a direct report from the generator
+/// about the centrality, if available in HepMC::HeavyIon::centrality
+/// ("RAW"), and a user-defined generated centrality estimate
+/// communicated via the HepMC::HeavyIon::user_cent_estimate ("USR").
+///
+/// @author Leif Lönnblad
 class CentralityProjection: public SingleValueProjection {
-
 public:
 
-  /// Default constructor.
+  /// Default constructor
   CentralityProjection() {}
 
-  
+
   DEFAULT_RIVET_PROJ_CLONE(CentralityProjection);
 
-  /// @BRIEF Add a new centality estimate.
+
+  /// @brief Add a new centrality estimate.
   ///
-  /// The SingelValueProjection, @a p, should return a value between 0
+  /// The SingleValueProjection, @a p, should return a value between 0
   /// and 100, and the @a pname should be one of "REF", "GEN", "IMP",
   /// "USR", or "RAW", as described above.
   void add(const SingleValueProjection & p, string pname) {
@@ -60,7 +55,7 @@ public:
   bool empty() const {
     return _projNames.empty();
   }
-  
+
   /// Return the percentile of the @a i'th projection.
   ///
   /// Note that operator() will return the zero'th projection.
@@ -69,33 +64,32 @@ public:
   }
 
   // Standard comparison function.
-  int compare(const Projection& p) const {
-    const CentralityProjection* other = 
-	    dynamic_cast<const CentralityProjection*>(&p);
-    if (other->_projNames.size() == 0) return UNDEFINED;
+  CmpState compare(const Projection& p) const {
+    const CentralityProjection* other = dynamic_cast<const CentralityProjection*>(&p);
+    if (other->_projNames.size() == 0) return CmpState::NEQ;
     for (string pname : _projNames) {
       bool hasPname = true;
       for (string p2name : other->_projNames){
         if (pname != p2name) hasPname = false;
       }
-      if (!hasPname) return UNDEFINED;
+      if (!hasPname) return CmpState::NEQ;
     }
-    return EQUIVALENT;
+    return CmpState::EQ;
   }
 
-  /// THe list of names of the internal projections.
+  /// The list of names of the internal projections.
   vector<string> projections() const {
     return _projNames;
   }
 
 private:
 
-  /// THe list of names of the internal projections.
+  /// The list of names of the internal projections.
   vector<string> _projNames;
 
   /// The list of percentiles resulting from the last projection.
   vector<double> _values;
-  
+
 };
 
 }

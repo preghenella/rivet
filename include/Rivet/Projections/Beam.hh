@@ -198,7 +198,7 @@ namespace Rivet {
   private:
 
     /// Compare with other projections -- it's always the same, since there are no params
-    virtual int compare(const Projection&) const { return EQUIVALENT; }
+    virtual CmpState compare(const Projection&) const { return CmpState::EQ; }
 
   };
 

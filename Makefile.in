@@ -92,7 +92,7 @@ subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_zlib.m4 \
 	$(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
-	$(top_srcdir)/m4/ax_openmp.m4 \
+	$(top_srcdir)/m4/ax_execinfo.m4 $(top_srcdir)/m4/ax_openmp.m4 \
 	$(top_srcdir)/m4/ax_python_devel.m4 $(top_srcdir)/m4/cxx.m4 \
 	$(top_srcdir)/m4/cython.m4 $(top_srcdir)/m4/lcg.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
@@ -108,9 +108,9 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/include/Rivet/Config/DummyConfig.hh \
-	$(top_builddir)/include/Rivet/Config/RivetConfig.hh \
-	$(top_builddir)/include/Rivet/Config/BuildOptions.hh
-CONFIG_CLEAN_FILES = Doxyfile rivetenv.sh rivetenv.csh rivet.pc
+	$(top_builddir)/include/Rivet/Config/RivetConfig.hh
+CONFIG_CLEAN_FILES = doc/doxygen/Doxyfile rivetenv.sh rivetenv.csh \
+	rivet.pc
 CONFIG_CLEAN_VPATH_FILES =
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -197,14 +197,13 @@ ETAGS = etags
 CTAGS = ctags
 CSCOPE = cscope
 DIST_SUBDIRS = $(SUBDIRS)
-am__DIST_COMMON = $(srcdir)/Doxyfile.in $(srcdir)/Makefile.in \
-	$(srcdir)/rivet.pc.in $(srcdir)/rivetenv.csh.in \
-	$(srcdir)/rivetenv.sh.in \
-	$(top_srcdir)/include/Rivet/Config/BuildOptions.hh.in \
+am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/rivet.pc.in \
+	$(srcdir)/rivetenv.csh.in $(srcdir)/rivetenv.sh.in \
+	$(top_srcdir)/doc/doxygen/Doxyfile.in \
 	$(top_srcdir)/include/Rivet/Config/DummyConfig.hh.in \
 	$(top_srcdir)/include/Rivet/Config/RivetConfig.hh.in AUTHORS \
-	COPYING ChangeLog INSTALL NEWS README ar-lib compile \
-	config.guess config.sub depcomp install-sh ltmain.sh missing
+	COPYING ChangeLog INSTALL NEWS ar-lib compile config.guess \
+	config.sub depcomp install-sh ltmain.sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -280,20 +279,32 @@ ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EMPTY = @EMPTY@
 EXEEXT = @EXEEXT@
-FASTJETCONFIGLIBADD = @FASTJETCONFIGLIBADD@
 FASTJETCPPFLAGS = @FASTJETCPPFLAGS@
 FASTJETINCNAME = @FASTJETINCNAME@
 FASTJETINCPATH = @FASTJETINCPATH@
 FASTJETLDFLAGS = @FASTJETLDFLAGS@
 FASTJETLDLIBS = @FASTJETLDLIBS@
 FASTJETLIB = @FASTJETLIB@
+FASTJETLIBADD = @FASTJETLIBADD@
 FASTJETLIBNAME = @FASTJETLIBNAME@
 FASTJETLIBPATH = @FASTJETLIBPATH@
 FASTJETPATH = @FASTJETPATH@
 FGREP = @FGREP@
 FJCONFIG = @FJCONFIG@
+FJCONTRIBCPPFLAGS = @FJCONTRIBCPPFLAGS@
+FJCONTRIBINCPATH = @FJCONTRIBINCPATH@
+FJCONTRIBLIBPATH = @FJCONTRIBLIBPATH@
 GREP = @GREP@
-HAVE_CXX11 = @HAVE_CXX11@
+HAVE_CXX14 = @HAVE_CXX14@
+HEPMC3CPPFLAGS = @HEPMC3CPPFLAGS@
+HEPMC3INCNAME = @HEPMC3INCNAME@
+HEPMC3INCPATH = @HEPMC3INCPATH@
+HEPMC3LDFLAGS = @HEPMC3LDFLAGS@
+HEPMC3LDLIBS = @HEPMC3LDLIBS@
+HEPMC3LIB = @HEPMC3LIB@
+HEPMC3LIBNAME = @HEPMC3LIBNAME@
+HEPMC3LIBPATH = @HEPMC3LIBPATH@
+HEPMC3PATH = @HEPMC3PATH@
 HEPMCCPPFLAGS = @HEPMCCPPFLAGS@
 HEPMCINCNAME = @HEPMCINCNAME@
 HEPMCINCPATH = @HEPMCINCPATH@
@@ -338,7 +349,6 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
-PDFLATEX = @PDFLATEX@
 PYEXT_CXXFLAGS = @PYEXT_CXXFLAGS@
 PYTHON = @PYTHON@
 PYTHON_CPPFLAGS = @PYTHON_CPPFLAGS@
@@ -434,6 +444,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 ACLOCAL_AMFLAGS = -I m4
 SUBDIRS = src pyext data include bin analyses test doc
+AUTOMAKE_OPTIONS = foreign
 EXTRA_DIST = GUIDELINES
 DISTCHECK_CONFIGURE_FLAGS = --enable-debug --with-yoda=$(YODAPATH) --with-hepmc=$(HEPMCPATH) --with-fastjet=$(FASTJETPATH)
 pkgconfigdir = $(libdir)/pkgconfig
@@ -449,15 +460,15 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
-	      echo ' cd $(srcdir) && $(AUTOMAKE) --gnu'; \
-	      $(am__cd) $(srcdir) && $(AUTOMAKE) --gnu \
+	      echo ' cd $(srcdir) && $(AUTOMAKE) --foreign'; \
+	      $(am__cd) $(srcdir) && $(AUTOMAKE) --foreign \
 		&& exit 0; \
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu Makefile
+	  $(AUTOMAKE) --foreign Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \
@@ -497,17 +508,9 @@ include/Rivet/Config/stamp-h2: $(top_srcdir)/include/Rivet/Config/RivetConfig.hh
 	@rm -f include/Rivet/Config/stamp-h2
 	cd $(top_builddir) && $(SHELL) ./config.status include/Rivet/Config/RivetConfig.hh
 
-include/Rivet/Config/BuildOptions.hh: include/Rivet/Config/stamp-h3
-	@test -f $@ || rm -f include/Rivet/Config/stamp-h3
-	@test -f $@ || $(MAKE) $(AM_MAKEFLAGS) include/Rivet/Config/stamp-h3
-
-include/Rivet/Config/stamp-h3: $(top_srcdir)/include/Rivet/Config/BuildOptions.hh.in $(top_builddir)/config.status
-	@rm -f include/Rivet/Config/stamp-h3
-	cd $(top_builddir) && $(SHELL) ./config.status include/Rivet/Config/BuildOptions.hh
-
 distclean-hdr:
-	-rm -f include/Rivet/Config/DummyConfig.hh include/Rivet/Config/stamp-h1 include/Rivet/Config/RivetConfig.hh include/Rivet/Config/stamp-h2 include/Rivet/Config/BuildOptions.hh include/Rivet/Config/stamp-h3
-Doxyfile: $(top_builddir)/config.status $(srcdir)/Doxyfile.in
+	-rm -f include/Rivet/Config/DummyConfig.hh include/Rivet/Config/stamp-h1 include/Rivet/Config/RivetConfig.hh include/Rivet/Config/stamp-h2
+doc/doxygen/Doxyfile: $(top_builddir)/config.status $(top_srcdir)/doc/doxygen/Doxyfile.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 rivetenv.sh: $(top_builddir)/config.status $(srcdir)/rivetenv.sh.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
@@ -877,8 +880,6 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-@WITH_DOXYGEN_FALSE@mostlyclean-local:
-@WITH_DOXYGEN_FALSE@uninstall-local:
 clean: clean-recursive
 
 clean-am: clean-generic clean-libtool clean-local mostlyclean-am
@@ -901,7 +902,7 @@ info: info-recursive
 
 info-am:
 
-install-data-am: install-dist_pkgconfigDATA
+install-data-am: install-data-local install-dist_pkgconfigDATA
 
 install-dvi: install-dvi-recursive
 
@@ -937,8 +938,7 @@ maintainer-clean-am: distclean-am maintainer-clean-generic
 
 mostlyclean: mostlyclean-recursive
 
-mostlyclean-am: mostlyclean-generic mostlyclean-libtool \
-	mostlyclean-local
+mostlyclean-am: mostlyclean-generic mostlyclean-libtool
 
 pdf: pdf-recursive
 
@@ -948,7 +948,7 @@ ps: ps-recursive
 
 ps-am:
 
-uninstall-am: uninstall-dist_pkgconfigDATA uninstall-local
+uninstall-am: uninstall-dist_pkgconfigDATA
 
 .MAKE: $(am__recursive_targets) install-am install-strip
 
@@ -960,16 +960,16 @@ uninstall-am: uninstall-dist_pkgconfigDATA uninstall-local
 	distclean-generic distclean-hdr distclean-libtool \
 	distclean-tags distcleancheck distdir distuninstallcheck dvi \
 	dvi-am html html-am info info-am install install-am \
-	install-data install-data-am install-dist_pkgconfigDATA \
-	install-dvi install-dvi-am install-exec install-exec-am \
-	install-html install-html-am install-info install-info-am \
-	install-man install-pdf install-pdf-am install-ps \
-	install-ps-am install-strip installcheck installcheck-am \
-	installdirs installdirs-am maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-generic \
-	mostlyclean-libtool mostlyclean-local pdf pdf-am ps ps-am tags \
-	tags-am uninstall uninstall-am uninstall-dist_pkgconfigDATA \
-	uninstall-local
+	install-data install-data-am install-data-local \
+	install-dist_pkgconfigDATA install-dvi install-dvi-am \
+	install-exec install-exec-am install-html install-html-am \
+	install-info install-info-am install-man install-pdf \
+	install-pdf-am install-ps install-ps-am install-strip \
+	installcheck installcheck-am installdirs installdirs-am \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
+	tags tags-am uninstall uninstall-am \
+	uninstall-dist_pkgconfigDATA
 
 .PRECIOUS: Makefile
 
@@ -982,16 +982,11 @@ doc:
 clean-local:
 	@rm -rf a.out
 
-@WITH_DOXYGEN_TRUE@dox:
-@WITH_DOXYGEN_TRUE@	@echo "Running Doxygen..."
-@WITH_DOXYGEN_TRUE@	@$(DOXYGEN) $(top_builddir)/Doxyfile || true
-@WITH_DOXYGEN_TRUE@install-dox:
-@WITH_DOXYGEN_TRUE@	$(install_sh_DATA) doxy/html/* $(DESTDIR)$(pkgdatadir)/doc/html
-@WITH_DOXYGEN_TRUE@mostlyclean-local:
-@WITH_DOXYGEN_TRUE@	@rm -rf $(top_builddir)/doxy
-@WITH_DOXYGEN_TRUE@uninstall-local:
-@WITH_DOXYGEN_TRUE@	@rm -rf $(DESTDIR)$(pkgdatadir)/doc; \
-@WITH_DOXYGEN_TRUE@	test ! -d $(DESTDIR)$(pkgdatadir) || rmdir $(DESTDIR)$(pkgdatadir) || true
+install-data-local:
+	cd doc && $(MAKE) dat json
+	$(mkdir_p) $(DESTDIR)$(pkgdatadir)
+	$(install_sh_DATA) doc/analists/analyses.dat $(DESTDIR)$(pkgdatadir)/
+	$(install_sh_DATA) doc/analists/analyses.json $(DESTDIR)$(pkgdatadir)/
 upload: dist
 	$(RSH) $(DIST_ARCHIVES) $(DEST)
 

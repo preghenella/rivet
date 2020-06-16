@@ -8,6 +8,7 @@
 namespace Rivet {
 
 
+  /// @brief Holder of analysis metadata
   class AnalysisInfo {
   public:
 
@@ -28,10 +29,11 @@ namespace Rivet {
 
   public:
 
-    /// @name Metadata
+    /// @defgroup anainfo_metadata Metadata
+    ///
     /// Metadata is used for querying from the command line and also for
     /// building web pages and the analysis pages in the Rivet manual.
-    //@{
+    /// @{
 
     /// Get the name of the analysis. By default this is computed using the
     /// experiment, year and Inspire/Spires ID metadata methods.
@@ -51,7 +53,7 @@ namespace Rivet {
     void setName(const std::string& name) { _name = name; }
 
     /// Get the reference data name of the analysis (if different from plugin name).
-    std::string getRefDataName() const { 
+    std::string getRefDataName() const {
       if (!_refDataName.empty())  return _refDataName;
       return name();
     }
@@ -149,11 +151,13 @@ namespace Rivet {
     /// Set the year in which the original experimental analysis was published.
     void setYear(const std::string& year) { _year = year; }
 
-    /// The integrated data luminosity of the data set
-    const std::string& luminosityfb() const { return _luminosityfb; }
+    /// The integrated data luminosity of the data set in 1/fb
+    const double luminosityfb() const { return _luminosityfb; }
+    /// The integrated data luminosity of the data set in 1/pb
+    const double luminosity() const { return 1000*_luminosityfb; }
 
     /// Set the integrated data luminosity of the data set
-    void setLuminosityfb(const std::string& luminosityfb) { _luminosityfb = luminosityfb; }
+    void setLuminosityfb(const double luminosityfb) { _luminosityfb = luminosityfb; }
 
     /// Journal and preprint references.
     const std::vector<std::string>& references() const { return _references; }
@@ -178,19 +182,17 @@ namespace Rivet {
     void setBibTeX(const std::string& bibTeX) { _bibTeX = bibTeX; }
 
 
-    /// Whether this analysis is trusted (in any way!)
-    const std::string& status() const { return _status; }
-
-    /// Set the analysis code status.
-    void setStatus(const std::string& status) { _status = status; }
-
-
     /// Any work to be done on this analysis.
     const std::vector<std::string>& todos() const { return _todos; }
 
     /// Set the to-do list.
     void setTodos(const std::vector<std::string>& todos) { _todos = todos; }
 
+    /// @}
+
+
+    /// @defgroup anainfo_options Analysis-options support
+    /// @{
 
     /// Get the option list.
     const std::vector<std::string>& options() const { return _options; }
@@ -207,12 +209,17 @@ namespace Rivet {
     /// Build a map of options to facilitate checking.
     void buildOptionMap();
 
+    /// @}
 
-    /// Return true if this analysis needs to know the process cross-section.
-    bool needsCrossSection() const { return _needsCrossSection; }
 
-    /// Return true if this analysis needs to know the process cross-section.
-    void setNeedsCrossSection(bool needXsec) { _needsCrossSection = needXsec; }
+    /// @defgroup anainfo_status Status info and categories
+    /// @{
+
+    /// Whether this analysis is trusted (in any way!)
+    const std::string& status() const { return _status; }
+
+    /// Set the analysis code status.
+    void setStatus(const std::string& status) { _status = status; }
 
     /// Return true if finalize() can be run multiple times for this analysis.
     bool reentrant() const { return _reentrant; }
@@ -220,7 +227,72 @@ namespace Rivet {
     /// setReentrant
     void setReentrant(bool ree = true) { _reentrant = ree; }
 
-    //@}
+    /// Return true if validated
+    bool validated() const {
+      return statuscheck("VALIDATED");
+    }
+
+    /// Return true if preliminary
+    bool preliminary() const {
+      return statuscheck("PRELIMINARY");
+    }
+
+    /// Return true if obsolete
+    bool obsolete() const {
+      return statuscheck("OBSOLETE");
+    }
+
+    /// Return true if unvalidated
+    bool unvalidated() const {
+      return statuscheck("UNVALIDATED");
+    }
+
+    /// Return true if includes random variations
+    bool random() const {
+      return statuscheck("RANDOM");
+    }
+
+    /// Return true if the analysis uses generator-dependent
+    /// information.
+    bool unphysical() const {
+      return statuscheck("UNPHYSICAL");
+    }
+
+    /// Check if refdata comes automatically from Hepdata.
+    bool hepdata() const {
+      return !statuscheck("NOHEPDATA");
+    }
+
+    /// Check if This analysis can handle mulltiple weights.
+    bool multiweight() const {
+      return !statuscheck("SINGLEWEIGHT");
+    }
+
+    /// ?
+    bool statuscheck(string word) const {
+      auto pos =_status.find(word);
+      if ( pos == string::npos ) return false;
+      if ( pos > 0 && isalnum(_status[pos - 1]) ) return false;
+      if ( pos + word.length() < _status.length() &&
+           isalnum(_status[pos + word.length()]) ) return false;
+      return true;
+    }
+
+    /// @}
+
+
+    /// Find the path to the reference-data file for this analysis
+    std::string refFile() const;
+
+    /// List a series of command lines to be used for valdation
+    const std::vector<std::string> & validation() const {
+      return _validation;
+    }
+
+    /// Return true if this analysis needs to know the process cross-section.
+    /// @deprecated Cross-section should now always be available from the HepMC
+    bool needsCrossSection() const { return _needsCrossSection; }
+
 
 
   private:
@@ -237,7 +309,7 @@ namespace Rivet {
     std::vector<std::pair<PdgId, PdgId> > _beams;
     std::vector<std::pair<double, double> > _energies;
     std::string _year;
-    std::string _luminosityfb;
+    double _luminosityfb;
     std::vector<std::string> _references;
     std::vector<std::string> _keywords;
     std::string _bibKey;
@@ -249,9 +321,11 @@ namespace Rivet {
 
     std::vector<std::string> _options;
     std::map< std::string, std::set<std::string> > _optionmap;
-    
+
+    std::vector<std::string> _validation;
+
     bool _reentrant;
-    
+
     void clear() {
       _name = "";
       _refDataName = "";
@@ -266,7 +340,7 @@ namespace Rivet {
       _beams.clear();
       _energies.clear();
       _year = "";
-      _luminosityfb = "";
+      _luminosityfb = -1;
       _references.clear();
       _keywords.clear();
       _bibKey = "";
@@ -277,6 +351,7 @@ namespace Rivet {
       _needsCrossSection = false;
       _options.clear();
       _optionmap.clear();
+      _validation.clear();
       _reentrant = false;
     }
 
